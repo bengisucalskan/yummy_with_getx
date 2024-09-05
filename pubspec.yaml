@@ -1,0 +1,43 @@
+name: getx_architecture_template
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  get: ^4.6.5
+  shared_preferences: ^2.0.15
+  dio: ^4.0.6
+  responsive_sizer: ^3.1.1
+  connectivity_plus: ^3.0.3
+  lottie: ^2.2.0
+  json_annotation: ^4.8.0
+  flutter_dotenv: ^5.1.0
+  flutter_svg: ^2.0.10+1
+  flutter_masked_text2: ^0.9.1
+  carousel_slider: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  json_serializable: ^6.6.1
+  build_runner: ^2.3.3
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/locales/
+    - assets/images/
+    - assets/svg/
+    - assets/lottie/
+    - assets/app/.env

@@ -15,6 +15,7 @@ class HomeScreen extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
+        title: Text('NYC, Broadway_ekleme yap'),
         actions: [
           IconButton(
               onPressed: () {},
@@ -53,7 +54,7 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   child: Text('Special Offer',
                       style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.bold)),
+                          fontSize: 22.0, fontWeight: FontWeight.bold)),
                 ),
                 CarouselSlider.builder(
                   itemCount: 5,
@@ -79,27 +80,165 @@ class HomeScreen extends GetView<HomeController> {
                         0.9, // Görünür alanın ne kadarını kaplasın
                   ),
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: controller.categoryItems.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    childAspectRatio: 0.9,
+                Container(
+                  height: 200,
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: controller.categoryItems.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 1,
+                    ),
+                    itemBuilder: (context, index) {
+                      var item = controller.categoryItems[index];
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset(item.image, fit: BoxFit.cover),
+                          ),
+                          Text(item.title,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold)),
+                        ],
+                      );
+                    },
                   ),
-                  itemBuilder: (context, index) {
-                    var item = controller.categoryItems[index];
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Image.asset(item.image, fit: BoxFit.cover),
+                ),
+                _shopTitle(text: 'Discount guaranteed!'),
+                _shopCard(image: AppImages.instance.discount.assetImage),
+                SizedBox(height: 40),
+                Center(
+                    child:
+                        Image(image: AssetImage(AppImages.instance.discover))),
+                SizedBox(height: 40),
+                _shopTitle(text: 'What/s delicious around here?'),
+                _shopCard(image: AppImages.instance.delicious.assetImage),
+                SizedBox(height: 40),
+                Container(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppImages.instance.homeShop.assetImage,
+                            Text(
+                              'flsfk ssllkfdlkflk dfkl',
+                              style: TextStyle(
+                                fontSize: 17,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(item.title, style: TextStyle(fontSize: 12)),
-                      ],
-                    );
-                  },
-                )
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 40),
+                _shopTitle(text: 'Highlights of March'),
+                _shopCard(image: AppImages.instance.highlight.assetImage),
+                SizedBox(height: 40),
+                _shopTitle(text: 'Nearby Restaurants'),
+                Container(
+                  height: 250,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppImages.instance.restaurant.assetImage,
+                            Text(
+                              'Elisandra Restaurant',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.location_on_outlined,
+                                    size: 20, color: Colors.grey),
+                                SizedBox(width: 4),
+                                Text(
+                                  'Elisandra Restaurant',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Text('Recommended For You',
+                    style:
+                        TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                Container(
+                  // tüm sayfa mı kaysın sadece bura mı?
+                  height: 400,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          children: [
+                            AppImages.instance.recommended.assetImage,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hamburger',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      '1.5 km | ⭐ 4.8 (1.2k)',
+                                      style: TextStyle(
+                                          fontSize: 14.0, color: Colors.grey),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.favorite_border_sharp,
+                                          color: const Color.fromARGB(
+                                              255, 216, 115, 69),
+                                        ))
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 50),
               ],
             ),
           ),
@@ -108,4 +247,66 @@ class HomeScreen extends GetView<HomeController> {
       drawer: const CustomDrawer(),
     );
   }
+}
+
+Widget _shopCard({Widget? image}) {
+  return Container(
+    height: 250,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 10,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            children: [
+              image ?? SizedBox(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pizza Hut',
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        '1.5 km | ⭐ 4.8 (1.2k)',
+                        style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.favorite_border_sharp,
+                            color: const Color.fromARGB(255, 216, 115, 69),
+                          ))
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    ),
+  );
+}
+
+Widget _shopTitle({String? text}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      Text(
+        text ?? '',
+        style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+      ),
+      IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.arrow_forward_ios, color: Colors.grey))
+    ],
+  );
 }

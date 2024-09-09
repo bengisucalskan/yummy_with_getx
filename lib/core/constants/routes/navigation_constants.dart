@@ -8,4 +8,5 @@ class Routes {
   static const LOGIN = '/login';
   static const SIGNIN = '/signin';
   static const SIGNUP = '/signup';
+  static const BASE = '/base';
 }

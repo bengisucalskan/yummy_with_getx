@@ -18,16 +18,25 @@ class AppImages {
   String iconGoogle = 'icon_google'.toPNG;
   String location = 'location'.toPNG;
   String search = 'search-normal'.toPNG;
+  String breakfastBackGround = 'breakfast_background'.toPNG;
   String splashYummyBig = 'splash_yummy_big'.toPNG;
   String splashYummyLittle = 'splash_yummy_little'.toPNG;
   String wallet = 'wallet'.toPNG;
+  String discover = 'discover'.toPNG;
+  String delicious = 'delicious_exm'.toPNG;
+  String show = 'show'.toPNG;
+  String discount = 'discount_exm'.toPNG;
+  String highlight = 'highlights_exm'.toPNG;
+  String restaurant = 'restaurant_exm'.toPNG;
+  String recommended = 'recommended'.toPNG;
 
   String flashDeals = 'flash_deals'.toPNG;
   String niceShop = 'nice_shop'.toPNG;
   String points = 'points'.toPNG;
   String rice = 'rice'.toPNG;
   String noodles = 'noodles'.toPNG;
-  String vegetable = 'veetable'.toPNG;
+  String vegetable = 'vegetable'.toPNG;
   String bbq = 'bbq'.toPNG;
   String othet = 'other'.toPNG;
+  String homeShop = 'home_shop_exm'.toPNG;
 }

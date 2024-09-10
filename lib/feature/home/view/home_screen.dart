@@ -15,7 +15,7 @@ class HomeScreen extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text('NYC, Broadway_ekleme yap'),
+        title: Text('NYCBroadwayekleme yap'),
         actions: [
           IconButton(
               onPressed: () {},

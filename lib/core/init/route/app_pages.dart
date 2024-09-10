@@ -1,7 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/base_screen.dart';
+import 'package:getx_architecture_template/feature/base/binding/base_binding.dart';
+import 'package:getx_architecture_template/feature/base/view/base_screen.dart';
 import 'package:getx_architecture_template/feature/login/binding/login_binding.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
 import '/feature/home/binding/home_binding.dart';
@@ -19,7 +20,12 @@ class AppPages {
         page: () => const SplashScreen(),
         binding: SplashBinding(),
         transition: Transition.rightToLeftWithFade),
-    GetPage(name: Routes.BASE, page: () => const BaseScreen()),
+    GetPage(
+      name: Routes.BASE,
+      page: () => BaseScreen(),
+      binding: BaseBinding(),
+      transition: Transition.rightToLeftWithFade,
+    ),
     GetPage(
         name: Routes.HOME,
         page: () => const HomeScreen(),

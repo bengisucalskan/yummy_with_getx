@@ -25,7 +25,7 @@ class LoginController extends GetxController {
 
   void login() {
     if (phoneController.text == "(507) 115-6048" && password.value == "444") {
-      Get.offAllNamed(Routes.HOME);
+      Get.offAllNamed(Routes.BASE);
     } else {
       Get.snackbar("Hata", "Yanlış telefon numarası veya şifre",
           snackPosition: SnackPosition.BOTTOM,

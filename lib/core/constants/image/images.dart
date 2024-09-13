@@ -29,6 +29,10 @@ class AppImages {
   String highlight = 'highlights_exm'.toPNG;
   String restaurant = 'restaurant_exm'.toPNG;
   String recommended = 'recommended'.toPNG;
+  String favorite = 'favorite'.toPNG;
+  String order = 'order'.toPNG;
+  String reward = 'reward'.toPNG;
+  String smilingFace = 'smiling_face'.toPNG;
 
   String flashDeals = 'flash_deals'.toPNG;
   String niceShop = 'nice_shop'.toPNG;

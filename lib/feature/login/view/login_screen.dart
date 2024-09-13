@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/login/controller/login_controller.dart';
 import 'package:getx_architecture_template/feature/login/view/signin_screen.dart';
 import 'package:getx_architecture_template/feature/login/view/signup_screen.dart';
@@ -24,14 +26,14 @@ class LoginScreen extends GetView<LoginController> {
         body: SafeArea(
             child: Stack(
           children: <Widget>[
-            const FractionallySizedBox(
+            FractionallySizedBox(
               heightFactor: 1.05,
               widthFactor: 1.12,
               child: DecoratedBox(
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
-                              "assets/images/breakfast_background.png"),
+                              AppImages.instance.breakfastBackGround),
                           fit: BoxFit.fill))),
             ),
             SafeArea(
@@ -42,11 +44,7 @@ class LoginScreen extends GetView<LoginController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Image(
-                      image: const AssetImage(
-                          'assets/images/splash_yummy_little.png'),
-                      width: MediaQuery.of(context).size.width * 0.8,
-                    ),
+                    AppImages.instance.splashYummyLittle.assetImage,
                     const SizedBox(height: 80),
                     ElevatedButton(
                       onPressed: () {

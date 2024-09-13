@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import '../controller/splash_controller.dart';
 
 class SplashScreen extends GetView<SplashController> {
@@ -7,13 +9,13 @@ class SplashScreen extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SizedBox(
           height: double.infinity,
           width: double.infinity,
-          child: Image(image: AssetImage('assets/images/splash_yummy_big.png')),
+          child: AppImages.instance.splashYummyBig.assetImage,
         ),
       ),
     );

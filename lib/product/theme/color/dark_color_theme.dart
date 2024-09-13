@@ -26,7 +26,7 @@ class DarkColor implements IColorTheme {
         onSecondary: color.black,
         tertiary: color.green,
         onTertiary: color.red,
-        surface: color.blue,
+        surface: color.white, // bu ne
         onSurface: color.white);
   }
 }

@@ -10,12 +10,21 @@ class HomeController extends GetxController {
   final Rxn<User?> post = Rxn<User?>();
   final RxBool isLoading = true.obs;
   final RxList<CategoryItem> categoryItems = <CategoryItem>[].obs;
+  final RxInt tabIndex = 0.obs;
+  final RxList cartItem = [].obs; //  modelden türeyecek
 
   @override
   void onInit() {
     getdata();
     _loadCategoryItems();
     super.onInit();
+  }
+
+  bool get isCartEmpty =>
+      cartItem.isEmpty; // liste boşsa (şimdilik sepet boşken kullancam)
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
   }
 
   void _loadCategoryItems() {

@@ -1,10 +1,12 @@
-enum ServicePathEnum { posts }
+enum ServicePathEnum { search, filter }
 
 extension ServiceAdressPath on ServicePathEnum {
   String get rawValue {
     switch (this) {
-      case ServicePathEnum.posts:
-        return "/api/character";
+      case ServicePathEnum.search:
+        return "/search.php?s";
+      case ServicePathEnum.filter:
+        return "/search.php?s";
     }
   }
 }

@@ -3,20 +3,22 @@ import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/feature/home/model/category_item.dart';
 import '/feature/home/service/home_service.dart';
 
-import '../model/user.dart';
+import '../model/meal.dart';
 
 class HomeController extends GetxController {
   IHomeService homeService = HomeService();
-  final Rxn<User?> post = Rxn<User?>();
+  final Rxn<Meal?> post = Rxn<Meal?>();
   final RxBool isLoading = true.obs;
   final RxList<CategoryItem> categoryItems = <CategoryItem>[].obs;
   final RxInt tabIndex = 0.obs;
   final RxList cartItem = [].obs; //  modelden türeyecek
+  final RxList<String?> uniqueCountries = <String>[].obs;
 
   @override
   void onInit() {
     getdata();
     _loadCategoryItems();
+    // _loadUniqueCountries();
     super.onInit();
   }
 
@@ -26,6 +28,12 @@ class HomeController extends GetxController {
   void changeTabIndex(int index) {
     tabIndex.value = index;
   }
+
+  /* void _loadUniqueCountries() {
+    var countries =
+        post.value?.meals?.map((meal) => meal.strArea).toSet().toList() ?? [];
+    uniqueCountries.assignAll(countries);
+  }*/
 
   void _loadCategoryItems() {
     final List<CategoryItem> items = [

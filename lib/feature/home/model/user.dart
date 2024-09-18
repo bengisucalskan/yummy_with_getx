@@ -21,7 +21,8 @@ class User extends BaseModel<User> {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         info: Info.fromJson(json["info"]),
-        results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        results:
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
       );
 
   @override
@@ -34,7 +35,8 @@ class User extends BaseModel<User> {
   User fromJson(Map<String, dynamic> json) {
     return User(
       info: Info.fromJson(json["info"]),
-      results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+      results:
+          List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
     );
   }
 }

@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/home/view/cart_screen.dart';
+import 'package:getx_architecture_template/feature/home/view/category_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/notification_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/search_screen.dart';
+import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 import 'package:getx_architecture_template/product/widget/drawer.dart';
 import '/feature/home/controller/home_controller.dart';
 
@@ -103,9 +105,17 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ),
                 SizedBox(height: 10),
+                _shopTitle(
+                    // categorilere göre yönlendirme
+                    text: 'Category',
+                    onPressed: () {
+                      Get.to(CategoryScreen(controller: controller));
+                    }),
+                SizedBox(height: 10),
                 Container(
                   height: 200,
                   child: GridView.builder(
+                    // buradaki categoriler ile görseller aynı değil onu düzelt
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: controller.categoryItems.length,
@@ -121,23 +131,112 @@ class HomeScreen extends GetView<HomeController> {
                           Container(
                             child: Image.asset(item.image, fit: BoxFit.cover),
                           ),
-                          Text(item.title,
+                          Text(
+                              controller.category.value?.meals?[index]
+                                      .strCategory ??
+                                  '',
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold)),
+                                  fontSize: 13, fontWeight: FontWeight.bold)),
                         ],
                       );
                     },
                   ),
                 ),
-                _shopTitle(text: 'Discount guaranteed!'),
-                _shopCard(image: AppImages.instance.discount.assetImage),
-                SizedBox(height: 20),
+                _shopTitle(
+                    text: 'Different cultures!',
+                    onPressed:
+                        () {}), // buraya kültürlerin yemekleri listelenecek
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  child: Container(
+                    height: 250,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.area.value?.meals?.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            children: [
+                              AppImages.instance.discount
+                                  .assetImage, // farklı ülke yemek resimleri halledilecek
+                              _shopCard(
+                                  text: controller
+                                      .area.value?.meals?[index].strArea),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
                 Center(
-                    child:
-                        Image(image: AssetImage(AppImages.instance.discover))),
-                SizedBox(height: 20),
-                _shopTitle(text: 'What\'s delicious around here?'),
-                _shopCard(image: AppImages.instance.delicious.assetImage),
+                  child: controller.random.value?.meals?.isNotEmpty ?? false
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${controller.random.value?.meals?[0].strCategory ?? ''} of the day',
+                              style: TextStyle(
+                                  fontSize: 22.0, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 4),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.network(
+                                controller
+                                        .random.value?.meals?[0].strMealThumb ??
+                                    '',
+                                height: 140,
+                                width: 340,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              controller.random.value?.meals?[0].strMeal ?? '',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        )
+                      : const CircleProgressBarLoading(),
+                ),
+                SizedBox(height: 10),
+                _shopTitle(
+                    text: 'What\'s delicious around here?',
+                    onPressed:
+                        () {}), // ??? hangi ülkeyse o yörenin yemekleri olsun
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  child: Container(
+                    height: 250,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            children: [
+                              AppImages.instance.delicious.assetImage,
+                              _shopCard(text: 'yöresel yemekler'),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.only(
                     left: 16.0,
@@ -157,7 +256,7 @@ class HomeScreen extends GetView<HomeController> {
                             children: [
                               AppImages.instance.homeShop.assetImage,
                               Text(
-                                'flsfk ssllkfdlkflk dfkl',
+                                'flsfk ssllkfdlkflk dfkl', // belli bir categorideki yemekleri koy balık yemekleri falan filan
                                 style: TextStyle(
                                   fontSize: 17,
                                 ),
@@ -169,9 +268,34 @@ class HomeScreen extends GetView<HomeController> {
                     ),
                   ),
                 ),
-                _shopTitle(text: 'Highlights of March'),
-                _shopCard(image: AppImages.instance.highlight.assetImage),
-                _shopTitle(text: 'Nearby Restaurants'),
+                _shopTitle(
+                    text: 'Highlights of March',
+                    onPressed: () {}), // martın yıldızları da tüm yemekler
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  child: Container(
+                    height: 250,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            children: [
+                              AppImages.instance.highlight.assetImage,
+                              _shopCard(text: 'Mart ayı'),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                _shopTitle(text: 'Nearby Restaurants', onPressed: () {}),
                 Padding(
                   padding: EdgeInsets.only(
                     left: 10.0,
@@ -238,35 +362,7 @@ class HomeScreen extends GetView<HomeController> {
                         child: Column(
                           children: [
                             AppImages.instance.recommended.assetImage,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hamburger',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      '1.5 km | ⭐ 4.8 (1.2k)',
-                                      style: TextStyle(
-                                          fontSize: 14.0, color: Colors.grey),
-                                    ),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.favorite_border_sharp,
-                                          color: Color(0xFFF87146),
-                                        ))
-                                  ],
-                                ),
-                              ],
-                            )
+                            _shopCard(text: 'Hamburger'),
                           ],
                         ),
                       );
@@ -283,59 +379,37 @@ class HomeScreen extends GetView<HomeController> {
   }
 }
 
-Widget _shopCard({Widget? image}) {
-  return Padding(
-    padding: EdgeInsets.only(
-      left: 10.0,
-    ),
-    child: Container(
-      height: 250,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              children: [
-                image ?? SizedBox(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Pizza Hut',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          '1.5 km | ⭐ 4.8 (1.2k)',
-                          style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_border_sharp,
-                              color: const Color.fromARGB(255, 216, 115, 69),
-                            ))
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        },
+Widget _shopCard({String? text}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        text ?? '',
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-    ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            '1.5 km | ⭐ 4.8 (1.2k)',
+            style: TextStyle(fontSize: 14.0, color: Colors.grey),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.favorite_border_sharp,
+                color: const Color.fromARGB(255, 216, 115, 69),
+              ))
+        ],
+      ),
+    ],
   );
 }
 
-Widget _shopTitle({String? text}) {
+Widget _shopTitle({String? text, required onPressed}) {
   return Padding(
     padding: EdgeInsets.only(
       left: 16.0,
@@ -349,7 +423,7 @@ Widget _shopTitle({String? text}) {
           style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: onPressed,
             icon: Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 19))
       ],
     ),

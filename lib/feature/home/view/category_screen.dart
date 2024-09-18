@@ -26,7 +26,6 @@ class CategoryScreen extends GetView<HomeController> {
         body: Obx(
           () => SingleChildScrollView(
             child: Container(
-              height: 200,
               child: GridView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -43,7 +42,10 @@ class CategoryScreen extends GetView<HomeController> {
                       Container(
                         child: Image.asset(item.image, fit: BoxFit.cover),
                       ),
-                      Text(item.title,
+                      Text(
+                          controller
+                                  .category.value?.meals?[index].strCategory ??
+                              '',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],

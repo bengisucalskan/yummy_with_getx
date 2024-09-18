@@ -5,14 +5,36 @@ import '/feature/home/model/meal.dart';
 import '../../../core/constants/enums/http_request_enum.dart';
 
 abstract class IHomeService {
-  Future<IResponseModel<Meal?>?> getPosts();
+  Future<IResponseModel<Meal?>?> getRandom();
+  Future<IResponseModel<Meal?>?> getCategory();
+  Future<IResponseModel<Meal?>?> getArea();
 }
 
 class HomeService extends IHomeService with BaseService {
   @override
-  Future<IResponseModel<Meal?>?> getPosts() async {
+  Future<IResponseModel<Meal?>?> getRandom() async {
     final response = await networkManager?.send<Meal>(
-      ServicePathEnum.search.rawValue,
+      ServicePathEnum.random.rawValue,
+      parseModel: Meal(),
+      type: HttpTypes.GET,
+    );
+
+    return response;
+  }
+
+  Future<IResponseModel<Meal?>?> getCategory() async {
+    final response = await networkManager?.send<Meal>(
+      ServicePathEnum.category.rawValue,
+      parseModel: Meal(),
+      type: HttpTypes.GET,
+    );
+
+    return response;
+  }
+
+  Future<IResponseModel<Meal?>?> getArea() async {
+    final response = await networkManager?.send<Meal>(
+      ServicePathEnum.area.rawValue,
       parseModel: Meal(),
       type: HttpTypes.GET,
     );

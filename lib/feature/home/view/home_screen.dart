@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
+import 'package:getx_architecture_template/feature/home/home_details/view/home_area_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/view/home_detail_area_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/view/home_detail_category_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/cart_screen.dart';
-import 'package:getx_architecture_template/feature/home/view/category_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/view/category_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/notification_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/search_screen.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
@@ -125,16 +128,23 @@ class HomeScreen extends GetView<HomeController> {
                     ),
                     itemBuilder: (context, index) {
                       var item = controller.categoryItems[index];
+                      var categories = controller
+                              .category.value?.meals?[index].strCategory ??
+                          '';
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            child: Image.asset(item.image, fit: BoxFit.cover),
-                          ),
-                          Text(
-                              controller.category.value?.meals?[index]
-                                      .strCategory ??
-                                  '',
+                              child: IconButton(
+                            icon: Image.asset(item.image, fit: BoxFit.cover),
+                            onPressed: () {
+                              controller.loadMealsForCategory(categories);
+                              Get.to(() => HomeDetailCategoryScreen(
+                                  controller: controller,
+                                  category: categories));
+                            },
+                          )),
+                          Text(categories,
                               style: TextStyle(
                                   fontSize: 13, fontWeight: FontWeight.bold)),
                         ],
@@ -144,8 +154,9 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 _shopTitle(
                     text: 'Different cultures!',
-                    onPressed:
-                        () {}), // buraya kültürlerin yemekleri listelenecek
+                    onPressed: () {
+                      Get.to(HomeAreaScreen(controller: controller));
+                    }), // buraya kültürlerin yemekleri listelenecek
                 Padding(
                   padding: EdgeInsets.only(
                     left: 10.0,
@@ -154,18 +165,26 @@ class HomeScreen extends GetView<HomeController> {
                     height: 250,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.area.value?.meals?.length,
+                      itemCount: 3,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 8),
+                        var country =
+                            controller.area.value?.meals?[index].strArea ?? '';
+                        return GestureDetector(
+                          onTap: () {},
                           child: Column(
                             children: [
-                              AppImages.instance.discount
-                                  .assetImage, // farklı ülke yemek resimleri halledilecek
-                              _shopCard(
-                                  text: controller
-                                      .area.value?.meals?[index].strArea),
+                              IconButton(
+                                icon: Image.asset(AppImages.instance.discount),
+                                onPressed: () {
+                                  controller.loadMealsForCountry(
+                                      country); // ülkelerin yemeklerini çekerken controllerları ayırmak için home screende detay ekranı çekmemem lazım?
+                                  Get.to(() => HomeDetailAreaScreen(
+                                      controller: controller,
+                                      country: country));
+                                },
+                              ),
+                              _shopCard(text: country),
                             ],
                           ),
                         );

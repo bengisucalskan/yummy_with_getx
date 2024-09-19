@@ -15,12 +15,13 @@ class HomeController extends GetxController {
   final RxInt tabIndex = 0.obs;
   final RxList cartItem = [].obs; //  modelden türeyecek
   final RxList<String?> uniqueCountries = <String>[].obs;
+  final RxList<Meals> mealsByArea = <Meals>[].obs;
+  final RxList<Meals> mealsByCategory = <Meals>[].obs;
 
   @override
   void onInit() {
     getdata();
     _loadCategoryItems();
-    // _loadUniqueCountries();
     super.onInit();
   }
 
@@ -30,12 +31,6 @@ class HomeController extends GetxController {
   void changeTabIndex(int index) {
     tabIndex.value = index;
   }
-
-  /* void _loadUniqueCountries() {
-    var countries =
-        post.value?.meals?.map((meal) => meal.strArea).toSet().toList() ?? [];
-    uniqueCountries.assignAll(countries);
-  }*/
 
   void _loadCategoryItems() {
     final List<CategoryItem> items = [
@@ -58,11 +53,30 @@ class HomeController extends GetxController {
     categoryItems.addAll(items);
   }
 
+  void loadMealsForCountry(String country) async {
+    isLoading.value = true;
+
+    var response = await homeService.fetchMealsByArea(country);
+    mealsByArea.value = response?.data?.meals ?? [];
+
+    isLoading.value = false;
+  }
+
+  void loadMealsForCategory(String categories) async {
+    isLoading.value = true;
+
+    var response = await homeService.fetchMealsByCategory(categories);
+    mealsByCategory.value = response?.data?.meals ?? [];
+
+    isLoading.value = false;
+  }
+
   getdata() async {
     isLoading.value = true;
     random.value = (await homeService.getRandom())?.data;
     category.value = (await homeService.getCategory())?.data;
     area.value = (await homeService.getArea())?.data;
+
     isLoading.value = false;
   }
 }

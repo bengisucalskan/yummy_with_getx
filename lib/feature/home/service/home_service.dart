@@ -8,6 +8,10 @@ abstract class IHomeService {
   Future<IResponseModel<Meal?>?> getRandom();
   Future<IResponseModel<Meal?>?> getCategory();
   Future<IResponseModel<Meal?>?> getArea();
+  Future<IResponseModel<Meal?>?> fetchMealsByArea(String country);
+  Future<IResponseModel<Meal?>?> fetchMealsByCategory(String category);
+
+  fetchMealsByCountry(String country) {}
 }
 
 class HomeService extends IHomeService with BaseService {
@@ -35,6 +39,27 @@ class HomeService extends IHomeService with BaseService {
   Future<IResponseModel<Meal?>?> getArea() async {
     final response = await networkManager?.send<Meal>(
       ServicePathEnum.area.rawValue,
+      parseModel: Meal(),
+      type: HttpTypes.GET,
+    );
+
+    return response;
+  }
+
+  @override
+  Future<IResponseModel<Meal?>?> fetchMealsByArea(String country) async {
+    final response = await networkManager?.send<Meal>(
+      "/filter.php?a=$country",
+      parseModel: Meal(),
+      type: HttpTypes.GET,
+    );
+
+    return response;
+  }
+
+  Future<IResponseModel<Meal?>?> fetchMealsByCategory(String categories) async {
+    final response = await networkManager?.send<Meal>(
+      "/filter.php?c=$categories",
       parseModel: Meal(),
       type: HttpTypes.GET,
     );

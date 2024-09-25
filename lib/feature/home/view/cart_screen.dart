@@ -38,13 +38,13 @@ class CartScreen extends StatelessWidget {
 
 Widget buildEmptyCart() {
   return Align(
-    alignment: Alignment(0, -0.6),
+    alignment: const Alignment(0, -0.6),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         AppImages.instance.smilingFace.assetImage,
-        Padding(
-          padding: const EdgeInsets.all(10.0),
+        const Padding(
+          padding:  EdgeInsets.all(10.0),
           child: Text(
             'No orders',
             style: TextStyle(
@@ -53,8 +53,8 @@ Widget buildEmptyCart() {
                 color: Color(0xFFF87146)),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        const Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 32.0),
           child: Text(
             'Sorry, you have no orders in your cart, please add your order to your cart.',
             textAlign: TextAlign.center,
@@ -67,5 +67,5 @@ Widget buildEmptyCart() {
 }
 
 Widget buildCartItems() {
-  return Text('sepet dolu');
+  return const Text('sepet dolu');
 }

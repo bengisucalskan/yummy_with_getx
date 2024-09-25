@@ -9,7 +9,8 @@ abstract class IHomeService {
   Future<IResponseModel<Meal?>?> getCategory();
   Future<IResponseModel<Meal?>?> getArea();
   Future<IResponseModel<Meal?>?> fetchMealsByArea(String country);
-  Future<IResponseModel<Meal?>?> fetchMealsByCategory(String category);
+  Future<IResponseModel<Meal?>?> fetchMealsByCategory(String categories);
+  Future<IResponseModel<Meal?>?> fetchMealsById(String id);
 
   fetchMealsByCountry(String country) {}
 }
@@ -26,6 +27,7 @@ class HomeService extends IHomeService with BaseService {
     return response;
   }
 
+  @override
   Future<IResponseModel<Meal?>?> getCategory() async {
     final response = await networkManager?.send<Meal>(
       ServicePathEnum.category.rawValue,
@@ -36,6 +38,7 @@ class HomeService extends IHomeService with BaseService {
     return response;
   }
 
+  @override
   Future<IResponseModel<Meal?>?> getArea() async {
     final response = await networkManager?.send<Meal>(
       ServicePathEnum.area.rawValue,
@@ -57,13 +60,23 @@ class HomeService extends IHomeService with BaseService {
     return response;
   }
 
+  @override
   Future<IResponseModel<Meal?>?> fetchMealsByCategory(String categories) async {
     final response = await networkManager?.send<Meal>(
       "/filter.php?c=$categories",
       parseModel: Meal(),
       type: HttpTypes.GET,
     );
+    return response;
+  }
 
+  @override
+  Future<IResponseModel<Meal?>?> fetchMealsById(String id) async {
+    final response = await networkManager?.send<Meal>(
+      "lookup.php?i=$id",
+      parseModel: Meal(),
+      type: HttpTypes.GET,
+    );
     return response;
   }
 }

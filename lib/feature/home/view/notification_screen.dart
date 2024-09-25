@@ -51,10 +51,10 @@ class NotificationScreen extends StatelessWidget {
 
 Widget _notificationTitle({String? text}) {
   return Padding(
-    padding: EdgeInsets.all(20),
+    padding: const EdgeInsets.all(20),
     child: Text(
       text ?? '',
-      style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+      style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -67,10 +67,10 @@ Widget _notificationCard(
     required String description}) {
   return ListTile(
     leading: Icon(iconData, color: color),
-    title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+    title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
     subtitle: Text(
       description,
-      style: TextStyle(color: Colors.grey),
+      style: const TextStyle(color: Colors.grey),
     ),
     isThreeLine: true,
   );

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeManager.createTheme(AppThemeLight()),
           darkTheme: ThemeManager.createTheme(AppThemeDark()),
           themeMode: ThemeService().getTheme(),

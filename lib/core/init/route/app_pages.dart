@@ -2,6 +2,12 @@
 
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/feature/home/view/base_screen.dart';
+import 'package:getx_architecture_template/feature/home_details/area/binding/area_binding.dart';
+import 'package:getx_architecture_template/feature/home_details/area/view/home_detail_area_screen.dart';
+import 'package:getx_architecture_template/feature/home_details/category/binding/category_binding.dart';
+import 'package:getx_architecture_template/feature/home_details/category/view/home_detail_category_screen.dart';
+import 'package:getx_architecture_template/feature/home_details/meal/binding/meal_binding.dart';
+import 'package:getx_architecture_template/feature/home_details/meal/view/home_detail_meal_screen.dart';
 import 'package:getx_architecture_template/feature/login/binding/login_binding.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
 import '/feature/home/binding/home_binding.dart';
@@ -26,7 +32,6 @@ class AppPages {
       transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
-        // gerekli değil sanırım.
         name: Routes.HOME,
         page: () => const HomeScreen(),
         binding: HomeBinding(),
@@ -36,5 +41,22 @@ class AppPages {
         page: () => const LoginScreen(),
         binding: LoginBinding(),
         transition: Transition.rightToLeftWithFade),
-  ];
+    GetPage(
+        name: Routes.AREA,
+        page: () => const HomeDetailAreaScreen(
+              country: 'country',
+            ),
+        binding: AreaBinding(),
+        transition: Transition.rightToLeftWithFade),
+    GetPage(
+        name: Routes.CATEGORY,
+        page: () => const HomeDetailCategoryScreen(category: 'category'),
+        binding: CategoryBinding(),
+        transition: Transition.rightToLeftWithFade),
+    GetPage(
+        name: Routes.MEAL,
+        page: () => const HomeDetailMealScreen(id: 'id'),
+        binding: MealBinding(),
+        transition: Transition.rightToLeftWithFade),
+  ]; // detay sayfası için route koy
 }

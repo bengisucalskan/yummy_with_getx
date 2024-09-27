@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   final RxInt tabIndex = 0.obs;
   final RxList cartItem = [].obs; //  modelden türeyecek
   final RxList<String?> uniqueCountries = <String>[].obs;
-  
+
   @override
   void onInit() {
     getdata();
@@ -51,8 +51,6 @@ class HomeController extends GetxController {
     categoryItems.addAll(items);
   }
 
-
- 
   getdata() async {
     isLoading.value = true;
     random.value = (await homeService.getRandom())?.data;

@@ -43,4 +43,5 @@ class AppImages {
   String bbq = 'bbq'.toPNG;
   String othet = 'other'.toPNG;
   String homeShop = 'home_shop_exm'.toPNG;
+  String reviewsIcon = 'reviews_icon'.toPNG;
 }

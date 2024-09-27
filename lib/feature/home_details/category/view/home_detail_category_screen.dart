@@ -4,11 +4,12 @@ import 'package:getx_architecture_template/core/constants/routes/navigation_cons
 import 'package:getx_architecture_template/feature/home_details/category/controller/category_controller.dart';
 
 class HomeDetailCategoryScreen extends GetView<CategoryController> {
-  const HomeDetailCategoryScreen({super.key, required this.category});
-  final String category;
+  const HomeDetailCategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String category = Get.parameters['category'] ?? 'Unknown';
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -36,12 +37,18 @@ class HomeDetailCategoryScreen extends GetView<CategoryController> {
                   ),
                   itemBuilder: (context, index) {
                     var meal = controller.mealsByCategory[index];
-                    var id = controller.mealsByCategory[index].idMeal ?? '';
                     return Column(
                       children: [
                         IconButton(
                             onPressed: () {
-                              Get.toNamed(Routes.MEAL, parameters: {'id': id});
+                              String id = meal.idMeal ?? '';
+                              if (meal.idMeal != null &&
+                                  meal.idMeal!.isNotEmpty) {
+                                Get.toNamed(Routes.MEAL,
+                                    parameters: {'id': meal.idMeal ?? ''});
+                              } else {
+                                print("Meal ID boş, yönlendirme yapılamadı.");
+                              }
                             },
                             icon: Image.network(meal.strMealThumb ?? '')),
                         Column(

@@ -73,7 +73,7 @@ class HomeService extends IHomeService with BaseService {
   @override
   Future<IResponseModel<Meal?>?> fetchMealsById(String id) async {
     final response = await networkManager?.send<Meal>(
-      "lookup.php?i=$id",
+      "/lookup.php?i=$id",
       parseModel: Meal(),
       type: HttpTypes.GET,
     );

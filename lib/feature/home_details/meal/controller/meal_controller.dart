@@ -10,15 +10,22 @@ class MealController extends GetxController {
   void onInit() {
     super.onInit();
     String id = Get.parameters['id'] ?? '';
+    print("Alınan ID: $id");
     loadMealsForId(id);
   }
 
   void loadMealsForId(String id) async {
     isLoading.value = true;
-
-    var response = await homeService.fetchMealsById(id);
-    print("API'den Gelen Yanıt: ${response?.data?.meals}");
-    mealsById.value = response?.data?.meals ?? [];
+    try {
+      var response = await homeService.fetchMealsById(id);
+      if (response?.data?.meals != null) {
+        mealsById.value = response?.data?.meals ?? [];
+      } else {
+        print("API'den gelen meals verisi null.");
+      }
+    } catch (e) {
+      print("Hata meydana geldi: $e");
+    }
 
     isLoading.value = false;
   }

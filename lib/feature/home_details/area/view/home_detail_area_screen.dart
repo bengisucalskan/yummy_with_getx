@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/feature/home_details/area/controller/area_controller.dart';
 
 class HomeDetailAreaScreen extends GetView<AreaController> {
-  const HomeDetailAreaScreen(
-      {super.key,  required this.country});
-  final String country;
+  const HomeDetailAreaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String country = Get.parameters['country'] ?? 'Unknown';
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -33,14 +34,22 @@ class HomeDetailAreaScreen extends GetView<AreaController> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.7,
-                    
                   ),
                   itemBuilder: (context, index) {
                     var meal = controller.mealsByArea[index];
                     return Column(
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              String id = meal.idMeal ?? '';
+                              if (meal.idMeal != null &&
+                                  meal.idMeal!.isNotEmpty) {
+                                Get.toNamed(Routes.MEAL,
+                                    parameters: {'id': meal.idMeal ?? ''});
+                              } else {
+                                print("Meal ID boş, yönlendirme yapılamadı.");
+                              }
+                            },
                             icon: Image.network(meal.strMealThumb ?? '')),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,20 +63,21 @@ class HomeDetailAreaScreen extends GetView<AreaController> {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          const Text(
-            '1.5 km | ⭐ 4.8 (1.2k)',
-            style: TextStyle(fontSize: 13.0, color: Colors.grey),
-          ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_border_sharp,
-                color:  Color.fromARGB(255, 216, 115, 69),
-              ))
-        ],
-      ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                const Text(
+                                  '1.5 km | ⭐ 4.8 (1.2k)',
+                                  style: TextStyle(
+                                      fontSize: 13.0, color: Colors.grey),
+                                ),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.favorite_border_sharp,
+                                      color: Color.fromARGB(255, 216, 115, 69),
+                                    ))
+                              ],
+                            ),
                           ],
                         )
                       ],

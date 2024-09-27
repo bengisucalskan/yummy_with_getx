@@ -43,20 +43,19 @@ class AppPages {
         transition: Transition.rightToLeftWithFade),
     GetPage(
         name: Routes.AREA,
-        page: () => const HomeDetailAreaScreen(
-              country: 'country',
-            ),
+        page: () => const HomeDetailAreaScreen(),
         binding: AreaBinding(),
         transition: Transition.rightToLeftWithFade),
     GetPage(
         name: Routes.CATEGORY,
-        page: () => const HomeDetailCategoryScreen(category: 'category'),
+        page: () => const HomeDetailCategoryScreen(),
         binding: CategoryBinding(),
         transition: Transition.rightToLeftWithFade),
     GetPage(
-        name: Routes.MEAL,
-        page: () => const HomeDetailMealScreen(id: 'id'),
-        binding: MealBinding(),
-        transition: Transition.rightToLeftWithFade),
+      name: Routes.MEAL,
+      page: () => const HomeDetailMealScreen(id: 'id'),
+      binding: MealBinding(),
+      transition: Transition.rightToLeftWithFade,
+    )
   ]; // detay sayfası için route koy
 }

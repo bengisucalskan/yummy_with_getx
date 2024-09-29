@@ -9,7 +9,7 @@ class RewardScreen extends GetView<MealController> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4, // İki sekme olduğu için
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Exchange Rewards'),
@@ -21,7 +21,6 @@ class RewardScreen extends GetView<MealController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Points Progress Section
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
@@ -37,7 +36,6 @@ class RewardScreen extends GetView<MealController> {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
-                      // Progress Indicator for Points
                       Stack(
                         children: [
                           Container(
@@ -48,10 +46,10 @@ class RewardScreen extends GetView<MealController> {
                             ),
                           ),
                           Positioned(
-                            left: 40, // Dinamik puan pozisyonu
+                            left: 40,
                             child: Container(
                               height: 10,
-                              width: 80, // Kullanıcı puanlarına göre genişlik
+                              width: 80,
                               decoration: BoxDecoration(
                                 color: Color(0xff332C45),
                                 borderRadius: BorderRadius.circular(5),
@@ -64,8 +62,8 @@ class RewardScreen extends GetView<MealController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: const [
+                          const Row(
+                            children: [
                               Text(
                                 '20',
                                 style: TextStyle(
@@ -101,12 +99,12 @@ class RewardScreen extends GetView<MealController> {
                 // QR Code Section
                 Container(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Scan QR code to earn\nmore points',
                             style: TextStyle(
@@ -115,7 +113,7 @@ class RewardScreen extends GetView<MealController> {
                         ],
                       ),
                       //Verticaldivider koydum ekrana gelmedi
-                      const Icon(
+                      Icon(
                         Icons.qr_code_scanner,
                         color: Color(0xffF87146),
                         size: 48,
@@ -157,11 +155,10 @@ class RewardScreen extends GetView<MealController> {
                 ),
                 const SizedBox(height: 16),
                 // Tab Bar View
-                SizedBox(
+                const SizedBox(
                   height: 300,
                   child: TabBarView(
                     children: [
-                      // For You tab içerikleri
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +170,6 @@ class RewardScreen extends GetView<MealController> {
                           ],
                         ),
                       ),
-                      // Highlights of April tab içerikleri
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -188,7 +184,7 @@ class RewardScreen extends GetView<MealController> {
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               'For You Content',
                               style: TextStyle(fontSize: 18),
@@ -199,7 +195,7 @@ class RewardScreen extends GetView<MealController> {
                       Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               'For You Content',
                               style: TextStyle(fontSize: 18),
@@ -211,7 +207,6 @@ class RewardScreen extends GetView<MealController> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Promo Image Section
               ],
             ),
           ),

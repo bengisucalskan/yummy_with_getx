@@ -49,8 +49,6 @@ class HomeDetailAreaScreen extends GetView<AreaController> {
                                   meal.idMeal!.isNotEmpty) {
                                 Get.toNamed(Routes.MEAL,
                                     parameters: {'id': meal.idMeal ?? ''});
-                              } else {
-                                print("Meal ID boş, yönlendirme yapılamadı.");
                               }
                             },
                             icon: Image.network(meal.strMealThumb ?? '')),

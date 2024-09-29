@@ -65,13 +65,13 @@ class DishesScreen extends GetView<FavoriteController> {
                       Column(
                         children: [
                           IconButton(
-                              icon: Icon(Icons.favorite,
+                              icon: const Icon(Icons.favorite,
                                   color: Color.fromARGB(255, 216, 115, 69)),
                               onPressed: () {
                                 controller.removeFromFavorites(meal);
                               }),
-                          SizedBox(height: 16),
-                          Icon(Icons.arrow_forward_ios,
+                          const SizedBox(height: 16),
+                          const Icon(Icons.arrow_forward_ios,
                               color: Colors.grey, size: 16),
                         ],
                       )

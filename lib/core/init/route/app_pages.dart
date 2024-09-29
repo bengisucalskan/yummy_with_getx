@@ -1,6 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/feature/favorite/binding/favorite_binding.dart';
+import 'package:getx_architecture_template/feature/favorite/view/favorite_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/base_screen.dart';
 import 'package:getx_architecture_template/feature/home_details/area/binding/area_binding.dart';
 import 'package:getx_architecture_template/feature/home_details/area/view/home_detail_area_screen.dart';
@@ -56,6 +58,12 @@ class AppPages {
       page: () => const HomeDetailMealScreen(id: 'id'),
       binding: MealBinding(),
       transition: Transition.rightToLeftWithFade,
-    )
-  ]; // detay sayfası için route koy
+    ),
+    GetPage(
+      name: Routes.FAVORITE,
+      page: () => const FavoriteScreen(),
+      binding: FavoriteBinding(),
+      transition: Transition.rightToLeftWithFade,
+    ),
+  ];
 }

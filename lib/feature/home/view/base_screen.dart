@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/feature/favorite/view/favorite_screen.dart';
 import 'package:getx_architecture_template/feature/home/controller/home_controller.dart';
-import 'package:getx_architecture_template/feature/home_details/meal/view/home_detail_meal_screen.dart';
+import 'package:getx_architecture_template/feature/reward/view/reward_screen.dart';
 
 import '/feature/home/view/home_screen.dart';
 
@@ -18,6 +18,10 @@ class BaseScreen extends GetView<HomeController> {
             return const HomeScreen();
           case 1:
             return const FavoriteScreen();
+          case 2:
+            return const HomeScreen();
+          case 3:
+            return const RewardScreen();
 
           default:
             return const HomeScreen();

@@ -2,9 +2,10 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/favorite/view/dishes_screen.dart';
 
-class FavoriteScreen extends StatelessWidget {
+class FavoriteScreen extends GetView<FavoriteController> {
   const FavoriteScreen({super.key});
 
   @override

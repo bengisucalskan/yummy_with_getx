@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
+import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home_details/meal/controller/meal_controller.dart';
 import 'package:getx_architecture_template/feature/home_details/meal/view/info_screen.dart';
 import 'package:getx_architecture_template/feature/home_details/meal/view/reviews_screen.dart';
@@ -12,6 +13,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
   final String id;
   @override
   Widget build(BuildContext context) {
+    final FavoriteController favoriteController =
+        Get.find<FavoriteController>();
+
     return Scaffold(body: Obx(() {
       if (controller.isLoading.value) {
         return Center(child: CircularProgressIndicator());
@@ -101,7 +105,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           child: Text(
                             meal.strMeal ?? '',
                             style: TextStyle(
-                              color: Color(0xff332C45),
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
@@ -111,10 +114,17 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           ),
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              favoriteController.addToFavorites(meal);
+                              Get.snackbar(
+                                "Favorite",
+                                "Added to favorites!",
+                                snackPosition: SnackPosition.BOTTOM,
+                              );
+                            },
                             icon: const Icon(
-                              Icons.favorite_border,
-                              color: Colors.grey,
+                              Icons.favorite,
+                              color: Color.fromARGB(255, 216, 115, 69),
                             ))
                       ],
                     ),
@@ -131,9 +141,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                               },
                               child: const Text(
                                 "NYC, Broadway ave 79",
-                                style: TextStyle(
-                                  color: Color(0xff332C45),
-                                ),
+                                style: TextStyle(),
                               ),
                             ),
                             GestureDetector(
@@ -180,7 +188,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           child: const Text(
                             "Reviews",
                             style: TextStyle(
-                              color: Color(0xff332C45),
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -202,9 +209,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                     const Text(
                       'Ingredients',
                       style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff332C45)),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     IconButton(
                         onPressed: () {},
@@ -261,9 +268,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                     const Text(
                       'For You',
                       style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff332C45)),
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     IconButton(
                         onPressed: () {},

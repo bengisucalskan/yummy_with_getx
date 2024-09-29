@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
+import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home_details/category/controller/category_controller.dart';
 
 class HomeDetailCategoryScreen extends GetView<CategoryController> {
@@ -9,6 +10,8 @@ class HomeDetailCategoryScreen extends GetView<CategoryController> {
   @override
   Widget build(BuildContext context) {
     final String category = Get.parameters['category'] ?? 'Unknown';
+    final FavoriteController favoriteController =
+        Get.find<FavoriteController>();
 
     return Scaffold(
         appBar: AppBar(
@@ -71,7 +74,14 @@ class HomeDetailCategoryScreen extends GetView<CategoryController> {
                                       fontSize: 13.0, color: Colors.grey),
                                 ),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      favoriteController.addToFavorites(meal);
+                                      Get.snackbar(
+                                        "Favorite",
+                                        "Added to favorites!",
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                    },
                                     icon: const Icon(
                                       Icons.favorite_border_sharp,
                                       color: Color.fromARGB(255, 216, 115, 69),

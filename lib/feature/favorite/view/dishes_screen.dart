@@ -9,6 +9,9 @@ class DishesScreen extends GetView<FavoriteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
+        if (controller.favoriteMeals.isEmpty) {
+          return const Center(child: Text('No favorites added.'));
+        }
         return Padding(
           padding: const EdgeInsets.all(8),
           child: SizedBox(

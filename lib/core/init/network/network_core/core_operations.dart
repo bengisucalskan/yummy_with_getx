@@ -3,7 +3,10 @@ part of '../core_dio.dart';
 extension _CoreDioOperations on CoreDio {
   T? _responseParser<T>(BaseModel<T> model, dynamic data) {
     if (data is List) {
-      return data.map((e) => model.fromJson(e)).toList().cast<T>() as T;
+      return data
+          .map((e) => model.fromJson(e as Map<String, dynamic>))
+          .toList()
+          .cast<T>() as T;
     } else if (data is Map) {
       return model.fromJson(data as Map<String, dynamic>);
     }
@@ -41,8 +44,9 @@ extension NetworkEror on CoreDio {
 
     return ResponseModel(
         error: BaseError(
-            message:
-                e.response != null ? e.response!.data['Message'].toString() : e.error.toString(),
+            message: e.response != null
+                ? e.response!.data['Message'].toString()
+                : e.error.toString(),
             type: e.type));
   }
 }

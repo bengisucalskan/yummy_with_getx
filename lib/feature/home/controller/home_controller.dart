@@ -13,7 +13,6 @@ class HomeController extends GetxController {
   final RxBool isLoading = true.obs;
   final RxList<CategoryItem> categoryItems = <CategoryItem>[].obs;
   final RxInt tabIndex = 0.obs;
-  final RxList cartItem = [].obs; //  modelden türeyecek
   final RxList<String?> uniqueCountries = <String>[].obs;
 
   @override
@@ -22,9 +21,6 @@ class HomeController extends GetxController {
     _loadCategoryItems();
     super.onInit();
   }
-
-  bool get isCartEmpty =>
-      cartItem.isEmpty; // liste boşsa (şimdilik sepet boşken kullancam)
 
   void changeTabIndex(int index) {
     tabIndex.value = index;

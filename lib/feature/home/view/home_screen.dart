@@ -4,16 +4,11 @@ import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
+import 'package:getx_architecture_template/feature/home/controller/home_controller.dart';
 import 'package:getx_architecture_template/feature/home/view/home_area_screen.dart';
-import 'package:getx_architecture_template/feature/home_details/area/view/home_detail_area_screen.dart';
-import 'package:getx_architecture_template/feature/home_details/category/view/home_detail_category_screen.dart';
-import 'package:getx_architecture_template/feature/home/view/cart_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/home_category_screen.dart';
-import 'package:getx_architecture_template/feature/home/view/notification_screen.dart';
-import 'package:getx_architecture_template/feature/home/view/search_screen.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 import 'package:getx_architecture_template/product/widget/drawer.dart';
-import '/feature/home/controller/home_controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
@@ -24,28 +19,26 @@ class HomeScreen extends GetView<HomeController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text('NYCBroadwayekleme yap'), // bura nasıl olacak
+        title: const Text('NYCBroadwayekleme yap'), // bura nasıl olacak
         actions: [
           IconButton(
-              onPressed: () {
-                Get.to(NotificationScreen(
-                  controller: controller,
-                ));
-              },
-              icon: AppImages.instance.notification.assetImage),
+            onPressed: () {
+              Get.toNamed(Routes.NOTIFICATION);
+            },
+            icon: AppImages.instance.notification.assetImage,
+          ),
           IconButton(
-              onPressed: () {
-                Get.to(CartScreen(
-                  controller: controller,
-                ));
-              },
-              icon: AppImages.instance.bag.assetImage)
+            onPressed: () {
+              Get.toNamed(Routes.CART);
+            },
+            icon: AppImages.instance.bag.assetImage,
+          ),
         ],
       ),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,19 +46,17 @@ class HomeScreen extends GetView<HomeController> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: GestureDetector(
                     onTap: () {
-                      Get.to(SearchScreen(controller: controller));
+                      Get.toNamed(Routes.SEARCH);
                     },
                     child: AbsorbPointer(
                       child: TextField(
                         readOnly: true,
-                        enableSuggestions:
-                            true, // Klavyede önerileri etkinleştir
                         textInputAction: TextInputAction.search,
                         decoration: InputDecoration(
                           hintText: 'What are you yearning for?',
                           hintStyle: const TextStyle(color: Colors.grey),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
+                            borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon: AppImages.instance.search.assetImage,
@@ -76,12 +67,16 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 const Padding(
                   padding: EdgeInsets.only(
-                    left: 16.0,
-                    top: 10.0,
+                    left: 16,
+                    top: 10,
                   ),
-                  child: Text('Special Offer',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Special Offer',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 CarouselSlider.builder(
@@ -89,7 +84,7 @@ class HomeScreen extends GetView<HomeController> {
                   itemBuilder:
                       (BuildContext context, int itemIndex, int pageViewIndex) {
                     return ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(12),
                       child: Stack(
                         children: <Widget>[
                           Image.network(
@@ -110,11 +105,12 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 const SizedBox(height: 10),
                 _shopTitle(
-                    // categorilere göre yönlendirme
-                    text: 'Category',
-                    onPressed: () {
-                      Get.to(CategoryScreen(controller: controller));
-                    }),
+                  // categorilere göre yönlendirme
+                  text: 'Category',
+                  onPressed: () {
+                    Get.to(CategoryScreen(controller: controller));
+                  },
+                ),
                 const SizedBox(height: 10),
 
                 Obx(
@@ -127,20 +123,18 @@ class HomeScreen extends GetView<HomeController> {
                       itemCount:
                           (controller.category.value?.meals?.length ?? 0) > 8
                               ? 8
-                              : controller.category.value?.meals?.length ??
-                                  0, // koşul koy 8 den büyükse 8 yoksa sayı
+                              : controller.category.value?.meals?.length ?? 0,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4,
                         childAspectRatio: 1,
                       ),
                       itemBuilder: (context, index) {
-                        var item = controller.categoryItems[index];
+                        final item = controller.categoryItems[index];
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                child: IconButton(
+                            IconButton(
                               icon: Image.asset(item.image, fit: BoxFit.cover),
                               onPressed: () {
                                 Get.toNamed(Routes.CATEGORY, parameters: {
@@ -149,7 +143,7 @@ class HomeScreen extends GetView<HomeController> {
                                       ''
                                 });
                               },
-                            )),
+                            ),
                             Text(
                                 controller.category.value?.meals?[index]
                                         .strCategory ??
@@ -171,7 +165,7 @@ class HomeScreen extends GetView<HomeController> {
                 // tüm yemeklere erişemiyorum . tariflerini falan nasıl göstercm?
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 10.0,
+                    left: 10,
                   ),
                   child: SizedBox(
                     height: 250,
@@ -190,17 +184,21 @@ class HomeScreen extends GetView<HomeController> {
                                       Image.asset(AppImages.instance.discount),
                                   onPressed: () {
                                     // ülkelerin yemeklerini çekerken controllerları ayırmak için home screende detay ekranı çekmemem lazım?
-                                    Get.toNamed(Routes.AREA, parameters: {
-                                      'country': controller.area.value
-                                              ?.meals?[index].strArea ??
-                                          ''
-                                    });
+                                    Get.toNamed(
+                                      Routes.AREA,
+                                      parameters: {
+                                        'country': controller.area.value
+                                                ?.meals?[index].strArea ??
+                                            ''
+                                      },
+                                    );
                                   },
                                 ),
                                 _shopCard(
-                                    text: controller.area.value?.meals?[index]
-                                            .strArea ??
-                                        ''),
+                                  text: controller
+                                          .area.value?.meals?[index].strArea ??
+                                      '',
+                                ),
                               ],
                             ),
                           ),
@@ -221,16 +219,24 @@ class HomeScreen extends GetView<HomeController> {
                                   fontSize: 20.0, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
-                            ClipRRect(
-                              //iconbuttton ekle
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.network(
-                                controller
-                                        .random.value?.meals?[0].strMealThumb ??
-                                    '',
-                                height: 140,
-                                width: 340,
-                                fit: BoxFit.cover,
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed(Routes.MEAL, parameters: {
+                                  'id': controller
+                                          .random.value?.meals?[0].idMeal ??
+                                      ''
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  controller.random.value?.meals?[0]
+                                          .strMealThumb ??
+                                      '',
+                                  height: 140,
+                                  width: 340,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -245,14 +251,15 @@ class HomeScreen extends GetView<HomeController> {
                         )
                       : const CircleProgressBarLoading(),
                 ),
+
                 const SizedBox(height: 10),
                 _shopTitle(
-                    text: 'What\'s delicious around here?',
+                    text: "What's delicious around here?",
                     onPressed:
-                        () {}), // ??? dile göre o ülkenin yemekleri olsun
+                        () {}), // ??? dile göre o ülkenin yemekleri olsun ???
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 10.0,
+                    left: 10,
                   ),
                   child: SizedBox(
                     height: 250,
@@ -276,8 +283,8 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 16.0,
-                    top: 20.0,
+                    left: 16,
+                    top: 20,
                   ),
                   child: SizedBox(
                     height: 150,
@@ -306,12 +313,12 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 ),
                 _shopTitle(
-                    text: 'Highlights of March',
-                    onPressed:
-                        () {}), // martın yıldızları da tüm yemekler olabilir mesela
+                  text: 'Highlights of March',
+                  onPressed: () {},
+                ), // martın yıldızları da tüm yemekler olabilir mesela
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 10.0,
+                    left: 10,
                   ),
                   child: SizedBox(
                     height: 250,
@@ -336,7 +343,7 @@ class HomeScreen extends GetView<HomeController> {
                 _shopTitle(text: 'Nearby Restaurants', onPressed: () {}),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 10.0,
+                    left: 10,
                   ),
                   child: SizedBox(
                     height: 250,
@@ -382,14 +389,18 @@ class HomeScreen extends GetView<HomeController> {
                 ),
                 const Padding(
                   padding: EdgeInsets.only(
-                    left: 25.0,
+                    left: 25,
                   ),
-                  child: Text('Recommended For You',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Recommended For You',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 10,
@@ -397,6 +408,10 @@ class HomeScreen extends GetView<HomeController> {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey.shade300)),
+                        ),
                         child: Column(
                           children: [
                             AppImages.instance.recommended.assetImage,
@@ -433,37 +448,41 @@ Widget _shopCard({String? text}) {
         children: <Widget>[
           const Text(
             '1.5 km | ⭐ 4.8 (1.2k)',
-            style: TextStyle(fontSize: 13.0, color: Colors.grey),
+            style: TextStyle(fontSize: 13, color: Colors.grey),
           ),
           IconButton(
               onPressed: () {},
               icon: const Icon(
                 Icons.favorite_border_sharp,
                 color: Color.fromARGB(255, 216, 115, 69),
-              ))
+              )),
         ],
       ),
     ],
   );
 }
 
-Widget _shopTitle({String? text, required onPressed}) {
+Widget _shopTitle({required void Function()? onPressed, String? text}) {
   return Padding(
     padding: const EdgeInsets.only(
-      left: 16.0,
-      top: 20.0,
+      left: 16,
+      top: 20,
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(
           text ?? '',
-          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         IconButton(
-            onPressed: onPressed,
-            icon: const Icon(Icons.arrow_forward_ios,
-                color: Colors.grey, size: 19))
+          onPressed: onPressed,
+          icon: const Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.grey,
+            size: 19,
+          ),
+        )
       ],
     ),
   );

@@ -12,7 +12,7 @@ class GetBars {
         dismissDirection: DismissDirection.horizontal,
       );
 
-  static successSnackBar(title, message) => Get.snackbar(
+  static successSnackBar(String title, String message) => Get.snackbar(
         title,
         message,
         // backgroundColor: AppColors.green,
@@ -21,7 +21,7 @@ class GetBars {
         dismissDirection: DismissDirection.horizontal,
       );
 
-  static warningSnackBar(title, message) => Get.snackbar(
+  static warningSnackBar(String title, String message) => Get.snackbar(
         title,
         message,
         // backgroundColor: AppColors.yellow,

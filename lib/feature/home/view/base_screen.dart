@@ -43,7 +43,9 @@ class BaseScreen extends GetView<HomeController> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.reviews), label: 'Reward'),
             ],
-            unselectedItemColor: Colors.grey, // Seçilmemiş ögelerin rengi
+            unselectedItemColor: Theme.of(context)
+                .colorScheme
+                .secondary, // Seçilmemiş ögelerin rengi
             selectedItemColor: const Color(0xFFF87146), // Seçilmiş öge rengi
           )),
     );

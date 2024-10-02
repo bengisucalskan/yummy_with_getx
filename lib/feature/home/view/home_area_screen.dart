@@ -35,8 +35,6 @@ class HomeAreaScreen extends GetView<HomeController> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1,
-                    
-                    
                   ),
                   itemBuilder: (context, index) {
                     var country =
@@ -45,8 +43,8 @@ class HomeAreaScreen extends GetView<HomeController> {
                       children: [
                         IconButton(
                             onPressed: () {
-                             Get.toNamed(Routes.AREA,
-                            parameters: {'country': country});
+                              Get.toNamed(Routes.AREA,
+                                  parameters: {'country': country});
                             },
                             icon: Image.asset(AppImages.instance.discount)),
                         Column(
@@ -60,7 +58,6 @@ class HomeAreaScreen extends GetView<HomeController> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            
                           ],
                         )
                       ],

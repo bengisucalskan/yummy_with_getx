@@ -1,7 +1,6 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/favorite/view/dishes_screen.dart';
 
@@ -27,9 +26,7 @@ class FavoriteScreen extends GetView<FavoriteController> {
               ButtonsTabBar(
                   backgroundColor: Color(0xFF332C45),
                   unselectedBackgroundColor: Color(0xFFE8E8E8),
-                  unselectedLabelStyle:
-                      TextStyle(color: Colors.pink), // rengi niye değişmiyo
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   tabs: const [
                     Tab(

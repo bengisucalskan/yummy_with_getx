@@ -23,10 +23,10 @@ class LightColor implements IColorTheme {
         onPrimary: color.white3,
         secondary: color.grey,
         onSecondary: color.black,
-        tertiary: color.green,
-        onTertiary: color.orange,
+        tertiary: color.blue2,
+        onTertiary: color.orange, // yummy turuncusu
         surface: color.white, // bu ne
-        onSurface: color.blue2, // bu ne
+        onSurface: color.blue2, //text tamamı
         inversePrimary: color.appleBlack,
         onInverseSurface: color.tBlue);
   }

@@ -66,10 +66,10 @@ class SignupScreen extends StatelessWidget {
                 SizedBox(height: context.lowValue),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     'Terms and policies',
                     style: TextStyle(
-                      color: Color(0xFFF87146),
+                      color: Theme.of(context).colorScheme.onTertiary,
                     ),
                   ),
                 ),
@@ -77,7 +77,7 @@ class SignupScreen extends StatelessWidget {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
-                    backgroundColor: const Color(0xFFFFFFFF),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     minimumSize: Size(double.infinity,
                         MediaQuery.of(context).size.height * 0.07),
                   ),

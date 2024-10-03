@@ -26,7 +26,7 @@ class CartScreen extends GetView<CartController> {
       body: Obx(() {
         if (controller.isCartEmpty) {
           // bura yanlışmış
-          return buildEmptyCart(); // Sepet boşsa gösterilecek içerik
+          return buildEmptyCart(context); // Sepet boşsa gösterilecek içerik
         } else {
           return buildCartItems(); // Sepette ürün varsa gösterilecek içerik
         }
@@ -35,21 +35,21 @@ class CartScreen extends GetView<CartController> {
   }
 }
 
-Widget buildEmptyCart() {
+Widget buildEmptyCart(BuildContext context) {
   return Align(
     alignment: const Alignment(0, -0.6),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         AppImages.instance.smilingFace.assetImage,
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(10.0),
           child: Text(
             'No orders',
             style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF87146)),
+                color: Theme.of(context).colorScheme.onTertiary),
           ),
         ),
         const Padding(

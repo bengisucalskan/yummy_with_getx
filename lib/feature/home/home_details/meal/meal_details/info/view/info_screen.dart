@@ -54,36 +54,43 @@ class InfoScreen extends GetView<InfoController> {
               context.sizedBoxlow,
               GestureDetector(
                 onTap: () {},
-                child: const Text(
+                child: Text(
                   'See more...',
-                  style: TextStyle(color: Color(0xffF87146)),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onTertiary),
                 ),
               ),
               const Divider(height: 32),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Monday-Friday', style: TextStyle(fontSize: 16)),
+                  const Text('Monday-Friday', style: TextStyle(fontSize: 16)),
                   Text('10:00 - 22.00',
-                      style: TextStyle(fontSize: 16, color: Color(0xffF87146))),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.onTertiary)),
                 ],
               ),
               context.sizedBoxlow,
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Saturday-Sunday', style: TextStyle(fontSize: 16)),
+                  const Text('Saturday-Sunday', style: TextStyle(fontSize: 16)),
                   Text('12:00 - 20.00',
-                      style: TextStyle(fontSize: 16, color: Color(0xffF87146))),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.onTertiary)),
                 ],
               ),
               const Divider(height: 32),
-              const Row(
+              Row(
                 children: [
-                  Text('Phone number', style: TextStyle(fontSize: 16)),
-                  Spacer(),
+                  const Text('Phone number', style: TextStyle(fontSize: 16)),
+                  const Spacer(),
                   Text('056056591',
-                      style: TextStyle(fontSize: 16, color: Color(0xffF87146))),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.onTertiary)),
                 ],
               ),
             ],

@@ -10,7 +10,7 @@ class AppColors {
   final tBlue = const Color(0xff1DA1F2);
   final green = const Color(0xff3A6427);
   final red = const Color(0xffED6461);
-  final blue = const Color(0xff1377FE);
+  final blue = const Color(0xFF5384EE);
   final blue2 = const Color(0xff332C45);
   final orange = const Color(0xffF87146);
 }

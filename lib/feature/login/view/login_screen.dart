@@ -49,7 +49,8 @@ class LoginScreen extends GetView<LoginController> {
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: const Color(0xFFF87146),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onTertiary,
                         minimumSize: Size(double.infinity,
                             MediaQuery.of(context).size.height * 0.07),
                       ),
@@ -68,9 +69,11 @@ class LoginScreen extends GetView<LoginController> {
                           onPressed: () {
                             Get.to(SignupScreen(controller: controller));
                           },
-                          child: const Text(
+                          child: Text(
                             'Sign up',
-                            style: TextStyle(color: Color(0xFFF87146)),
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onTertiary),
                           ),
                         ),
                       ],

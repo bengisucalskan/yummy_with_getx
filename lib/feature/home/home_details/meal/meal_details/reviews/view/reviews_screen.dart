@@ -23,7 +23,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
             child: Container(
               padding: context.paddingNormal,
               decoration: BoxDecoration(
-                color: const Color(0xffF2F2F2),
+                color: const Color(0xffF2F2F2), // bi ara değiştir
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -51,11 +51,11 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   context.sizedBoxMedium,
-                  _buildRatingBar(5, 80),
-                  _buildRatingBar(4, 60),
-                  _buildRatingBar(3, 30),
-                  _buildRatingBar(2, 15),
-                  _buildRatingBar(1, 10),
+                  _buildRatingBar(5, 80, context),
+                  _buildRatingBar(4, 60, context),
+                  _buildRatingBar(3, 30, context),
+                  _buildRatingBar(2, 15, context),
+                  _buildRatingBar(1, 10, context),
                 ],
               ),
             ),
@@ -105,7 +105,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
     );
   }
 
-  Widget _buildRatingBar(int rating, double percentage) {
+  Widget _buildRatingBar(int rating, double percentage, BuildContext context) {
     return Row(
       children: [
         Text(rating.toString(), style: const TextStyle(fontSize: 16)),
@@ -116,7 +116,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
             child: LinearProgressIndicator(
               value: percentage / 100,
               backgroundColor: Colors.grey.shade300,
-              color: const Color(0xffF87146),
+              color: Theme.of(context).colorScheme.onTertiary,
               minHeight: 8,
             ),
           ),

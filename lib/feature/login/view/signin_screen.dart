@@ -78,9 +78,11 @@ class SigninScreen extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     'Forgot password?',
-                    style: TextStyle(color: Color(0xFFF87146), fontSize: 14),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onTertiary,
+                        fontSize: 14),
                   ),
                 ),
                 SizedBox(height: context.lowValue),
@@ -88,7 +90,7 @@ class SigninScreen extends StatelessWidget {
                   onPressed: controller.login,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
-                    backgroundColor: const Color(0xFFFFFFFF),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     minimumSize: Size(double.infinity,
                         MediaQuery.of(context).size.height * 0.07),
                   ),
@@ -107,9 +109,10 @@ class SigninScreen extends StatelessWidget {
                       onPressed: () {
                         Get.to(SignupScreen(controller: controller));
                       },
-                      child: const Text(
+                      child: Text(
                         'Sign up',
-                        style: TextStyle(color: Color(0xFFF87146)),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.onTertiary),
                       ),
                     ),
                   ],

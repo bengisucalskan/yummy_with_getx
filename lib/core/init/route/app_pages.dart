@@ -29,7 +29,7 @@ import 'package:getx_architecture_template/feature/splash/binding/splash_binding
 import 'package:getx_architecture_template/feature/splash/view/splash_screen.dart';
 
 class AppPages {
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.BASE;
 
   static final routes = [
     //login

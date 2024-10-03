@@ -80,7 +80,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff332C45),
+                      backgroundColor: Theme.of(context).colorScheme.tertiary,
                       padding: context.paddingLow,
                     ),
                     onPressed: () {
@@ -248,7 +248,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                             ),
                             padding: context.paddingLow,
                             decoration: BoxDecoration(
-                              color: const Color(0xff332C45),
+                              color: Theme.of(context).colorScheme.tertiary,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: const Center(

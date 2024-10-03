@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home/home_details/area/controller/area_controller.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 
 class HomeDetailAreaScreen extends GetView<AreaController> {
   const HomeDetailAreaScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final favoriteController = // bunu kaldırıcaz
-        Get.find<FavoriteController>();
+    final favoriteController = Get.find<FavoriteController>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: Get.back, icon: const Icon(Icons.arrow_back_ios)),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          '${controller.country.value} Food',
-          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-        ),
+      appBar: CustomAppBar(
+        title: '${controller.country.value} Food',
+        onBackPressed: () => Get.back(),
       ),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: context.paddingLow,
             child: GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -40,13 +35,16 @@ class HomeDetailAreaScreen extends GetView<AreaController> {
                 return Column(
                   children: [
                     IconButton(
-                        onPressed: () {
-                          if (meal.idMeal != null && meal.idMeal!.isNotEmpty) {
-                            Get.toNamed(Routes.MEAL,
-                                parameters: {'id': meal.idMeal ?? ''});
-                          }
-                        },
-                        icon: Image.network(meal.strMealThumb ?? '')),
+                      onPressed: () {
+                        if (meal.idMeal != null && meal.idMeal!.isNotEmpty) {
+                          Get.toNamed(
+                            Routes.MEAL,
+                            parameters: {'id': meal.idMeal ?? ''},
+                          );
+                        }
+                      },
+                      icon: Image.network(meal.strMealThumb ?? ''),
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

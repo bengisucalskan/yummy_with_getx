@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/feature/home/controller/home_controller.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -8,24 +9,17 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(Icons.arrow_back_ios)),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          title: const Text(
-            'Notification',
-            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-          ),
-        ),
-        body: SingleChildScrollView(
+      appBar: CustomAppBar(
+        title: 'Notification',
+        onBackPressed: () => Get.back(),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: context.paddingNormal,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _notificationTitle(text: 'New'),
+              _notificationTitle(context, text: 'New'),
               _notificationCard(
                 title: 'Order canceled!',
                 iconData: Icons.cancel,
@@ -33,7 +27,7 @@ class NotificationScreen extends StatelessWidget {
                 description:
                     'You have canceled an order at Burger Hut. We apologize for your inconvenience. We will try to improve our service next time.',
               ),
-              _notificationTitle(text: 'Old'),
+              _notificationTitle(context, text: 'Old'),
               _notificationCard(
                 title: 'Order Success',
                 iconData: Icons.check_circle,
@@ -43,13 +37,15 @@ class NotificationScreen extends StatelessWidget {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
-Widget _notificationTitle({String? text}) {
+Widget _notificationTitle(BuildContext context, {String? text}) {
   return Padding(
-    padding: const EdgeInsets.all(20),
+    padding: context.paddingNormal,
     child: Text(
       text ?? '',
       style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
@@ -58,7 +54,6 @@ Widget _notificationTitle({String? text}) {
 }
 
 Widget _notificationCard(
-    // buradaki title subtitle hizalamasını ayarlayamadım. ve siparişler  bildirimleri neye göre gelecek?
     {required String title,
     required IconData iconData,
     required Color color,

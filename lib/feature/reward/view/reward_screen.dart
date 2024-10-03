@@ -2,8 +2,10 @@ import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/controller/meal_controller.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class RewardScreen extends GetView<MealController> {
@@ -14,22 +16,18 @@ class RewardScreen extends GetView<MealController> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          title: const Text(
-            'Exchange Rewards',
-            style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-          ),
+        appBar: const CustomAppBar(
+          title: 'Exchange Rewards',
+          showBackButton: false,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
+        body: Padding(
+          padding: context.paddingNormal,
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: context.paddingNormal,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(15),
@@ -42,9 +40,8 @@ class RewardScreen extends GetView<MealController> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 16),
+                      context.sizedBoxlow,
                       Stack(
-                        // o grafiği yapamadım
                         children: [
                           Container(
                             height: 10,
@@ -59,33 +56,35 @@ class RewardScreen extends GetView<MealController> {
                               height: 10,
                               width: 80,
                               decoration: BoxDecoration(
-                                color: Color(0xff332C45),
+                                color: const Color(0xff332C45),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
+                      context.sizedBoxlow,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Text(
                                 '20',
                                 style: TextStyle(
                                   fontSize: 24,
-                                  color: Color(0xffF87146),
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              SizedBox(width: context.lowValue),
                               Text(
                                 'yummy',
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Color(0xffF87146),
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
                                 ),
                               ),
                             ],
@@ -95,7 +94,7 @@ class RewardScreen extends GetView<MealController> {
                             icon: const Icon(Icons.card_giftcard),
                             label: const Text('Exchange'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff332C45),
+                              backgroundColor: const Color(0xff332C45),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -106,14 +105,14 @@ class RewardScreen extends GetView<MealController> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
-                // QR Code Section
+                context.sizedBoxlow,
+                // QR
                 Container(
-                  padding: const EdgeInsets.all(16),
-                  child: const Row(
+                  padding: context.paddingNormal,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
@@ -123,30 +122,30 @@ class RewardScreen extends GetView<MealController> {
                           ),
                         ],
                       ),
-                      //Verticaldivider koydum ekrana gelmedi
                       Icon(
                         Icons.qr_code_scanner,
-                        color: Color(0xffF87146),
+                        color: Theme.of(context).colorScheme.onTertiary,
                         size: 48,
                       )
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                context.sizedBoxlow,
 
                 const Text(
                   'Exchange Categories',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 16),
+                context.sizedBoxlow,
+
                 // Tab Bar için yapı
                 ButtonsTabBar(
-                  backgroundColor: Color(0xFF332C45),
-                  unselectedBackgroundColor: Color(0xFFE8E8E8),
-                  unselectedLabelStyle: TextStyle(color: Color(0xFF332C45)),
+                  backgroundColor: const Color(0xFF332C45),
+                  unselectedBackgroundColor: const Color(0xFFE8E8E8),
+                  unselectedLabelStyle:
+                      const TextStyle(color: Color(0xFF332C45)),
                   radius: 20,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                  // rengi niye değişmiyo
                   labelStyle: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   tabs: const [
@@ -164,21 +163,22 @@ class RewardScreen extends GetView<MealController> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                context.sizedBoxlow,
 
                 // Tab Bar View
                 SizedBox(
-                  height: 200.h, // burası düzelmedi bunu düzelt
+                  height: 300.h,
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      _shopCard(),
-                      _shopCard(),
-                      _shopCard(),
-                      _shopCard(),
+                      _shopCard(context),
+                      _shopCard(context),
+                      _shopCard(context),
+                      _shopCard(context),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                context.sizedBoxlow,
               ],
             ),
           ),
@@ -188,16 +188,19 @@ class RewardScreen extends GetView<MealController> {
   }
 }
 
-Widget _shopCard() {
+Widget _shopCard(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.all(10),
+    padding: context.paddingNormal,
     child: ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: 10,
       itemBuilder: (context, index) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: EdgeInsets.symmetric(
+            horizontal: context.lowValue,
+            vertical: context.lowValue,
+          ),
           decoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
           ),

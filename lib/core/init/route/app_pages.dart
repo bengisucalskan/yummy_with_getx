@@ -25,8 +25,6 @@ import 'package:getx_architecture_template/feature/home/view/base_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/home_screen.dart';
 import 'package:getx_architecture_template/feature/login/binding/login_binding.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
-import 'package:getx_architecture_template/feature/login/view/signin_screen.dart';
-import 'package:getx_architecture_template/feature/login/view/signup_screen.dart';
 import 'package:getx_architecture_template/feature/splash/binding/splash_binding.dart';
 import 'package:getx_architecture_template/feature/splash/view/splash_screen.dart';
 

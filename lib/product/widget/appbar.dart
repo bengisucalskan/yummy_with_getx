@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback? onBackPressed;
+  final bool showBackButton;
 
-import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../core/constants/image/images.dart';
-
-class AppBarWidget extends StatelessWidget {
-  const AppBarWidget({super.key, this.leftIcon, this.title, this.rightIcon});
-
-  final Widget? leftIcon;
-  final Widget? title;
-  final Widget? rightIcon;
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.onBackPressed,
+    this.showBackButton =
+        true, // Varsayılan olarak geri butonu gösterilecek false yaparsam gelmeyecek
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 1.w),
-        margin: EdgeInsets.only(bottom: 0.25.h),
-        height: 7.h,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            leftIcon ??
-                IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: Image.asset(AppImages.instance.backButton,
-                        height: 1.5.h, color: Colors.black87)),
-            title ?? const Text(""),
-            rightIcon ??
-                Container(
-                  width: 10.w,
-                ),
-          ],
-        ),
+    return AppBar(
+      leading: showBackButton
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: onBackPressed,
+            )
+          : null, // Geri butonunu gösterme seçeneği
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

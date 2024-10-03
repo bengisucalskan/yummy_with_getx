@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/feature/home/home_details/meal/controller/meal_controller.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/controller/reviews_controller.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 
-class ReviewsScreen extends GetView<ReviewsController> {
+class ReviewsScreen extends GetWidget<ReviewsController> {
   const ReviewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reviews'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back();
-          },
-        ),
+      appBar: CustomAppBar(
+        title: 'Reviews',
+        onBackPressed: () => Get.back(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Puanlama kısmı
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: context.paddingNormal,
             child: Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: context.paddingNormal,
               decoration: BoxDecoration(
                 color: const Color(0xffF2F2F2),
                 borderRadius: BorderRadius.circular(15),
@@ -49,13 +45,12 @@ class ReviewsScreen extends GetView<ReviewsController> {
                       Icon(Icons.star_half, color: Colors.amber, size: 32),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  context.sizedBoxlow,
                   const Text(
                     '(7 Reviews)',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
-                  const SizedBox(height: 16),
-                  // Yıldız dağılımı
+                  context.sizedBoxMedium,
                   _buildRatingBar(5, 80),
                   _buildRatingBar(4, 60),
                   _buildRatingBar(3, 30),
@@ -67,11 +62,11 @@ class ReviewsScreen extends GetView<ReviewsController> {
           ),
           // Filtre ve sıralama kısmı
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: context.paddingNormalHorizontal,
             child: Row(
               children: [
                 _buildDropdownButton(),
-                const SizedBox(width: 8),
+                context.sizedBoxlow,
                 ElevatedButton.icon(
                   onPressed: () {
                     // Sıralama işlevi
@@ -88,17 +83,18 @@ class ReviewsScreen extends GetView<ReviewsController> {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          context.sizedBoxMedium,
           // Yorumlar Listesi
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: context.paddingNormalHorizontal,
               itemCount: 4,
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    _buildReviewItem(),
-                    const SizedBox(height: 16),
+                    _buildReviewItem(
+                        context), // context'i burada geçiriyoruz çünkü extensionları görmüyo
+                    context.sizedBoxlow,
                   ],
                 );
               },
@@ -143,24 +139,25 @@ class ReviewsScreen extends GetView<ReviewsController> {
     );
   }
 
-  Widget _buildReviewItem() {
+  Widget _buildReviewItem(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15.0),
+      padding: context.paddingNormal,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Icon(Icons.account_circle, size: 40, color: Colors.redAccent),
-              SizedBox(width: 8),
-              Text('Alenzo Endera',
+              const Icon(Icons.account_circle,
+                  size: 40, color: Colors.redAccent),
+              context.sizedBoxlow,
+              const Text('Alenzo Endera',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              Spacer(),
-              Text('03/09/2023',
+              const Spacer(),
+              const Text('03/09/2023',
                   style: TextStyle(fontSize: 14, color: Colors.grey)),
             ],
           ),
-          const SizedBox(height: 8),
+          context.sizedBoxlow,
           Row(
             children: List.generate(5, (index) {
               return Icon(
@@ -169,7 +166,7 @@ class ReviewsScreen extends GetView<ReviewsController> {
               );
             }),
           ),
-          const SizedBox(height: 8),
+          context.sizedBoxlow,
           const Text(
             'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.',
             style: TextStyle(fontSize: 14),

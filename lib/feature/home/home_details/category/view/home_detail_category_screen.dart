@@ -1,32 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home/home_details/category/controller/category_controller.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 
 class HomeDetailCategoryScreen extends GetView<CategoryController> {
   const HomeDetailCategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String category = Get.parameters['category'] ?? 'Unknown';
     //final favoriteController = Get.find<FavoriteController>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: Get.back, icon: const Icon(Icons.arrow_back_ios)),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          '$category Food',
-          style: const TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-        ),
+      appBar: CustomAppBar(
+        title: '${controller.category.value} Food',
+        onBackPressed: () => Get.back(),
       ),
       body: Obx(
         () => SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: context.paddingLow,
             child: GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/controller/meal_controller.dart';
-import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/info/view/info_screen.dart';
-import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/view/reviews_screen.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 
 class HomeDetailMealScreen extends GetView<MealController> {
@@ -35,7 +34,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   children: <Widget>[
                     // Resim ve geri butonu olan kısım
                     Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: (MediaQuery.of(context).size.width),
                       height: 300,
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -82,23 +81,20 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xff332C45),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 5,
-                      ),
+                      padding: context.paddingLow,
                     ),
                     onPressed: () {
                       // Option sayfası ama sipariş verme gibi olacak
                     },
                     child: const Text(
-                      'Add Card',
+                      'Add to Cart',
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ),
                 ),
                 // İsim ve adres bölümü
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: context.paddingNormalHorizontal,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,7 +138,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                               )),
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      SizedBox(height: context.lowValue),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -213,10 +209,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 25.0,
-                    top: 20.0,
-                  ),
+                  padding: context.paddingNormalHorizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -238,11 +231,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: context.lowValue),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: context.paddingNormalHorizontal,
                   child: SizedBox(
                     height: 40,
                     child: ListView.builder(
@@ -252,11 +243,10 @@ class HomeDetailMealScreen extends GetView<MealController> {
                         return GestureDetector(
                           onTap: () {},
                           child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 8,
+                            margin: EdgeInsets.symmetric(
+                              horizontal: context.lowValue,
                             ),
+                            padding: context.paddingLow,
                             decoration: BoxDecoration(
                               color: const Color(0xff332C45),
                               borderRadius: BorderRadius.circular(20),
@@ -279,10 +269,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                 ),
                 //senin için kısmı
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 25,
-                    top: 20,
-                  ),
+                  padding: context.paddingNormalHorizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -305,9 +292,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                  ),
+                  padding: context.paddingNormalHorizontal,
                   child: SizedBox(
                     height: 250,
                     child: ListView.builder(
@@ -316,7 +301,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: context.lowValue,
+                          ),
                           child: Column(
                             children: [
                               AppImages.instance.delicious.assetImage, //D
@@ -324,7 +311,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    //D
                                     'Pizza Hut',
                                     style: TextStyle(
                                       fontSize: 15,
@@ -381,9 +367,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   itemBuilder: (context, index) {
                     return Container(
                       color: Colors.black26,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 25,
-                        vertical: 5,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: context.paddingNormal.left,
+                        vertical: context.lowValue,
                       ),
                       child: Column(
                         children: [
@@ -392,7 +378,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                //D
                                 'Hamburger',
                                 style: TextStyle(
                                   fontSize: 15,

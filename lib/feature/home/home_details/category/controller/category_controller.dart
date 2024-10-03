@@ -6,18 +6,19 @@ class CategoryController extends GetxController {
   IHomeService homeService = HomeService();
   final RxList<Meals> mealsByCategory = <Meals>[].obs;
   final RxBool isLoading = true.obs;
+  RxString category = "".obs;
+
   @override
   void onInit() {
     super.onInit();
-    String category = Get.parameters['category'] ?? '';
-    loadMealsForCategory(category); 
+    category.value = Get.parameters['category'] ?? '';
+    loadMealsForCategory(category.value);
   }
 
   void loadMealsForCategory(String category) async {
     isLoading.value = true;
 
     var response = await homeService.fetchMealsByCategory(category);
-    print("API'den Gelen Yanıt: ${response?.data?.meals}");
     mealsByCategory.value = response?.data?.meals ?? [];
 
     isLoading.value = false;

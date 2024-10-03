@@ -12,6 +12,7 @@ class AppColors {
   final red = const Color(0xffED6461);
   final blue = const Color(0xff1377FE);
   final blue2 = const Color(0xff332C45);
+  final orange = const Color(0xffF87146);
 }
 
 abstract class IColorTheme {

@@ -24,7 +24,7 @@ class LightColor implements IColorTheme {
         secondary: color.grey,
         onSecondary: color.black,
         tertiary: color.green,
-        onTertiary: color.red,
+        onTertiary: color.orange,
         surface: color.white, // bu ne
         onSurface: color.blue2, // bu ne
         inversePrimary: color.appleBlack,

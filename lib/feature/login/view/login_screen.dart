@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/login/controller/login_controller.dart';
 import 'package:getx_architecture_template/feature/login/view/signin_screen.dart';
@@ -13,39 +14,33 @@ class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        /* appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              onPressed: () {
-                ThemeService().changeTheme();
-              },
-              icon: const Icon(Icons.change_circle)),
-        ), */
-        body: SafeArea(
-            child: Stack(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Stack(
           children: <Widget>[
             FractionallySizedBox(
               heightFactor: 1.05,
               widthFactor: 1.12,
               child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                              AppImages.instance.breakfastBackGround),
-                          fit: BoxFit.fill))),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppImages.instance.breakfastBackGround),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
             ),
             SafeArea(
-              minimum: const EdgeInsets.only(top: 160),
+              minimum: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.2),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: context.paddingNormalHorizontal,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     AppImages.instance.splashYummyLittle.assetImage,
-                    const SizedBox(height: 80),
+                    SizedBox(height: context.highValue),
                     ElevatedButton(
                       onPressed: () {
                         Get.to(SigninScreen(
@@ -53,12 +48,14 @@ class LoginScreen extends GetView<LoginController> {
                         ));
                       },
                       style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: const Color(0xFFF87146),
-                          minimumSize: const Size(double.infinity, 50)),
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xFFF87146),
+                        minimumSize: Size(double.infinity,
+                            MediaQuery.of(context).size.height * 0.07),
+                      ),
                       child: const Text('Sign in'),
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: context.lowValue),
                     const ContinueWith(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -71,8 +68,10 @@ class LoginScreen extends GetView<LoginController> {
                           onPressed: () {
                             Get.to(SignupScreen(controller: controller));
                           },
-                          child: const Text('Sign up',
-                              style: TextStyle(color: Color(0xFFF87146))),
+                          child: const Text(
+                            'Sign up',
+                            style: TextStyle(color: Color(0xFFF87146)),
+                          ),
                         ),
                       ],
                     ),
@@ -81,6 +80,8 @@ class LoginScreen extends GetView<LoginController> {
               ),
             )
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

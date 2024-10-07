@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/login/controller/login_controller.dart';
-import 'package:getx_architecture_template/feature/login/view/signin_screen.dart';
-import 'package:getx_architecture_template/feature/login/view/signup_screen.dart';
+import 'package:getx_architecture_template/feature/login/login_details/signin/view/signin_screen.dart';
+import 'package:getx_architecture_template/feature/login/login_details/signup/view/signup_screen.dart';
 import 'package:getx_architecture_template/product/widget/continue_with.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -43,9 +44,7 @@ class LoginScreen extends GetView<LoginController> {
                     SizedBox(height: context.highValue),
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(SigninScreen(
-                          controller: controller,
-                        ));
+                        Get.toNamed(Routes.SIGNIN);
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -67,7 +66,7 @@ class LoginScreen extends GetView<LoginController> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Get.to(SignupScreen(controller: controller));
+                            Get.toNamed(Routes.SIGNUP);
                           },
                           child: Text(
                             'Sign up',

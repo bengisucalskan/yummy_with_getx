@@ -23,6 +23,7 @@ class Routes {
   //meal_details
   static const INFO = '/info';
   static const REVIEWS = '/reviews';
+  static const OPTION = '/option';
 
   //
   static const FAVORITE = '/favorite';

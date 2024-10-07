@@ -76,7 +76,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                 ),
@@ -150,11 +150,15 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
               const Icon(Icons.account_circle,
                   size: 40, color: Colors.redAccent),
               context.sizedBoxlow,
-              const Text('Alenzo Endera',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text(
+                'Alenzo Endera',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
               const Spacer(),
-              const Text('03/09/2023',
-                  style: TextStyle(fontSize: 14, color: Colors.grey)),
+              const Text(
+                '03/09/2023',
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
             ],
           ),
           context.sizedBoxlow,

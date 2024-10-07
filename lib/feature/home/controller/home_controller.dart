@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/feature/home/model/category_item.dart';
@@ -14,6 +16,8 @@ class HomeController extends GetxController {
   final RxList<CategoryItem> categoryItems = <CategoryItem>[].obs;
   final RxInt tabIndex = 0.obs;
   final RxList<String?> uniqueCountries = <String>[].obs;
+  late ReceivePort receivePort;
+  late Isolate randomIsolate, categoryIsolate, areaIsolate;
 
   @override
   void onInit() {

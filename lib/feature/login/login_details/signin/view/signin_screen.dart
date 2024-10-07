@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
-import 'package:getx_architecture_template/feature/login/controller/login_controller.dart';
-import 'package:getx_architecture_template/feature/login/view/signup_screen.dart';
+import 'package:getx_architecture_template/feature/login/login_details/signin/controller/signin_controller.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 import 'package:getx_architecture_template/product/widget/continue_with.dart';
 
-class SigninScreen extends StatelessWidget {
-  const SigninScreen({super.key, required this.controller});
-
-  final LoginController controller;
+class SigninScreen extends GetView<SigninController> {
+  const SigninScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +28,25 @@ class SigninScreen extends StatelessWidget {
                 Padding(
                   padding: context.paddingLow,
                   child: TextField(
-                    controller: controller
-                        .phoneController, // Telefon numarası için masked text controller
+                    controller: controller.phoneController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Enter your phone number',
                       hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
-                      border: OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 209, 204, 204),
-                          width: 0.2,
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
                         ),
                       ),
                     ),
@@ -59,18 +63,25 @@ class SigninScreen extends StatelessWidget {
                       hintText: 'Enter password',
                       hintStyle: const TextStyle(color: Colors.grey),
                       filled: true,
-                      border: OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 209, 204, 204),
-                          width: 0.2,
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade400,
+                          width: 1.5,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14.0),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
                         ),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(controller.obscureText.value
                             ? Icons.visibility_off
                             : Icons.visibility),
-                        onPressed: controller.togglePasswordVisibility,
+                        onPressed: controller.passwordVisibility,
                       ),
                     ),
                     onChanged: controller.updatePassword,
@@ -107,7 +118,7 @@ class SigninScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(SignupScreen(controller: controller));
+                        Get.toNamed(Routes.SIGNUP);
                       },
                       child: Text(
                         'Sign up',

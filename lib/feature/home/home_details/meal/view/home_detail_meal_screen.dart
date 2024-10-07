@@ -9,6 +9,7 @@ import 'package:getx_architecture_template/feature/home/home_details/meal/contro
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 
 class HomeDetailMealScreen extends GetView<MealController> {
+  // bu sayfanın theme color düzelt
   const HomeDetailMealScreen({required this.id, super.key});
   final String id;
 
@@ -21,8 +22,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
         if (controller.isLoading.value) {
           // kontrolü düzelt
           return const CircleProgressBarLoading();
-        } else if (controller.mealsById.isEmpty) {
-          return const Center(child: Text('Yemek bulunamadı'));
         } else {
           final meal = controller.mealsById.first;
           return SingleChildScrollView(
@@ -34,7 +33,6 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   children: <Widget>[
                     // Resim ve geri butonu olan kısım
                     Container(
-                      width: (MediaQuery.of(context).size.width),
                       height: 300,
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -84,7 +82,10 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       padding: context.paddingLow,
                     ),
                     onPressed: () {
-                      // Option sayfası ama sipariş verme gibi olacak
+                      Get.toNamed(
+                        Routes.OPTION,
+                        parameters: {'id': meal.idMeal ?? ''},
+                      );
                     },
                     child: const Text(
                       'Add to Cart',
@@ -267,7 +268,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                     ),
                   ),
                 ),
-                //senin için kısmı
+                //for you kısmı
                 Padding(
                   padding: context.paddingNormalHorizontal,
                   child: Row(

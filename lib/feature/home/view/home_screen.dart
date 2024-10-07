@@ -10,7 +10,6 @@ import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/view/home_area_screen.dart';
 import 'package:getx_architecture_template/feature/home/view/home_category_screen.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
-import 'package:getx_architecture_template/product/widget/drawer.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({super.key});
@@ -99,7 +98,7 @@ class HomeScreen extends GetView<HomeController> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -157,8 +156,11 @@ class HomeScreen extends GetView<HomeController> {
                             const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.location_on_outlined,
-                                    size: 20, color: Colors.grey),
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  size: 20,
+                                  color: Colors.grey,
+                                ),
                                 SizedBox(width: 4),
                                 Text(
                                   'Elisandra Restaurant',
@@ -201,7 +203,8 @@ class HomeScreen extends GetView<HomeController> {
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         border: Border(
-                            bottom: BorderSide(color: Colors.grey.shade300)),
+                          bottom: BorderSide(color: Colors.grey.shade300),
+                        ),
                       ),
                       child: Column(
                         children: [
@@ -223,7 +226,9 @@ class HomeScreen extends GetView<HomeController> {
                                   const Text(
                                     '1.5 km | ⭐ 4.8 (1.2k)',
                                     style: TextStyle(
-                                        fontSize: 13, color: Colors.grey),
+                                      fontSize: 13,
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                   IconButton(
                                       onPressed: () {},
@@ -311,7 +316,6 @@ class HomeScreen extends GetView<HomeController> {
           : controller.category.value?.meals?.length ?? 0,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
-        childAspectRatio: 1,
       ),
       itemBuilder: (context, index) {
         final item = controller.categoryItems[index];
@@ -327,9 +331,13 @@ class HomeScreen extends GetView<HomeController> {
                 });
               },
             ),
-            Text(controller.category.value?.meals?[index].strCategory ?? '',
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+            Text(
+              controller.category.value?.meals?[index].strCategory ?? '',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            )
           ],
         );
       },
@@ -348,14 +356,19 @@ class HomeScreen extends GetView<HomeController> {
                   Text(
                     '${controller.random.value?.meals?[0].strCategory ?? ''} of the day',
                     style: const TextStyle(
-                        fontSize: 20.0, fontWeight: FontWeight.bold),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.MEAL, parameters: {
-                        'id': controller.random.value?.meals?[0].idMeal ?? ''
-                      });
+                      Get.toNamed(
+                        Routes.MEAL,
+                        parameters: {
+                          'id': controller.random.value?.meals?[0].idMeal ?? '',
+                        },
+                      );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
@@ -374,7 +387,7 @@ class HomeScreen extends GetView<HomeController> {
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -388,67 +401,70 @@ Widget _shopCard({
   void Function(int index)? onPressed,
 }) {
   return Padding(
-      padding: const EdgeInsets.only(
-        left: 10,
-      ),
-      child: SizedBox(
-        height: 250,
-        child: meals.isNotEmpty
-            ? ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      children: [
-                        IconButton(
-                          icon: Image.asset(AppImages.instance.discount),
-                          onPressed: () => onPressed?.call(index),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              meals[index].strArea ?? '',
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
+    padding: const EdgeInsets.only(
+      left: 10,
+    ),
+    child: SizedBox(
+      height: 250,
+      child: meals.isNotEmpty
+          ? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      IconButton(
+                        icon: Image.asset(AppImages.instance.discount),
+                        onPressed: () => onPressed?.call(index),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            meals[index].strArea ?? '',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                const Text(
-                                  '1.5 km | ⭐ 4.8 (1.2k)',
-                                  style: TextStyle(
-                                      fontSize: 13, color: Colors.grey),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              const Text(
+                                '1.5 km | ⭐ 4.8 (1.2k)',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey,
                                 ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.favorite_border_sharp,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onTertiary,
-                                    )),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-              )
-            : const Center(
-                child: Text(
-                  'No meals available',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.favorite_border_sharp,
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
+          : const Center(
+              child: Text(
+                'No meals available',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-      ));
+            ),
+    ),
+  );
 }
 
 Widget _shopTitle({required void Function()? onPressed, String? text}) {
@@ -471,7 +487,7 @@ Widget _shopTitle({required void Function()? onPressed, String? text}) {
             color: Colors.grey,
             size: 19,
           ),
-        )
+        ),
       ],
     ),
   );

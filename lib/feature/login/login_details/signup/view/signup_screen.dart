@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
-import 'package:getx_architecture_template/feature/login/controller/login_controller.dart';
+import 'package:getx_architecture_template/feature/login/login_details/signup/controller/signup_controller.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 import 'package:getx_architecture_template/product/widget/continue_with.dart';
 
-class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key, required this.controller});
-
-  final LoginController controller;
+class SignupScreen extends GetView<SignupController> {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +44,16 @@ class SignupScreen extends StatelessWidget {
                 _signUpTextField(
                   hintText: 'Enter password',
                   onChanged: (value) {},
-                  obscureText: controller.obscureText1,
-                  togglePasswordVisibility:
-                      controller.togglePasswordVisibility1,
+                  obscureText: controller.obscureText,
+                  togglePasswordVisibility: controller.passwordVisibility,
                 ),
                 SizedBox(height: context.lowValue),
-                _signUpText(text: 'Password'),
+                _signUpText(text: 'Confirm Password'),
                 _signUpTextField(
                   hintText: 'Enter password',
                   onChanged: (value) {},
-                  obscureText: controller.obscureText2,
-                  togglePasswordVisibility:
-                      controller.togglePasswordVisibility2,
+                  obscureText: controller.obscureText1,
+                  togglePasswordVisibility: controller.passwordVisibility2,
                 ),
                 const Text(
                   'By clicking Create account, you agree to the system\'s ',
@@ -114,11 +110,18 @@ Widget _signUpTextField({
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey),
         filled: true,
-        border: OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14.0),
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 209, 204, 204),
-            width: 0.2,
+          borderSide: BorderSide(
+            color: Colors.grey.shade400,
+            width: 1.5,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14.0),
+          borderSide: BorderSide(
+            color: Colors.black,
+            width: 1.0,
           ),
         ),
         suffixIcon: obscureText != null

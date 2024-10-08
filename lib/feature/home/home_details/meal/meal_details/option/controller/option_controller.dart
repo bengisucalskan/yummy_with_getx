@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/feature/home/home_details/cart/controller/cart_controller.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/service/home_service.dart';
 
@@ -29,5 +30,14 @@ class OptionController extends GetxController {
       print("API'den gelen meals verisi null.");
     }
     isLoading.value = false;
+  }
+
+  void addToCart(Meals meal) {
+    try {
+      final CartController cartController = Get.put(CartController());
+      cartController.addToCart(meal);
+    } catch (e) {
+      print("Error adding to cart: $e");
+    }
   }
 }

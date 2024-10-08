@@ -15,7 +15,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteController = Get.find<FavoriteController>();
+    //final favoriteController = Get.find<FavoriteController>();
 
     return Scaffold(
       body: Obx(() {
@@ -116,7 +116,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           ),
                           IconButton(
                               onPressed: () {
-                                if (favoriteController.isFavorite(meal)) {
+                                /* if (favoriteController.isFavorite(meal)) {
                                   favoriteController.removeFromFavorites(meal);
                                   Get.snackbar(
                                     'Favorite',
@@ -126,17 +126,19 @@ class HomeDetailMealScreen extends GetView<MealController> {
                                   favoriteController.addToFavorites(meal);
                                   Get.snackbar(
                                       'Favorite', 'Added to favorites!');
-                                }
+                                }*/
                               },
-                              icon: Icon(
-                                favoriteController.isFavorite(meal)
+                              icon: Icon(Icons.favorite
+
+                                  /* favoriteController.isFavorite(meal)
                                     ? Icons.favorite // Favori ise dolu kalp
                                     : Icons
                                         .favorite_border, // Favori değilse boş kalp
                                 color: favoriteController.isFavorite(meal)
                                     ? Colors.red // Favori ise kırmızı renk
                                     : Colors.grey, // Favori değilse gri renk
-                              )),
+                              */
+                                  )),
                         ],
                       ),
                       SizedBox(height: context.lowValue),

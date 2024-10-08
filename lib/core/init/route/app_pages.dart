@@ -31,6 +31,10 @@ import 'package:getx_architecture_template/feature/login/login_details/signin/vi
 import 'package:getx_architecture_template/feature/login/login_details/signup/binding/signup_binding.dart';
 import 'package:getx_architecture_template/feature/login/login_details/signup/view/signup_screen.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
+import 'package:getx_architecture_template/feature/order/binding/order_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/order_detail/binding/order_detail_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/order_detail/view/order_detail_screen.dart';
+import 'package:getx_architecture_template/feature/order/view/order_screen.dart';
 import 'package:getx_architecture_template/feature/splash/binding/splash_binding.dart';
 import 'package:getx_architecture_template/feature/splash/view/splash_screen.dart';
 
@@ -132,17 +136,31 @@ class AppPages {
       binding: ReviewsBinding(),
       transition: Transition.rightToLeftWithFade,
     ),
-
+    GetPage(
+      name: Routes.OPTION,
+      page: () => const OptionScreen(id: 'id'),
+      binding: OptionBinding(),
+      transition: Transition.rightToLeftWithFade,
+    ),
+    //Fav
     GetPage(
       name: Routes.FAVORITE,
       page: () => const FavoriteScreen(),
       binding: FavoriteBinding(),
       transition: Transition.rightToLeftWithFade,
     ),
+    // order
     GetPage(
-      name: Routes.OPTION,
-      page: () => const OptionScreen(id: 'id'),
-      binding: OptionBinding(),
+      name: Routes.ORDER,
+      page: () => const OrderScreen(),
+      binding: OrderBinding(),
+      transition: Transition.rightToLeftWithFade,
+    ),
+    //order_detail
+    GetPage(
+      name: Routes.ORDER_DETAIL,
+      page: () => const OrderDetailScreen(),
+      binding: OrderDetailBinding(),
       transition: Transition.rightToLeftWithFade,
     ),
   ];

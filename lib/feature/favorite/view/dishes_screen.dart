@@ -10,9 +10,9 @@ class DishesScreen extends GetView<FavoriteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        if (controller.favoriteMeals.isEmpty) {
+        /*  if (controller.favoriteMeals.isEmpty) {
           return const Center(child: Text('No favorites added.'));
-        }
+        }*/
         return Padding(
           padding: const EdgeInsets.all(8),
           child: ListView.builder(
@@ -23,8 +23,10 @@ class DishesScreen extends GetView<FavoriteController> {
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
-                  border:
-                      Border(bottom: BorderSide(color: Colors.grey.shade300)),
+                  border: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.secondary),
+                  ),
                 ),
                 child: Row(
                   children: [
@@ -67,14 +69,19 @@ class DishesScreen extends GetView<FavoriteController> {
                     Column(
                       children: [
                         IconButton(
-                            icon: const Icon(Icons.favorite,
-                                color: Color.fromARGB(255, 216, 115, 69)),
+                            icon: Icon(
+                              Icons.favorite,
+                              color: Theme.of(context).colorScheme.onTertiary,
+                            ),
                             onPressed: () {
                               controller.removeFromFavorites(meal);
                             }),
                         const SizedBox(height: 16),
-                        const Icon(Icons.arrow_forward_ios,
-                            color: Colors.grey, size: 16),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.grey,
+                          size: 16,
+                        ),
                       ],
                     )
                   ],

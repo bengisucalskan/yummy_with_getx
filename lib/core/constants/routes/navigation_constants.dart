@@ -27,6 +27,9 @@ class Routes {
 
   //
   static const FAVORITE = '/favorite';
-  static const ORDER = '/order';
   static const REWARD = '/reward';
+
+  //
+  static const ORDER = '/order';
+  static const ORDER_DETAIL = '/order_detail';
 }

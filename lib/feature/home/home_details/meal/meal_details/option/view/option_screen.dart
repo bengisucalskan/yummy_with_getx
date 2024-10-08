@@ -7,8 +7,9 @@ import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 
+// ignore: public_member_api_docs
 class OptionScreen extends GetView<OptionController> {
-  const OptionScreen({super.key, required this.id});
+  const OptionScreen({required this.id, super.key});
   final String id;
 
   @override
@@ -16,7 +17,7 @@ class OptionScreen extends GetView<OptionController> {
     return Scaffold(
         appBar: CustomAppBar(
           title: 'Option',
-          onBackPressed: () => Get.back(),
+          onBackPressed: Get.back,
         ),
         body: Obx(() {
           if (controller.isLoading.value) {
@@ -41,7 +42,7 @@ class OptionScreen extends GetView<OptionController> {
                     _buildSizeSelector(context),
                     _buildToppingSelector(context, meal),
                     _buildNotesSection(context),
-                    _buildAddToCartButton(context),
+                    _buildAddToCartButton(context, meal),
                   ],
                 ),
               ),
@@ -174,6 +175,7 @@ class OptionScreen extends GetView<OptionController> {
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.tertiary,
         ),
+        checkmarkColor: Colors.white,
       );
     });
   }
@@ -245,7 +247,8 @@ class OptionScreen extends GetView<OptionController> {
         TextField(
           decoration: InputDecoration(
             hintText: 'Do you have something to say to the restaurant?',
-            hintStyle: TextStyle(color: Colors.grey[600]),
+            hintStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             filled: true,
             fillColor: Colors.grey[200],
             border: OutlineInputBorder(
@@ -261,12 +264,14 @@ class OptionScreen extends GetView<OptionController> {
     );
   }
 
-  Widget _buildAddToCartButton(BuildContext context) {
+  Widget _buildAddToCartButton(BuildContext context, Meals meal) {
     return Padding(
       padding: context.paddingNormalVertical,
       child: Center(
         child: ElevatedButton(
           onPressed: () {
+            controller.addToCart(meal);
+
             Get.toNamed(Routes.CART);
           },
           style: ElevatedButton.styleFrom(

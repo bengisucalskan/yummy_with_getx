@@ -33,7 +33,8 @@ class SigninScreen extends GetView<SigninController> {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       hintText: 'Enter your phone number',
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),
@@ -61,7 +62,8 @@ class SigninScreen extends GetView<SigninController> {
                     obscureText: controller.obscureText.value,
                     decoration: InputDecoration(
                       hintText: 'Enter password',
-                      hintStyle: const TextStyle(color: Colors.grey),
+                      hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),

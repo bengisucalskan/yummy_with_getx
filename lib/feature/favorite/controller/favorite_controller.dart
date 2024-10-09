@@ -9,7 +9,7 @@ class FavoriteController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadFavorites(); // Uygulama açılınca fav yükle
+    loadFavorites();
   }
 
   void addToFavorites(Meals meal) async {
@@ -22,12 +22,12 @@ class FavoriteController extends GetxController {
   }
 
   void removeFromFavorites(Meals meal) async {
-    favoriteMeals.remove(meal);
+    favoriteMeals.removeWhere((favMeal) => favMeal.idMeal == meal.idMeal);
     await saveFavorites();
   }
 
   bool isFavorite(Meals meal) {
-    return favoriteMeals.contains(meal);
+    return favoriteMeals.any((favMeal) => favMeal.idMeal == meal.idMeal);
   }
 
   Future<void> saveFavorites() async {

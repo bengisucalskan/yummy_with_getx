@@ -55,9 +55,10 @@ class SignupScreen extends GetView<SignupController> {
                   obscureText: controller.obscureText1,
                   togglePasswordVisibility: controller.passwordVisibility2,
                 ),
-                const Text(
+                Text(
                   'By clicking Create account, you agree to the system\'s ',
-                  style: TextStyle(color: Colors.grey),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                 ),
                 SizedBox(height: context.lowValue),
                 TextButton(

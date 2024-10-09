@@ -15,12 +15,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
 
   @override
   Widget build(BuildContext context) {
-    //final favoriteController = Get.find<FavoriteController>();
-
     return Scaffold(
       body: Obx(() {
         if (controller.isLoading.value) {
-          // kontrolü düzelt
           return const CircleProgressBarLoading();
         } else {
           final meal = controller.mealsById.first;
@@ -115,30 +112,18 @@ class HomeDetailMealScreen extends GetView<MealController> {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {
-                                /* if (favoriteController.isFavorite(meal)) {
-                                  favoriteController.removeFromFavorites(meal);
-                                  Get.snackbar(
-                                    'Favorite',
-                                    'Removed from favorites!',
-                                  );
-                                } else {
-                                  favoriteController.addToFavorites(meal);
-                                  Get.snackbar(
-                                      'Favorite', 'Added to favorites!');
-                                }*/
-                              },
-                              icon: Icon(Icons.favorite
-
-                                  /* favoriteController.isFavorite(meal)
-                                    ? Icons.favorite // Favori ise dolu kalp
-                                    : Icons
-                                        .favorite_border, // Favori değilse boş kalp
-                                color: favoriteController.isFavorite(meal)
-                                    ? Colors.red // Favori ise kırmızı renk
-                                    : Colors.grey, // Favori değilse gri renk
-                              */
-                                  )),
+                            onPressed: () {
+                              controller.toggleFavorite(meal);
+                            },
+                            icon: Obx(() => Icon(
+                                  controller.isFavorite(meal)
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: controller.isFavorite(meal)
+                                      ? Theme.of(context).colorScheme.onTertiary
+                                      : Theme.of(context).colorScheme.secondary,
+                                )),
+                          ),
                         ],
                       ),
                       SizedBox(height: context.lowValue),
@@ -189,9 +174,11 @@ class HomeDetailMealScreen extends GetView<MealController> {
                               onPressed: () {},
                               icon: const Icon(Icons.shopping_basket_outlined,
                                   size: 16, color: Colors.black45)),
-                          const Text(
+                          Text(
                             '99+ orders',
-                            style: TextStyle(fontSize: 13, color: Colors.grey),
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: Theme.of(context).colorScheme.secondary),
                           ),
                           const Spacer(),
                           GestureDetector(
@@ -225,9 +212,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_forward_ios,
-                          color: Colors.grey,
+                          color: context.colorScheme.secondary,
                           size: 19,
                         ),
                       )
@@ -254,12 +241,12 @@ class HomeDetailMealScreen extends GetView<MealController> {
                               color: Theme.of(context).colorScheme.tertiary,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: const Center(
+                            child: Center(
                               //D
                               child: Text(
                                 'aaaa',
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: context.colorScheme.secondary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -285,9 +272,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       ),
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_forward_ios,
-                          color: Colors.grey,
+                          color: context.colorScheme.secondary,
                           size: 19,
                         ),
                       )
@@ -324,19 +311,18 @@ class HomeDetailMealScreen extends GetView<MealController> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
-                                      const Text(
+                                      Text(
                                         '1.5 km | ⭐ 4.8 (1.2k)',
                                         style: TextStyle(
                                           fontSize: 13,
-                                          color: Colors.grey,
+                                          color: context.colorScheme.secondary,
                                         ),
                                       ),
                                       IconButton(
                                         onPressed: () {},
-                                        icon: const Icon(
+                                        icon: Icon(
                                           Icons.favorite_border_sharp,
-                                          color:
-                                              Color.fromARGB(255, 216, 115, 69),
+                                          color: context.colorScheme.onTertiary,
                                         ),
                                       ),
                                     ],
@@ -369,9 +355,8 @@ class HomeDetailMealScreen extends GetView<MealController> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Container(
-                      color: Colors.black26,
                       margin: EdgeInsets.symmetric(
-                        horizontal: context.paddingNormal.left,
+                        horizontal: 25,
                         vertical: context.lowValue,
                       ),
                       child: Column(
@@ -391,18 +376,18 @@ class HomeDetailMealScreen extends GetView<MealController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  const Text(
+                                  Text(
                                     '1.5 km | ⭐ 4.8 (1.2k)',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: Colors.grey,
+                                      color: context.colorScheme.secondary,
                                     ),
                                   ),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: const Icon(
+                                    icon: Icon(
                                       Icons.favorite_border_sharp,
-                                      color: Color.fromARGB(255, 216, 115, 69),
+                                      color: context.colorScheme.onTertiary,
                                     ),
                                   ),
                                 ],

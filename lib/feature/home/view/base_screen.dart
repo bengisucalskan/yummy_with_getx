@@ -6,6 +6,7 @@ import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/favorite/view/favorite_screen.dart';
 import 'package:getx_architecture_template/feature/home/controller/home_controller.dart';
 import 'package:getx_architecture_template/feature/home/view/home_screen.dart';
+import 'package:getx_architecture_template/feature/order/view/order_screen.dart';
 import 'package:getx_architecture_template/feature/reward/view/reward_screen.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 import 'package:getx_architecture_template/product/widget/drawer.dart';
@@ -56,7 +57,7 @@ class BaseScreen extends GetView<HomeController> {
       case 1:
         return const FavoriteScreen();
       case 2:
-        return const HomeScreen();
+        return const OrderScreen();
       case 3:
         return const RewardScreen();
       default:
@@ -89,6 +90,11 @@ class BaseScreen extends GetView<HomeController> {
       case 1:
         return const CustomAppBar(
           title: 'Favorite List',
+          showBackButton: false,
+        );
+      case 2:
+        return const CustomAppBar(
+          title: 'Order',
           showBackButton: false,
         );
       case 3:

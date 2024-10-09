@@ -15,8 +15,7 @@ class InfoScreen extends GetView<InfoController> {
           onBackPressed: () => Get.back(),
         ),
         body: Padding(
-          padding: context
-              .paddingNormal, // Burada context'ten paddingNormal kullanıyoz
+          padding: context.paddingNormal,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,20 +23,19 @@ class InfoScreen extends GetView<InfoController> {
                 height: 130,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: context.colorScheme.secondary,
                     borderRadius: BorderRadius.circular(15)),
                 child: const Icon(Icons.home, size: 50),
               ),
-              context.sizedBoxlow, // SizedBox yerine sizedBoxlow k
+              context.sizedBoxlow,
               Row(
                 children: [
                   const Icon(Icons.location_on),
-                  SizedBox(
-                      width: context
-                          .lowValue), // Boş alan için context ile lowValue
-                  const Text(
+                  SizedBox(width: context.lowValue),
+                  Text(
                     'NYC, Broadway ave 79',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 16, color: context.colorScheme.secondary),
                   ),
                 ],
               ),
@@ -47,9 +45,10 @@ class InfoScreen extends GetView<InfoController> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               context.sizedBoxlow,
-              const Text(
+              Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 14, color: context.colorScheme.secondary),
               ),
               context.sizedBoxlow,
               GestureDetector(

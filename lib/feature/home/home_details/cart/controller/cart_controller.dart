@@ -13,9 +13,16 @@ class CartController extends GetxController {
   }
 
   Future<void> addToCart(Meals meal) async {
-    cartItems.add(meal);
-    await saveCartItems();
-    print('Meal added and saved');
+    if (!cartItems.any((item) => item.idMeal == meal.idMeal)) {
+      cartItems.add(meal);
+      await Future.delayed(const Duration(
+          milliseconds:
+              100)); // aksi halde cart screen yenilenmiyordu ondan ekledim
+      await saveCartItems();
+      print('Meal added and saved');
+    } else {
+      Get.snackbar("Warning", "This meal is already in your cart.");
+    }
   }
 
   Future<void> removeFromCart(int index) async {
@@ -43,7 +50,6 @@ class CartController extends GetxController {
   Future<void> saveCartItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // JSON list olarak verileri string'e dönüştür
     List<Map<String, dynamic>> jsonList =
         cartItems.map((item) => item.toJson()).toList();
 

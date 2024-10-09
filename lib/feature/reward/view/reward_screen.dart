@@ -213,9 +213,11 @@ Widget _shopCard(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text(
+                      Text(
                         '1.5 km | ⭐ 4.8 (1.2k)',
-                        style: TextStyle(fontSize: 13, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Theme.of(context).colorScheme.secondary),
                       ),
                       IconButton(
                         onPressed: () {},

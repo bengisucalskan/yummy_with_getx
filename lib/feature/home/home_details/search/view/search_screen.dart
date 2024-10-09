@@ -24,7 +24,8 @@ class SearchScreen extends StatelessWidget {
 
           decoration: InputDecoration(
             hintText: 'What are you yearning for?',
-            hintStyle: const TextStyle(color: Colors.grey),
+            hintStyle:
+                TextStyle(color: Theme.of(context).colorScheme.secondary),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
               borderSide: BorderSide.none,

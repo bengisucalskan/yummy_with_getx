@@ -46,9 +46,10 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
                     ],
                   ),
                   context.sizedBoxlow,
-                  const Text(
+                  Text(
                     '(7 Reviews)',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 16, color: context.colorScheme.secondary),
                   ),
                   context.sizedBoxMedium,
                   _buildRatingBar(5, 80, context),
@@ -147,17 +148,18 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
         children: [
           Row(
             children: [
-              const Icon(Icons.account_circle,
-                  size: 40, color: Colors.redAccent),
+              Icon(Icons.account_circle,
+                  size: 40, color: context.colorScheme.onTertiary),
               context.sizedBoxlow,
               const Text(
                 'Alenzo Endera',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              const Text(
+              Text(
                 '03/09/2023',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 14, color: context.colorScheme.secondary),
               ),
             ],
           ),

@@ -21,7 +21,6 @@ class OptionScreen extends GetView<OptionController> {
         ),
         body: Obx(() {
           if (controller.isLoading.value) {
-            // kontrolü düzelt
             return const CircleProgressBarLoading();
           } else {
             final meal = controller.mealsById.first;

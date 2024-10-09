@@ -23,7 +23,7 @@ class HomeScreen extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSearchField(),
+              _buildSearchField(context),
               const Padding(
                 padding: EdgeInsets.only(
                   left: 16,
@@ -76,12 +76,21 @@ class HomeScreen extends GetView<HomeController> {
               context.sizedBoxlow, //----------------------
               _shopTitle(
                   text: "What's delicious around here?",
-                  onPressed:
-                      () {}), // ??? dile göre o ülkenin yemekleri olsun ???
+                  onPressed: () {
+                    Get.to(HomeAreaScreen(controller: controller));
+                  }), // ??? dile göre o ülkenin yemekleri olsun ???
 
               _shopCard(
                 meals: controller.area.value?.meals ?? [],
-                onPressed: (index) {},
+                onPressed: (index) {
+                  Get.toNamed(
+                    Routes.AREA,
+                    parameters: {
+                      'country':
+                          controller.area.value?.meals?[index].strArea ?? ''
+                    },
+                  );
+                },
               ),
 
               //----------------
@@ -119,16 +128,30 @@ class HomeScreen extends GetView<HomeController> {
               //----------------------
               _shopTitle(
                 text: 'Highlights of March',
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(HomeAreaScreen(controller: controller));
+                },
               ), // martın yıldızları da tüm yemekler olabilir mesela
 
               _shopCard(
                 meals: controller.area.value?.meals ?? [],
-                onPressed: (index) {},
+                onPressed: (index) {
+                  Get.toNamed(
+                    Routes.AREA,
+                    parameters: {
+                      'country':
+                          controller.area.value?.meals?[index].strArea ?? ''
+                    },
+                  );
+                },
               ),
 
               //------------
-              _shopTitle(text: 'Nearby Restaurants', onPressed: () {}),
+              _shopTitle(
+                  text: 'Nearby Restaurants',
+                  onPressed: () {
+                    Get.to(HomeAreaScreen(controller: controller));
+                  }),
               Padding(
                 padding: const EdgeInsets.only(
                   left: 10,
@@ -153,20 +176,22 @@ class HomeScreen extends GetView<HomeController> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const Row(
+                            Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(
                                   Icons.location_on_outlined,
                                   size: 20,
-                                  color: Colors.grey,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                                 SizedBox(width: 4),
                                 Text(
                                   'Elisandra Restaurant',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.grey,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                                 ),
                               ],
@@ -203,7 +228,8 @@ class HomeScreen extends GetView<HomeController> {
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: BorderSide(color: Colors.grey.shade300),
+                          bottom: BorderSide(
+                              color: Theme.of(context).colorScheme.secondary),
                         ),
                       ),
                       child: Column(
@@ -223,11 +249,13 @@ class HomeScreen extends GetView<HomeController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  const Text(
+                                  Text(
                                     '1.5 km | ⭐ 4.8 (1.2k)',
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: Colors.grey,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                   IconButton(
@@ -256,7 +284,7 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  Widget _buildSearchField() {
+  Widget _buildSearchField(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: GestureDetector(
@@ -269,7 +297,8 @@ class HomeScreen extends GetView<HomeController> {
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
               hintText: 'What are you yearning for?',
-              hintStyle: const TextStyle(color: Colors.grey),
+              hintStyle:
+                  TextStyle(color: Theme.of(context).colorScheme.secondary),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide.none,
@@ -433,11 +462,12 @@ Widget _shopCard({
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              const Text(
+                              Text(
                                 '1.5 km | ⭐ 4.8 (1.2k)',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Colors.grey,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                               IconButton(

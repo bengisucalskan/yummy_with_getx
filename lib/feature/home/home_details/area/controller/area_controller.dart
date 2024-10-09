@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/feature/favorite/controller/favorite_mixin.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/service/home_service.dart';
 
-class AreaController extends GetxController {
+class AreaController extends GetxController with FavoriteMixin {
   IHomeService homeService = HomeService();
   final RxBool isLoading = true.obs;
   final RxList<Meals> mealsByArea = <Meals>[].obs;

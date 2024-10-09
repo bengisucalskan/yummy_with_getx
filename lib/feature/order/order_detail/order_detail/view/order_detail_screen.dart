@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
+import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/order/controller/order_controller.dart';
+import 'package:getx_architecture_template/product/widget/appbar.dart';
 
 class OrderDetailScreen extends GetView<OrderController> {
   const OrderDetailScreen({Key? key}) : super(key: key);
@@ -9,18 +13,9 @@ class OrderDetailScreen extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back_ios)),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'Order',
-          style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
-        ),
+      appBar: CustomAppBar(
+        title: 'Order',
+        onBackPressed: Get.back,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,9 +38,11 @@ class OrderDetailScreen extends GetView<OrderController> {
                     Positioned(
                       top: 10,
                       left: 10,
-                      child: Icon(Icons.location_on,
-                          size: 30,
-                          color: Theme.of(context).colorScheme.tertiary),
+                      child: Icon(
+                        Icons.location_on,
+                        size: 30,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
                     ),
                   ],
                 ),
@@ -57,78 +54,59 @@ class OrderDetailScreen extends GetView<OrderController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "NYC, Broadway Ave",
+                      const Text(
+                        'NYC, Broadway Ave',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
-                        "0356056591",
+                        '0356056591',
                         style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).colorScheme.secondary),
+                          fontSize: 14,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
                       ),
                     ],
                   ),
-                  Icon(Icons.arrow_forward_ios, color: Colors.black54),
+                  const Icon(Icons.arrow_forward_ios, color: Colors.black54),
                 ],
               ),
               context.sizedBoxMedium,
               // Ürün Listesi
               _buildOrderItem(
-                  context, "Hamburger", "Relaxing Hamburger", "\$12.00"),
+                context,
+                'Hamburger',
+                'Relaxing Hamburger',
+                r'$12.00',
+              ),
               context.sizedBoxlow,
               _buildOrderItem(
-                  context, "Hamburger", "Relaxing Hamburger", "\$12.00"),
-              context.sizedBoxlow,
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[200],
-                  padding: context.paddingLow,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.add, color: Colors.black),
-                    Text('Add item', style: TextStyle(color: Colors.black)),
-                  ],
-                ),
-              ),
-              context.sizedBoxMedium,
-
-              const Text(
-                "For You",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                context,
+                'Hamburger',
+                'Relaxing Hamburger',
+                r'$12.00',
               ),
               context.sizedBoxlow,
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return _buildSuggestedItem(context);
-                  },
-                ),
-              ),
-              context.sizedBoxMedium,
 
               Divider(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  thickness: 10),
+                color: Theme.of(context).colorScheme.onPrimary,
+                thickness: 10,
+              ),
 
               const Text(
-                "Checkout detail",
+                'Checkout detail',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               context.sizedBoxlow,
-              _buildCheckoutDetail(context, "Mastercard"),
+              _buildCheckoutDetail(context, 'Mastercard'),
               Divider(color: Theme.of(context).colorScheme.onPrimary),
-              _buildCheckoutDetail(context, "Enter your promotion code"),
+              _buildCheckoutDetail(context, 'Enter your promotion code'),
               Divider(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  thickness: 10),
+                color: Theme.of(context).colorScheme.onPrimary,
+                thickness: 10,
+              ),
               // Total Fiyat
               _buildTotalDetail('Merchandise Subtotal', r'$23', context),
               _buildTotalDetail(
@@ -138,19 +116,20 @@ class OrderDetailScreen extends GetView<OrderController> {
               ),
               Divider(color: Theme.of(context).colorScheme.onPrimary),
 
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total Payment",
+                    'Total Payment',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "\$24",
+                    r'$24',
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
                 ],
               ),
@@ -158,17 +137,21 @@ class OrderDetailScreen extends GetView<OrderController> {
 
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _showOrderSuccessDialog(context);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.onTertiary,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 120),
+                      vertical: 10,
+                      horizontal: 120,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   child: const Text(
-                    'Checkout',
+                    'Payment',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -180,14 +163,70 @@ class OrderDetailScreen extends GetView<OrderController> {
     );
   }
 
+  void _showOrderSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () {
+            Get.offAllNamed(Routes.BASE);
+          },
+          child: Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: context.paddingNormal,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  context.sizedBoxMedium,
+                  AppImages.instance.smilingFace.assetImage,
+                  context.sizedBoxMedium,
+                  const Text(
+                    'Ordered successfully',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  context.sizedBoxlow,
+                  Text(
+                    'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  context.sizedBoxMedium,
+                  Text(
+                    'Click anywhere to continue',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  context.sizedBoxMedium,
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildOrderItem(
-      BuildContext context, String title, String description, String price) {
+    BuildContext context,
+    String title,
+    String description,
+    String price,
+  ) {
     return Row(
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8),
           child: Image.asset(
-            'assets/images/discover.png',
+            'assets/images/discount_exm.png',
             height: 60,
             width: 60,
             fit: BoxFit.cover,
@@ -205,14 +244,17 @@ class OrderDetailScreen extends GetView<OrderController> {
               ),
               Text(
                 description,
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).colorScheme.secondary),
               ),
               Text(
                 price,
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onTertiary),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onTertiary,
+                ),
               ),
             ],
           ),
@@ -222,41 +264,6 @@ class OrderDetailScreen extends GetView<OrderController> {
           icon: const Icon(Icons.edit_outlined),
         ),
       ],
-    );
-  }
-
-  Widget _buildSuggestedItem(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              'assets/images/discover.png',
-              height: 60,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiary,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              "4% off your order",
-              style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -279,10 +286,12 @@ class OrderDetailScreen extends GetView<OrderController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
-              style: const TextStyle(
-                fontSize: 16,
-              )),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
           Text(value, style: const TextStyle(fontSize: 16)),
         ],
       ),

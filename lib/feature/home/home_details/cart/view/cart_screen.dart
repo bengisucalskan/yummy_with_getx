@@ -8,7 +8,6 @@ import 'package:getx_architecture_template/feature/home/home_details/cart/contro
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 
 class CartScreen extends GetView<CartController> {
-  // ilk tıklamada ürün gelmiyo ikinci tıklamada geliyo
   const CartScreen({super.key});
 
   @override
@@ -33,46 +32,48 @@ class CartScreen extends GetView<CartController> {
           return buildEmptyCart(context);
         } else {
           return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                children: [
-                  Expanded(
-                      child: ListView.builder(
-                          itemCount: controller.cartItems.length,
-                          itemBuilder: (context, index) {
-                            final cart = controller.cartItems[index];
-                            return buildCartItems(context, cart);
-                          })),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 11),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.onTertiary,
+            padding: context.paddingNormal,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.cartItems.length,
+                    itemBuilder: (context, index) {
+                      final cart = controller.cartItems[index];
+                      return buildCartItems(context, cart, index);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: context.paddingLowVertical,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: context.paddingLowVertical,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        onPressed: () {
-                          Get.toNamed(Routes.ORDER_DETAIL);
-                        },
-                        child: const Text(
-                          'Payment',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                        backgroundColor: context.colorScheme.onTertiary,
+                      ),
+                      onPressed: () {
+                        Get.toNamed(Routes.ORDER_DETAIL);
+                      },
+                      child: const Text(
+                        'Payment',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                  context.sizedBoxMedium
-                ],
-              ));
+                ),
+                context.sizedBoxMedium,
+              ],
+            ),
+          );
         }
       }),
     );
@@ -87,22 +88,23 @@ Widget buildEmptyCart(BuildContext context) {
       children: <Widget>[
         AppImages.instance.smilingFace.assetImage,
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: context.paddingLow,
           child: Text(
             'No orders',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onTertiary,
+              color: context.colorScheme.onTertiary,
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.0),
+        Padding(
+          padding: context.paddingLowHorizontal,
           child: Text(
             'Sorry, you have no orders in your cart, please add your order to your cart.',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style:
+                TextStyle(fontSize: 16, color: context.colorScheme.secondary),
           ),
         ),
       ],
@@ -110,9 +112,11 @@ Widget buildEmptyCart(BuildContext context) {
   );
 }
 
-Widget buildCartItems(BuildContext context, Meals cart) {
+Widget buildCartItems(BuildContext context, Meals cart, int index) {
+  final cartController = Get.find<CartController>();
+
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10.0),
+    padding: context.paddingLowVertical,
     child: Row(
       children: [
         ClipRRect(
@@ -124,7 +128,7 @@ Widget buildCartItems(BuildContext context, Meals cart) {
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(width: 10),
+        context.sizedBoxlow,
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,32 +140,32 @@ Widget buildCartItems(BuildContext context, Meals cart) {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 5),
+              context.sizedBoxlow,
               Text(
-                'Special instructions', // Özel istek veya ek bilgiler
-                style: const TextStyle(
+                'Special instructions',
+                style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey,
+                  color: context.colorScheme.secondary,
                 ),
               ),
-              const SizedBox(height: 5),
+              context.sizedBoxlow,
               Row(
                 children: [
                   Text(
                     "50.000 d",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.orange,
+                      color: context.colorScheme.onTertiary,
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  context.sizedBoxlow,
                   Text(
                     "70.000 d",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
+                      color: context.colorScheme.secondary,
                     ),
                   ),
                 ],
@@ -169,25 +173,11 @@ Widget buildCartItems(BuildContext context, Meals cart) {
             ],
           ),
         ),
-        // Miktar ayarları
-        Row(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.remove_circle_outline),
-            ),
-            Text(
-              "01",
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add_circle_outline),
-            ),
-          ],
+        IconButton(
+          onPressed: () {
+            cartController.removeFromCart(index);
+          },
+          icon: const Icon(Icons.delete_outline),
         ),
       ],
     ),

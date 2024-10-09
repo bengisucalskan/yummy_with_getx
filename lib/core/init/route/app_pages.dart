@@ -49,27 +49,23 @@ class AppPages {
       name: Routes.SPLASH,
       page: () => const SplashScreen(),
       binding: SplashBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
 
     GetPage(
       name: Routes.LOGIN,
       page: () => const LoginScreen(),
       binding: LoginBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.SIGNIN,
       page: () => const SigninScreen(),
       binding: SigninBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
 
     GetPage(
       name: Routes.SIGNUP,
       page: () => const SignupScreen(),
       binding: SignupBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
 
 //home
@@ -78,13 +74,11 @@ class AppPages {
       name: Routes.BASE,
       page: () => const BaseScreen(),
       binding: HomeBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.HOME,
       page: () => const HomeScreen(),
       binding: HomeBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
 
     //home_detail
@@ -93,83 +87,70 @@ class AppPages {
       name: Routes.AREA,
       page: () => const HomeDetailAreaScreen(),
       binding: AreaBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.CATEGORY,
       page: () => const HomeDetailCategoryScreen(),
       binding: CategoryBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.CART,
       page: () => const CartScreen(),
       binding: CartBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.NOTIFICATION,
       page: () => const NotificationScreen(),
       binding: NotificationBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.SEARCH,
       page: () => const SearchScreen(),
       binding: SearchBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.MEAL,
       page: () => const HomeDetailMealScreen(id: 'id'),
       binding: MealBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
 // Meal_details
     GetPage(
       name: Routes.INFO,
       page: () => const InfoScreen(),
       binding: InfoBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.REVIEWS,
       page: () => const ReviewsScreen(),
       binding: ReviewsBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.OPTION,
       page: () => const OptionScreen(id: 'id'),
       binding: OptionBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     //Fav
     GetPage(
       name: Routes.FAVORITE,
       page: () => const FavoriteScreen(),
       binding: FavoriteBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     // order
     GetPage(
       name: Routes.ORDER,
       page: () => const OrderScreen(),
       binding: OrderBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     //order_detail
     GetPage(
       name: Routes.FROM_CART_TO_ORDER,
       page: () => const FromCartToOrderScreen(),
       binding: FromCartToOrderBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
     GetPage(
       name: Routes.ORDER_DETAIL,
       page: () => const OrderDetailScreen(),
       binding: OrderDetailBinding(),
-      transition: Transition.rightToLeftWithFade,
     ),
   ];
 }

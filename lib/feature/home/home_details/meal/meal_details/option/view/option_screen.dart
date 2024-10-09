@@ -81,7 +81,6 @@ class OptionScreen extends GetView<OptionController> {
                 maxLines: 2,
               ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
           ],
         ),
         context.sizedBoxlow,

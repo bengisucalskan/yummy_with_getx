@@ -23,7 +23,7 @@ class NotificationScreen extends StatelessWidget {
               _notificationCard(
                 title: 'Order canceled!',
                 iconData: Icons.cancel,
-                color: Colors.red,
+                color: Theme.of(context).colorScheme.onPrimary,
                 description:
                     'You have canceled an order at Burger Hut. We apologize for your inconvenience. We will try to improve our service next time.',
               ),

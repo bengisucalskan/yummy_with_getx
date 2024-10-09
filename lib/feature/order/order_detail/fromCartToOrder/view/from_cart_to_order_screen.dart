@@ -32,8 +32,12 @@ class FromCartToOrderScreen extends GetView<FromCartToOrderController> {
                   children: controller.cartItems.map((meal) {
                     return Column(
                       children: [
-                        _buildOrderItem(context, meal.strMeal ?? '',
-                            meal.strMealThumb ?? '', '\$12.00'),
+                        _buildOrderItem(
+                          context,
+                          meal.strMeal ?? '',
+                          meal.strMealThumb ?? '',
+                          r'$12.00',
+                        ),
                         context.sizedBoxlow,
                       ],
                     );
@@ -60,24 +64,24 @@ class FromCartToOrderScreen extends GetView<FromCartToOrderController> {
                   thickness: 10),
 
               // Total Fiyat
-              _buildTotalDetail('Merchandise Subtotal', '\$23', context),
-              _buildTotalDetail('Shipping Total', '\$1', context),
+              _buildTotalDetail('Merchandise Subtotal', r'$23', context),
+              _buildTotalDetail('Shipping Total', r'$1', context),
 
               Divider(color: Theme.of(context).colorScheme.onPrimary),
 
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Total Payment',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '\$24',
+                    r'$24',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red,
+                      color: Theme.of(context).colorScheme.onTertiary,
                     ),
                   ),
                 ],

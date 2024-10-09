@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
-import 'package:getx_architecture_template/core/extension/image_ex.dart';
 import 'package:getx_architecture_template/feature/order/controller/order_controller.dart';
 
 class OrderScreen extends GetView<OrderController> {
@@ -41,31 +39,29 @@ class OrderScreen extends GetView<OrderController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Hamburger',
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'NYC, Broadway ave 79',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context).colorScheme.secondary),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
+                        const Row(
                           children: [
-                            Icon(Icons.star, color: Colors.amber, size: 16),
-                            const SizedBox(width: 4),
-                            Text(
-                              '4.8 (1.2k) | 1,5 km',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 12,
                             ),
+                            Text(
+                              'Delivered ',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.green),
+                            ),
+                            Text(
+                              '| 05,Apr',
+                              style: TextStyle(fontSize: 12),
+                            )
                           ],
+                        ),
+                        context.sizedBoxlow,
+                        const Text(
+                          'Hamburger',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -73,17 +69,11 @@ class OrderScreen extends GetView<OrderController> {
                   context.sizedBoxlow,
                   Column(
                     children: [
-                      IconButton(
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).colorScheme.onTertiary,
-                          ),
-                          onPressed: () {}),
-                      const SizedBox(height: 16),
+                      context.sizedBoxMedium,
                       Icon(
                         Icons.arrow_forward_ios,
-                        color: Theme.of(context).colorScheme.secondary,
-                        size: 16,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        size: 25,
                       ),
                     ],
                   ),

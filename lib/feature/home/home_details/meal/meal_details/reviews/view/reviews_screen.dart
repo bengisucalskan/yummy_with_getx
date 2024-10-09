@@ -75,7 +75,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
                   icon: const Icon(Icons.sort),
                   label: const Text('Arrange'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: Theme.of(context).colorScheme.onSecondary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

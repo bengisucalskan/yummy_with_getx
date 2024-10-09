@@ -32,14 +32,16 @@ import 'package:getx_architecture_template/feature/login/login_details/signup/bi
 import 'package:getx_architecture_template/feature/login/login_details/signup/view/signup_screen.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
 import 'package:getx_architecture_template/feature/order/binding/order_binding.dart';
-import 'package:getx_architecture_template/feature/order/order_detail/order_detail/binding/order_detail_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/fromCartToOrder/binding/from_cart_to_order_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/fromCartToOrder/view/from_cart_to_order_screen.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/order_detail/bindins/order_detail_bindins.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/order_detail/view/order_detail_screen.dart';
 import 'package:getx_architecture_template/feature/order/view/order_screen.dart';
 import 'package:getx_architecture_template/feature/splash/binding/splash_binding.dart';
 import 'package:getx_architecture_template/feature/splash/view/splash_screen.dart';
 
 class AppPages {
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.BASE;
 
   static final routes = [
     //login
@@ -157,6 +159,12 @@ class AppPages {
       transition: Transition.rightToLeftWithFade,
     ),
     //order_detail
+    GetPage(
+      name: Routes.FROM_CART_TO_ORDER,
+      page: () => const FromCartToOrderScreen(),
+      binding: FromCartToOrderBinding(),
+      transition: Transition.rightToLeftWithFade,
+    ),
     GetPage(
       name: Routes.ORDER_DETAIL,
       page: () => const OrderDetailScreen(),

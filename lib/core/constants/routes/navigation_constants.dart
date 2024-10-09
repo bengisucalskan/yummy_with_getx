@@ -31,5 +31,6 @@ class Routes {
 
   //
   static const ORDER = '/order';
+  static const FROM_CART_TO_ORDER = '/from_cart_to_order';
   static const ORDER_DETAIL = '/order_detail';
 }

@@ -50,9 +50,9 @@ class HomeDetailMealScreen extends GetView<MealController> {
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(40)),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back_ios,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.onSecondary,
                             size: 25,
                           ),
                         ),
@@ -158,9 +158,10 @@ class HomeDetailMealScreen extends GetView<MealController> {
                               onPressed: () {
                                 Get.toNamed(Routes.INFO);
                               },
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.warning_amber_outlined,
-                                color: Colors.black54,
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
                               )),
                         ],
                       ),
@@ -172,8 +173,11 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           ),
                           IconButton(
                               onPressed: () {},
-                              icon: const Icon(Icons.shopping_basket_outlined,
-                                  size: 16, color: Colors.black45)),
+                              icon: Icon(Icons.shopping_basket_outlined,
+                                  size: 16,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondary)),
                           Text(
                             '99+ orders',
                             style: TextStyle(

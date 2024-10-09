@@ -57,7 +57,9 @@ class CartScreen extends GetView<CartController> {
                         backgroundColor: context.colorScheme.onTertiary,
                       ),
                       onPressed: () {
-                        Get.toNamed(Routes.ORDER_DETAIL);
+                        Get.toNamed(Routes.FROM_CART_TO_ORDER,
+                            arguments: controller
+                                .cartItems); // listeyi argument olarak gönderiyorz
                       },
                       child: const Text(
                         'Payment',

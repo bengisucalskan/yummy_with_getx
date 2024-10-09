@@ -46,7 +46,7 @@ class SigninScreen extends GetView<SigninController> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),
                         borderSide: BorderSide(
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.onSecondary,
                           width: 1.0,
                         ),
                       ),
@@ -75,7 +75,7 @@ class SigninScreen extends GetView<SigninController> {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14.0),
                         borderSide: BorderSide(
-                          color: Colors.black,
+                          color: Theme.of(context).colorScheme.onSecondary,
                           width: 1.0,
                         ),
                       ),
@@ -102,7 +102,7 @@ class SigninScreen extends GetView<SigninController> {
                 ElevatedButton(
                   onPressed: controller.login,
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     minimumSize: Size(double.infinity,
                         MediaQuery.of(context).size.height * 0.07),
@@ -114,9 +114,10 @@ class SigninScreen extends GetView<SigninController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Do have an account?',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary),
                     ),
                     TextButton(
                       onPressed: () {

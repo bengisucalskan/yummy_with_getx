@@ -73,7 +73,7 @@ class SignupScreen extends GetView<SignupController> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     minimumSize: Size(double.infinity,
                         MediaQuery.of(context).size.height * 0.07),

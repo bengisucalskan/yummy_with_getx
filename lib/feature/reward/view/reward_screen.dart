@@ -140,8 +140,9 @@ class RewardScreen extends GetView<MealController> {
                     TextStyle(color: Theme.of(context).colorScheme.tertiary),
                 radius: 20,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                labelStyle: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
+                labelStyle: TextStyle(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.bold),
                 tabs: const [
                   Tab(
                     text: 'For You',

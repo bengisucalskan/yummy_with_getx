@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/order_detail/controller/order_detail_controller.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
@@ -46,7 +47,9 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             ),
             context.sizedBoxlow,
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.FOLLOW);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -68,7 +71,8 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             // Ürün Listesi
             _buildOrderItem(
               context,
-              'Croissants',
+              controller.order.strMealThumb ?? '',
+              controller.order.strMeal ?? 'Meal Name',
               'happy not angry',
               r'$7.02',
               '2x',
@@ -158,7 +162,6 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             Divider(
                 color: Theme.of(context).colorScheme.secondary, thickness: 1),
 
-            // Sipariş Bilgileri
             _buildOrderInfo('Order code', 'DBAJFI-55616_SD34V', context),
             _buildOrderInfo('Receiver', 'Dinh Bao', context),
             _buildOrderInfo('Phone number', '0356056591', context),
@@ -170,7 +173,9 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             context.sizedBoxMedium,
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.CANCEL_ORDER);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   shape: RoundedRectangleBorder(
@@ -179,9 +184,10 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 100),
                 ),
-                child: const Text(
+                child: Text(
                   'Cancel order',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(
+                      color: context.colorScheme.onSecondary, fontSize: 16),
                 ),
               ),
             ),
@@ -192,8 +198,8 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
     );
   }
 
-  Widget _buildOrderItem(BuildContext context, String title, String description,
-      String price, String quantity) {
+  Widget _buildOrderItem(BuildContext context, String imageURL, String title,
+      String description, String price, String quantity) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -202,8 +208,8 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  'assets/images/discount_exm.png',
+                child: Image.network(
+                  imageURL,
                   height: 60,
                   width: 60,
                   fit: BoxFit.cover,

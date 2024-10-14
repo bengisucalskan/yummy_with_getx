@@ -57,7 +57,7 @@ class DishesScreen extends StatelessWidget {
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 4),
+                            context.sizedBoxlow,
                             Text(
                               'NYC, Broadway ave 79',
                               style: TextStyle(
@@ -65,10 +65,12 @@ class DishesScreen extends StatelessWidget {
                                   color:
                                       Theme.of(context).colorScheme.secondary),
                             ),
-                            const SizedBox(height: 4),
+                            context.sizedBoxlow,
                             Row(
                               children: [
-                                Icon(Icons.star, color: Colors.amber, size: 16),
+                                Icon(Icons.star,
+                                    color: context.colorScheme.onTertiary,
+                                    size: 16),
                                 const SizedBox(width: 4),
                                 Text(
                                   '4.8 (1.2k) | 1,5 km',
@@ -94,7 +96,7 @@ class DishesScreen extends StatelessWidget {
                               onPressed: () {
                                 controller.removeFromFavorites(meal);
                               }),
-                          const SizedBox(height: 16),
+                          context.sizedBoxMedium,
                           Icon(
                             Icons.arrow_forward_ios,
                             color: Theme.of(context).colorScheme.secondary,

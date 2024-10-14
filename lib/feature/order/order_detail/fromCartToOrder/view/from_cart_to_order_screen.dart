@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
-import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/fromCartToOrder/controller/from_cart_to_order_controller.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 
@@ -91,6 +90,8 @@ class FromCartToOrderScreen extends GetView<FromCartToOrderController> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
+                    controller
+                        .saveOrders(); // Controller'daki saveOrders metodunu çağır
                     _showOrderSuccessDialog(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -241,7 +242,7 @@ class FromCartToOrderScreen extends GetView<FromCartToOrderController> {
                   ),
                   context.sizedBoxlow,
                   Text(
-                    'Your order has been successfully placed. You can check your order status in the "Order History" section.',
+                    'Your order has been successfully placed. You can check your order status in the "Order" section.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,

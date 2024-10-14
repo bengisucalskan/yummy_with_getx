@@ -33,6 +33,9 @@ class AppImages {
   String order = 'order'.toPNG;
   String reward = 'reward'.toPNG;
   String smilingFace = 'smiling_face'.toPNG;
+  String cirlce = 'circle'.toPNG;
+  String map = 'map'.toPNG;
+  String cry = 'cry_face'.toPNG;
 
   String flashDeals = 'flash_deals'.toPNG;
   String niceShop = 'nice_shop'.toPNG;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -16,7 +18,9 @@ class CustomDrawer extends StatelessWidget {
             currentAccountPicture: const CircleAvatar(
               backgroundImage: AssetImage('assets/images/ellipse.png'),
             ),
-            onDetailsPressed: () {},
+            onDetailsPressed: () {
+              Get.toNamed(Routes.ACCOUNT);
+            },
           ),
           ListTile(
             leading: AppImages.instance.wallet.assetImage,
@@ -24,7 +28,9 @@ class CustomDrawer extends StatelessWidget {
               'Wallet',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.WALLET);
+            },
           ),
           ListTile(
             leading: AppImages.instance.location.assetImage,

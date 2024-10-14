@@ -44,34 +44,7 @@ class CartScreen extends GetView<CartController> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: context.paddingLowVertical,
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: context.paddingLowVertical,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        backgroundColor: context.colorScheme.onTertiary,
-                      ),
-                      onPressed: () {
-                        Get.toNamed(Routes.FROM_CART_TO_ORDER,
-                            arguments: controller
-                                .cartItems); // listeyi argument olarak gönderiyorz
-                      },
-                      child: const Text(
-                        'Payment',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                buildPaymentButton(context),
                 context.sizedBoxMedium,
               ],
             ),
@@ -80,108 +53,140 @@ class CartScreen extends GetView<CartController> {
       }),
     );
   }
-}
 
-Widget buildEmptyCart(BuildContext context) {
-  return Align(
-    alignment: const Alignment(0, -0.6),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        AppImages.instance.smilingFace.assetImage,
-        Padding(
-          padding: context.paddingLow,
+  Widget buildEmptyCart(BuildContext context) {
+    return Align(
+      alignment: const Alignment(0, -0.6),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          AppImages.instance.smilingFace.assetImage,
+          Padding(
+            padding: context.paddingLow,
+            child: Text(
+              'No orders',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: context.colorScheme.onTertiary,
+              ),
+            ),
+          ),
+          Padding(
+            padding: context.paddingLowHorizontal,
+            child: Text(
+              'Sorry, you have no orders in your cart, please add your order to your cart.',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(fontSize: 16, color: context.colorScheme.secondary),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCartItems(BuildContext context, Meals cart, int index) {
+    final cartController = Get.find<CartController>();
+
+    return Padding(
+      padding: context.paddingLowVertical,
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              cart.strMealThumb ?? '',
+              height: 80,
+              width: 80,
+              fit: BoxFit.cover,
+            ),
+          ),
+          context.sizedBoxlow,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  cart.strMeal ?? 'Meal Name',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                context.sizedBoxlow,
+                Text(
+                  'Special instructions',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: context.colorScheme.secondary,
+                  ),
+                ),
+                context.sizedBoxlow,
+                Row(
+                  children: [
+                    Text(
+                      "50.000 d",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: context.colorScheme.onTertiary,
+                      ),
+                    ),
+                    context.sizedBoxlow,
+                    Text(
+                      "70.000 d",
+                      style: TextStyle(
+                        fontSize: 14,
+                        decoration: TextDecoration.lineThrough,
+                        color: context.colorScheme.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              cartController.removeFromCart(index);
+            },
+            icon: const Icon(Icons.delete_outline),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildPaymentButton(BuildContext context) {
+    return Padding(
+      padding: context.paddingLowVertical,
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: context.paddingLowVertical,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            backgroundColor: context.colorScheme.onTertiary,
+          ),
+          onPressed: () {
+            Get.toNamed(
+              Routes.FROM_CART_TO_ORDER,
+              arguments: Get.find<CartController>().cartItems,
+            );
+          },
           child: Text(
-            'No orders',
+            'Payment',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: context.colorScheme.onTertiary,
+              color: context.colorScheme.primary,
             ),
           ),
         ),
-        Padding(
-          padding: context.paddingLowHorizontal,
-          child: Text(
-            'Sorry, you have no orders in your cart, please add your order to your cart.',
-            textAlign: TextAlign.center,
-            style:
-                TextStyle(fontSize: 16, color: context.colorScheme.secondary),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget buildCartItems(BuildContext context, Meals cart, int index) {
-  final cartController = Get.find<CartController>();
-
-  return Padding(
-    padding: context.paddingLowVertical,
-    child: Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            cart.strMealThumb ?? '',
-            height: 80,
-            width: 80,
-            fit: BoxFit.cover,
-          ),
-        ),
-        context.sizedBoxlow,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                cart.strMeal ?? 'Meal Name',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              context.sizedBoxlow,
-              Text(
-                'Special instructions',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: context.colorScheme.secondary,
-                ),
-              ),
-              context.sizedBoxlow,
-              Row(
-                children: [
-                  Text(
-                    "50.000 d",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: context.colorScheme.onTertiary,
-                    ),
-                  ),
-                  context.sizedBoxlow,
-                  Text(
-                    "70.000 d",
-                    style: TextStyle(
-                      fontSize: 14,
-                      decoration: TextDecoration.lineThrough,
-                      color: context.colorScheme.secondary,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        IconButton(
-          onPressed: () {
-            cartController.removeFromCart(index);
-          },
-          icon: const Icon(Icons.delete_outline),
-        ),
-      ],
-    ),
-  );
+      ),
+    );
+  }
 }

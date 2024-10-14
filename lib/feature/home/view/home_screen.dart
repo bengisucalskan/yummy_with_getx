@@ -72,13 +72,13 @@ class HomeScreen extends GetView<HomeController> {
 
               //---------------------------
               context.sizedBoxlow,
-              _buildRandomMealSection(),
+              _buildRandomMealSection(context),
               context.sizedBoxlow, //----------------------
               _shopTitle(
                   text: "What's delicious around here?",
                   onPressed: () {
                     Get.to(HomeAreaScreen(controller: controller));
-                  }), // ??? dile göre o ülkenin yemekleri olsun ???
+                  }),
 
               _shopCard(
                 meals: controller.area.value?.meals ?? [],
@@ -113,7 +113,7 @@ class HomeScreen extends GetView<HomeController> {
                           children: [
                             AppImages.instance.homeShop.assetImage,
                             const Text(
-                              'flsfk ssllkfdlkflk dfkl', // belli bir categorideki yemekleri koy balık yemekleri misal
+                              'flsfk ssllkfdlkflk dfkl',
                               style: TextStyle(
                                 fontSize: 17,
                               ),
@@ -131,7 +131,7 @@ class HomeScreen extends GetView<HomeController> {
                 onPressed: () {
                   Get.to(HomeAreaScreen(controller: controller));
                 },
-              ), // martın yıldızları da tüm yemekler olabilir mesela
+              ),
 
               _shopCard(
                 meals: controller.area.value?.meals ?? [],
@@ -185,7 +185,7 @@ class HomeScreen extends GetView<HomeController> {
                                   color:
                                       Theme.of(context).colorScheme.secondary,
                                 ),
-                                SizedBox(width: 4),
+                                context.sizedBoxlow,
                                 Text(
                                   'Elisandra Restaurant',
                                   style: TextStyle(
@@ -373,7 +373,7 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  Widget _buildRandomMealSection() {
+  Widget _buildRandomMealSection(BuildContext context) {
     return Center(
       child: controller.random.value?.meals?.isNotEmpty ??
               false // burası isempty değil data gelirse kontrolü
@@ -389,7 +389,7 @@ class HomeScreen extends GetView<HomeController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  context.sizedBoxlow,
                   InkWell(
                     onTap: () {
                       Get.toNamed(
@@ -409,7 +409,7 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  context.sizedBoxlow,
                   Text(
                     controller.random.value?.meals?[0].strMeal ?? '',
                     style: const TextStyle(

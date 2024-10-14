@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_architecture_template/feature/order/controller/order_controller.dart';
 import '/product/theme/app_theme.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'core/init/di/di.dart';
@@ -21,6 +22,10 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return GetMaterialApp(
+          initialBinding: BindingsBuilder(() {
+            Get.put(
+                OrderController()); // OrderController'ı global hale getiriyoruz
+          }),
           debugShowCheckedModeBanner: false,
           theme: ThemeManager.createTheme(AppThemeLight()),
           darkTheme: ThemeManager.createTheme(AppThemeDark()),

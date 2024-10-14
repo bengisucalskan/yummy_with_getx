@@ -19,6 +19,12 @@ import 'package:getx_architecture_template/feature/home/home_details/meal/meal_d
 import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/binding/reviews_binding.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/view/reviews_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/view/home_detail_meal_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/binding/personel_info_binding.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/view/personel_info_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/binding/account_binding.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/view/account_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/wallet/binding/wallet_binding.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/wallet/views/wallet_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/notification/binding/notification_binding.dart';
 import 'package:getx_architecture_template/feature/home/home_details/notification/view/notification_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/search/binding/search_binding.dart';
@@ -32,8 +38,16 @@ import 'package:getx_architecture_template/feature/login/login_details/signup/bi
 import 'package:getx_architecture_template/feature/login/login_details/signup/view/signup_screen.dart';
 import 'package:getx_architecture_template/feature/login/view/login_screen.dart';
 import 'package:getx_architecture_template/feature/order/binding/order_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/call/binding/call_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/call/view/call_screen.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/cancel_order/binding/cancel_order_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/cancel_order/view/cancel_order_screen.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/follow_the_order/binding/follow_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/follow_the_order/view/follow_screen.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/fromCartToOrder/binding/from_cart_to_order_binding.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/fromCartToOrder/view/from_cart_to_order_screen.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/message/binding/message_binding.dart';
+import 'package:getx_architecture_template/feature/order/order_detail/message/view/message_screen.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/order_detail/bindins/order_detail_bindins.dart';
 import 'package:getx_architecture_template/feature/order/order_detail/order_detail/view/order_detail_screen.dart';
 import 'package:getx_architecture_template/feature/order/view/order_screen.dart';
@@ -41,7 +55,7 @@ import 'package:getx_architecture_template/feature/splash/binding/splash_binding
 import 'package:getx_architecture_template/feature/splash/view/splash_screen.dart';
 
 class AppPages {
-  static const INITIAL = Routes.BASE;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     //login
@@ -139,7 +153,7 @@ class AppPages {
     GetPage(
       name: Routes.ORDER,
       page: () => const OrderScreen(),
-      binding: OrderBinding(),
+      //binding: OrderBinding(),
     ),
     //order_detail
     GetPage(
@@ -151,6 +165,44 @@ class AppPages {
       name: Routes.ORDER_DETAIL,
       page: () => const OrderDetailScreen(),
       binding: OrderDetailBinding(),
+    ),
+    GetPage(
+      name: Routes.FOLLOW,
+      page: () => const FollowScreen(),
+      binding: FollowBinding(),
+    ),
+    GetPage(
+      name: Routes.MESSAGE,
+      page: () => const MessageScreen(),
+      binding: MessageBinding(),
+    ),
+    GetPage(
+      name: Routes.CALL,
+      page: () => const CallScreen(),
+      binding: CallBinding(),
+    ),
+    GetPage(
+      name: Routes.CANCEL_ORDER,
+      page: () => const CancelOrderScreen(),
+      binding: CancelOrderBinding(),
+    ),
+
+    // my account detail
+
+    GetPage(
+      name: Routes.ACCOUNT,
+      page: () => const AccountScreen(),
+      binding: AccountBinding(),
+    ),
+    GetPage(
+      name: Routes.PERSONEL_INFO,
+      page: () => const PersonelInfoScreen(),
+      binding: PersonelInfoBinding(),
+    ),
+    GetPage(
+      name: Routes.WALLET,
+      page: () => const WalletScreen(),
+      binding: WalletBinding(),
     ),
   ];
 }

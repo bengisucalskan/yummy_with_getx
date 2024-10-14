@@ -110,7 +110,7 @@ class ReviewsScreen extends GetWidget<ReviewsController> {
     return Row(
       children: [
         Text(rating.toString(), style: const TextStyle(fontSize: 16)),
-        const SizedBox(width: 4),
+        context.sizedBoxlow,
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),

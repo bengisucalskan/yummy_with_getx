@@ -173,7 +173,7 @@ class OptionScreen extends GetView<OptionController> {
               ? Theme.of(context).colorScheme.primary
               : Theme.of(context).colorScheme.tertiary,
         ),
-        checkmarkColor: Colors.white,
+        checkmarkColor: context.colorScheme.primary,
       );
     });
   }

@@ -4,6 +4,6 @@ import 'package:getx_architecture_template/feature/order/controller/order_contro
 class OrderBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<OrderController>(OrderController.new);
+    // Get.lazyPut<OrderController>(OrderController.new);
   }
 }

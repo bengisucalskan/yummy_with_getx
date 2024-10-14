@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getx_architecture_template/core/constants/image/images.dart';
+import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
 
 class ContinueWith extends StatelessWidget {
@@ -20,9 +21,9 @@ class ContinueWith extends StatelessWidget {
         ElevatedButton.icon(
           onPressed: () {},
           icon: AppImages.instance.iconGoogle.assetImage,
-          label: const Text("Continue with Google"),
+          label: Text("Continue with Google"),
           style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
+              foregroundColor: context.colorScheme.primary,
               backgroundColor: Color(0xFF5384EE),
               minimumSize: Size(double.infinity, 50)),
         ),
@@ -32,7 +33,7 @@ class ContinueWith extends StatelessWidget {
             icon: AppImages.instance.iconFacebook.assetImage,
             label: Text('Continue with Facebook'),
             style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
+                foregroundColor: context.colorScheme.primary,
                 backgroundColor: Color(0xFF415792),
                 minimumSize: Size(double.infinity, 50))),
         const SizedBox(height: 10),
@@ -41,8 +42,8 @@ class ContinueWith extends StatelessWidget {
             icon: AppImages.instance.iconApple.assetImage,
             label: Text('Continue with GoogleApple'),
             style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.black,
+                foregroundColor: context.colorScheme.primary,
+                backgroundColor: context.colorScheme.inversePrimary,
                 minimumSize: Size(double.infinity, 50))),
         const SizedBox(height: 20),
       ],

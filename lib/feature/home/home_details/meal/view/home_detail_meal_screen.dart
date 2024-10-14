@@ -46,8 +46,8 @@ class HomeDetailMealScreen extends GetView<MealController> {
                         child: Container(
                           width: 40,
                           height: 40,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: context.colorScheme.primary,
                             borderRadius: BorderRadius.all(Radius.circular(40)),
                           ),
                           child: Icon(
@@ -65,7 +65,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       left: 25,
                       child: CircleAvatar(
                         radius: 40,
-                        backgroundColor: Colors.white,
+                        backgroundColor: context.colorScheme.primary,
                         backgroundImage: NetworkImage(meal.strMealThumb ?? ''),
                         //D
                       ),
@@ -84,9 +84,10 @@ class HomeDetailMealScreen extends GetView<MealController> {
                         parameters: {'id': meal.idMeal ?? ''},
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'Add to Cart',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
+                      style: TextStyle(
+                          color: context.colorScheme.primary, fontSize: 14),
                     ),
                   ),
                 ),

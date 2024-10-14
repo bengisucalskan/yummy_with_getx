@@ -34,8 +34,8 @@ class OptionController extends GetxController {
 
   void addToCart(Meals meal) {
     try {
-      final CartController cartController =
-          Get.put(CartController(), permanent: true);
+      final CartController cartController = Get.put(CartController(),
+          permanent: true); // controller hafozada tutuluyo
       cartController.addToCart(meal);
     } catch (e) {
       print("Error adding to cart: $e");

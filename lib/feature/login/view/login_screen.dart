@@ -47,7 +47,7 @@ class LoginScreen extends GetView<LoginController> {
                         Get.toNamed(Routes.SIGNIN);
                       },
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
+                        foregroundColor: context.colorScheme.primary,
                         backgroundColor:
                             Theme.of(context).colorScheme.onTertiary,
                         minimumSize: Size(double.infinity,
@@ -60,9 +60,10 @@ class LoginScreen extends GetView<LoginController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'Do have an account?',
-                          style: TextStyle(color: Colors.black),
+                          style:
+                              TextStyle(color: context.colorScheme.onSecondary),
                         ),
                         TextButton(
                           onPressed: () {

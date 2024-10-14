@@ -29,8 +29,19 @@ class Routes {
   static const FAVORITE = '/favorite';
   static const REWARD = '/reward';
 
-  //
+  //ORDER
   static const ORDER = '/order';
   static const FROM_CART_TO_ORDER = '/from_cart_to_order';
   static const ORDER_DETAIL = '/order_detail';
+  static const FOLLOW = '/follow';
+  static const MESSAGE = '/message';
+  static const CALL = '/call';
+  static const CANCEL_ORDER = '/cancel_order';
+
+  // ACCOUNT
+
+  static const ACCOUNT = '/account';
+  static const PERSONEL_INFO = '/personel_info';
+  static const PERSONEL_EDIT = '/personel_edit';
+  static const WALLET = '/wallet';
 }

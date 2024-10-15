@@ -113,12 +113,22 @@ class CartScreen extends GetView<CartController> {
                   ),
                 ),
                 context.sizedBoxlow,
-                Text(
-                  'Special instructions',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: context.colorScheme.secondary,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Special instructions',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: context.colorScheme.secondary,
+                      ),
+                    ),
+                    Obx(() => Text(
+                          'x${controller.itemCounts[cart.idMeal] ?? 1}',
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        )),
+                  ],
                 ),
                 context.sizedBoxlow,
                 Row(

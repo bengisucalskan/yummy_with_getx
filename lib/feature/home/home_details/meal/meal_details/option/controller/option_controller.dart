@@ -11,6 +11,7 @@ class OptionController extends GetxController {
   final RxList<Meals> mealsById = <Meals>[].obs;
   final RxBool isLoading = true.obs;
   var selectedSize = 'S'.obs;
+  var quantity = 1.obs;
 
   @override
   void onInit() {
@@ -18,10 +19,6 @@ class OptionController extends GetxController {
     String id = Get.parameters['id'] ?? '';
     print("Alınan ID: $id");
     loadMealsForId(id);
-  }
-
-  void selectSize(String size) {
-    selectedSize.value = size;
   }
 
   void loadMealsForId(String id) async {
@@ -35,16 +32,28 @@ class OptionController extends GetxController {
     isLoading.value = false;
   }
 
+  void selectSize(String size) {
+    selectedSize.value = size;
+  }
+
+  void increaseQuantity() {
+    quantity.value++;
+  }
+
+  void decreaseQuantity() {
+    if (quantity.value > 1) {
+      quantity.value--;
+    }
+  }
+
   Future<void> addToCart(Meals meal) async {
     final prefs = LocaleManager.instance;
     try {
-      List<String> list = List.empty(growable: true);
-      if (!(prefs.getStringList(PreferencesTypes.cartList) == null ||
-          prefs.getStringList(PreferencesTypes.cartList)!.isEmpty)) {
-        list = prefs.getStringList(PreferencesTypes.cartList) ?? [];
-      }
+      List<String> list = prefs.getStringList(PreferencesTypes.cartList) ?? [];
 
-      list.add(jsonEncode(meal));
+      for (int i = 0; i < quantity.value; i++) {
+        list.add(jsonEncode(meal));
+      }
 
       await prefs.setStringList(PreferencesTypes.cartList, list);
     } catch (e) {

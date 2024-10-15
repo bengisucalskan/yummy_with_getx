@@ -110,19 +110,26 @@ class OptionScreen extends GetView<OptionController> {
           'Quantity',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.remove),
-              onPressed: () {},
-            ),
-            const Text('01'),
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {},
-            ),
-          ],
-        ),
+        Obx(() => Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: () {
+                    controller.decreaseQuantity();
+                  },
+                ),
+                Text(
+                  '${controller.quantity.value}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    controller.increaseQuantity();
+                  },
+                ),
+              ],
+            )),
       ],
     );
   }

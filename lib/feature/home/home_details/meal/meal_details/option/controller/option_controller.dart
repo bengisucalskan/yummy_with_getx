@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/feature/home/home_details/cart/controller/cart_controller.dart';
+import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
+import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/service/home_service.dart';
 
@@ -23,7 +26,7 @@ class OptionController extends GetxController {
 
   void loadMealsForId(String id) async {
     isLoading.value = true;
-    var response = await homeService.fetchMealsById(id);
+    final response = await homeService.fetchMealsById(id);
     if (response?.data?.meals != null) {
       mealsById.value = response?.data?.meals ?? [];
     } else {
@@ -32,11 +35,18 @@ class OptionController extends GetxController {
     isLoading.value = false;
   }
 
-  void addToCart(Meals meal) {
+  Future<void> addToCart(Meals meal) async {
+    final prefs = LocaleManager.instance;
     try {
-      final CartController cartController = Get.put(CartController(),
-          permanent: true); // controller hafozada tutuluyo
-      cartController.addToCart(meal);
+      List<String> list = List.empty(growable: true);
+      if (!(prefs.getStringList(PreferencesTypes.cartList) == null ||
+          prefs.getStringList(PreferencesTypes.cartList)!.isEmpty)) {
+        list = prefs.getStringList(PreferencesTypes.cartList) ?? [];
+      }
+
+      list.add(jsonEncode(meal));
+
+      await prefs.setStringList(PreferencesTypes.cartList, list);
     } catch (e) {
       print("Error adding to cart: $e");
     }

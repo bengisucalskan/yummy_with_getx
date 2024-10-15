@@ -50,8 +50,7 @@ class LoginScreen extends GetView<LoginController> {
                         foregroundColor: context.colorScheme.primary,
                         backgroundColor:
                             Theme.of(context).colorScheme.onTertiary,
-                        minimumSize: Size(double.infinity,
-                            MediaQuery.of(context).size.height * 0.07),
+                        minimumSize: Size(double.infinity, 50),
                       ),
                       child: const Text('Sign in'),
                     ),

@@ -104,8 +104,7 @@ class SigninScreen extends GetView<SigninController> {
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.onSecondary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
-                    minimumSize: Size(double.infinity,
-                        MediaQuery.of(context).size.height * 0.07),
+                    minimumSize: Size(double.infinity, 50),
                   ),
                   child: const Text('Sign in'),
                 ),

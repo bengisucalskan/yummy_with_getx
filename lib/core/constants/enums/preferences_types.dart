@@ -3,4 +3,6 @@ enum PreferencesTypes {
   firstInApp,
   theme,
   language,
+  cartList,
+  orderList
 }

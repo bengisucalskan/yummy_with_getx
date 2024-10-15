@@ -8,7 +8,6 @@ class MealController extends GetxController with FavoriteMixin {
   IHomeService homeService = HomeService();
   final RxList<Meals> mealsById = <Meals>[].obs;
   final RxBool isLoading = true.obs;
-  final favoriteController = Get.find<FavoriteController>();
 
   @override
   void onInit() {

@@ -32,14 +32,14 @@ class FavoriteController extends GetxController {
 
   Future<void> saveFavorites() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String> favoriteMealsJson =
+    final favoriteMealsJson =
         favoriteMeals.map((meal) => jsonEncode(meal.toJson())).toList();
     await prefs.setStringList('favorites', favoriteMealsJson);
   }
 
   Future<void> loadFavorites() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String>? favoriteMealsJson = prefs.getStringList('favorites');
+    final favoriteMealsJson = prefs.getStringList('favorites');
     if (favoriteMealsJson != null) {
       favoriteMeals.value = favoriteMealsJson
           .map((mealJson) =>

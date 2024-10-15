@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
+import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'dart:convert';
 
@@ -9,43 +10,55 @@ class OrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadOrders();
+    loadOrderItems();
   }
 
-  Future<void> saveOrders() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> jsonList =
-        orderItems.map((meal) => jsonEncode(meal.toJson())).toList();
-    await prefs.setStringList(
-        'orderItems', jsonList); // JSON formatında liste kayydet
-  }
-
-  Future<void> loadOrders() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? orderData = prefs.getStringList('orderItems');
-
+  Future<void> removeFromOrder(int index) async {
+    final prefs = LocaleManager.instance;
+    final orderData = prefs.getStringList(PreferencesTypes.orderList);
     if (orderData != null) {
       try {
-        // JSON formatındaki String listesini Meals nesnelerine çeviriyo
-        orderItems.assignAll(orderData
-            .map((order) =>
-                Meals.fromJson(jsonDecode(order) as Map<String, dynamic>))
-            .toList());
-        print('Orders loaded: $orderItems');
+        orderData.removeAt(index);
+
+        await prefs.setStringList(PreferencesTypes.orderList, orderData);
+
+        orderItems.removeAt(index);
+
+        print('Order list updated after removal: $orderItems');
       } catch (e) {
-        print("Error decoding order data: $e");
+        print("Error removing order item: $e");
       }
     }
   }
 
-  Future<void> addToOrders(Meals meal) async {
-    orderItems.add(meal);
-    await saveOrders();
-  }
+  Future<void> loadOrderItems() async {
+    final prefs = LocaleManager.instance;
+    final orderData = prefs.getStringList(PreferencesTypes.orderList);
 
-  Future<void> removeFromOrders(int index) async {
-    orderItems.removeAt(index);
-    await saveOrders();
+    if (orderData != null) {
+      try {
+        orderItems.clear();
+        for (String item in orderData) {
+          // Gelen veriyi kontrol et ve dinamik olarak şey yap
+          final decodedItem = json.decode(item);
+
+          if (decodedItem is Map<String, dynamic>) {
+            orderItems.add(Meals.fromJson(decodedItem));
+          } else if (decodedItem is List<dynamic>) {
+            // Eğer List<dynamic> geliyorsa, her bir öğeyi Meals objesine çevir bu kontrolü çevirirken
+            //hhata alıyorum diye koydum
+            for (final meal in decodedItem) {
+              orderItems.add(Meals.fromJson(meal as Map<String, dynamic>));
+            }
+          } else {
+            print("Unexpected data format: $decodedItem");
+          }
+        }
+        print('Order items loaded: $orderItems');
+      } catch (e) {
+        print("Error decoding order data: $e");
+      }
+    }
   }
 
   bool get isOrderEmpty => orderItems.isEmpty;

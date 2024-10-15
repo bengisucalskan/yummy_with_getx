@@ -26,6 +26,10 @@ class LocaleManager {
     }
   }
 
+  Future<void> setStringList(PreferencesTypes key, List<String> value) async {
+    await _preferences?.setStringList(key.toString(), value);
+  }
+
   Future<void> setStringValue(PreferencesTypes key, String value) async {
     await _preferences!.setString(key.toString(), value);
   }
@@ -38,9 +42,15 @@ class LocaleManager {
     await _preferences!.setInt(key.toString(), value);
   }
 
-  String getStringValue(PreferencesTypes key) => _preferences?.getString(key.toString()) ?? '';
+  String getStringValue(PreferencesTypes key) =>
+      _preferences?.getString(key.toString()) ?? '';
 
-  bool getBoolValue(PreferencesTypes key) => _preferences!.getBool(key.toString()) ?? false;
+  List<String> getStringList(PreferencesTypes key) =>
+      _preferences?.getStringList(key.toString()) ?? [];
 
-  int setIntValue(PreferencesTypes key) => _preferences!.getInt(key.toString()) ?? 0;
+  bool getBoolValue(PreferencesTypes key) =>
+      _preferences!.getBool(key.toString()) ?? false;
+
+  int setIntValue(PreferencesTypes key) =>
+      _preferences!.getInt(key.toString()) ?? 0;
 }

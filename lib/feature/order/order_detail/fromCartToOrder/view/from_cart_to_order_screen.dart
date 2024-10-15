@@ -90,8 +90,8 @@ class FromCartToOrderScreen extends GetView<FromCartToOrderController> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    controller
-                        .saveOrders(); // Controller'daki saveOrders metodunu çağır
+                    controller.addToOrder(controller
+                        .cartItems); // buraya Meals tipinde göndermem lazım
                     _showOrderSuccessDialog(context);
                   },
                   style: ElevatedButton.styleFrom(

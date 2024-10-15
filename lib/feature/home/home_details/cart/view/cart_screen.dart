@@ -87,8 +87,6 @@ class CartScreen extends GetView<CartController> {
   }
 
   Widget buildCartItems(BuildContext context, Meals cart, int index) {
-    final cartController = Get.find<CartController>();
-
     return Padding(
       padding: context.paddingLowVertical,
       child: Row(
@@ -149,7 +147,7 @@ class CartScreen extends GetView<CartController> {
           ),
           IconButton(
             onPressed: () {
-              cartController.removeFromCart(index);
+              controller.removeFromCart(index);
             },
             icon: const Icon(Icons.delete_outline),
           ),

@@ -25,25 +25,37 @@ class SignupScreen extends GetView<SignupController> {
                 _signUpText(text: 'Full name'),
                 _signUpTextField(
                   hintText: 'Enter full name',
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.fullName.value = value;
+                    controller.validateForm();
+                  },
                 ),
                 SizedBox(height: context.lowValue),
                 _signUpText(text: 'Phone number'),
                 _signUpTextField(
                   hintText: 'Enter your phone number',
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.phoneNumber.value = value;
+                    controller.validateForm();
+                  },
                 ),
                 SizedBox(height: context.lowValue),
                 _signUpText(text: 'Email'),
                 _signUpTextField(
                   hintText: 'Enter email',
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.email.value = value;
+                    controller.validateForm();
+                  },
                 ),
                 SizedBox(height: context.lowValue),
                 _signUpText(text: 'Password'),
                 _signUpTextField(
                   hintText: 'Enter password',
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.password.value = value;
+                    controller.validateForm();
+                  },
                   obscureText: controller.obscureText,
                   togglePasswordVisibility: controller.passwordVisibility,
                 ),
@@ -51,7 +63,10 @@ class SignupScreen extends GetView<SignupController> {
                 _signUpText(text: 'Confirm Password'),
                 _signUpTextField(
                   hintText: 'Enter password',
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    controller.confirmPassword.value = value;
+                    controller.validateForm();
+                  },
                   obscureText: controller.obscureText1,
                   togglePasswordVisibility: controller.passwordVisibility2,
                 ),
@@ -70,16 +85,19 @@ class SignupScreen extends GetView<SignupController> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    minimumSize: Size(double.infinity,
-                        MediaQuery.of(context).size.height * 0.07),
-                  ),
-                  child: const Text('Sign up'),
-                ),
+                Obx(() => ElevatedButton(
+                      onPressed: controller.isFormValid.value ? () {} : null,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: controller.isFormValid.value
+                            ? Theme.of(context).colorScheme.primary
+                            : context.colorScheme.secondary,
+                        backgroundColor: controller.isFormValid.value
+                            ? Theme.of(context).colorScheme.onTertiary
+                            : context.colorScheme.secondary,
+                        minimumSize: Size(double.infinity, 50),
+                      ),
+                      child: const Text('Sign up'),
+                    )),
                 SizedBox(height: context.mediumValue),
                 const ContinueWith(),
               ],

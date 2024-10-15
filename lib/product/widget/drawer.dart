@@ -53,10 +53,6 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            title: const Text('Order History'),
-            onTap: () {},
-          ),
-          ListTile(
             title: const Text('Notifications'),
             onTap: () {},
           ),

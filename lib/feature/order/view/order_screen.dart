@@ -9,10 +9,10 @@ class OrderScreen extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut<OrderController>(
+        OrderController.new); // order controllerı görmüyor neden anlamadım
+
     return Obx(() {
-      if (controller.orderItems.isEmpty) {
-        return const Center(child: Text("No orders yet."));
-      }
       return Padding(
         padding: const EdgeInsets.all(8),
         child: ListView.builder(
@@ -82,8 +82,7 @@ class OrderScreen extends GetView<OrderController> {
                         ),
                         IconButton(
                           onPressed: () {
-                            controller.removeFromOrders(
-                                index); // Siparişi silme işlemi
+                            controller.removeFromOrder(index);
                           },
                           icon: Icon(
                             Icons.delete,

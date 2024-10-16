@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
-import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/controller/personel_info_controller.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/controller/personal_info_controller.dart';
 import 'package:getx_architecture_template/product/widget/appbar.dart';
 
-class PersonelInfoScreen extends GetView<PersonelInfoController> {
-  const PersonelInfoScreen({super.key});
+class PersonalInfoScreen extends GetView<PersonalInfoController> {
+  const PersonalInfoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

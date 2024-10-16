@@ -24,14 +24,16 @@ class AccountScreen extends GetView<AccountController> {
               title: const Text('Personal Information'),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
-                Get.toNamed(Routes.PERSONEL_INFO);
+                Get.toNamed(Routes.PERSONAL_INFO);
               },
             ),
             Divider(color: context.colorScheme.secondary),
             ListTile(
               title: const Text('Personal Editing'),
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.PERSONAL_EDIT);
+              },
             ),
             Divider(color: context.colorScheme.secondary),
             ListTile(

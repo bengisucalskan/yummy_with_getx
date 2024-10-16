@@ -19,8 +19,10 @@ import 'package:getx_architecture_template/feature/home/home_details/meal/meal_d
 import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/binding/reviews_binding.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/meal_details/reviews/view/reviews_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/view/home_detail_meal_screen.dart';
-import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/binding/personel_info_binding.dart';
-import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/view/personel_info_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_edit/binding/personal_edit_binding.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_edit/view/personal_edit_screen.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/binding/personal_info_binding.dart';
+import 'package:getx_architecture_template/feature/home/home_details/my_account/account/account_details/personel_info/view/personal_info_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/my_account/account/binding/account_binding.dart';
 import 'package:getx_architecture_template/feature/home/home_details/my_account/account/view/account_screen.dart';
 import 'package:getx_architecture_template/feature/home/home_details/my_account/wallet/binding/wallet_binding.dart';
@@ -195,9 +197,14 @@ class AppPages {
       binding: AccountBinding(),
     ),
     GetPage(
-      name: Routes.PERSONEL_INFO,
-      page: () => const PersonelInfoScreen(),
-      binding: PersonelInfoBinding(),
+      name: Routes.PERSONAL_INFO,
+      page: () => const PersonalInfoScreen(),
+      binding: PersonalInfoBinding(),
+    ),
+    GetPage(
+      name: Routes.PERSONAL_EDIT,
+      page: () => const PersonalEditScreen(),
+      binding: PersonalEditBinding(),
     ),
     GetPage(
       name: Routes.WALLET,

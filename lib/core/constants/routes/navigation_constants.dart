@@ -41,7 +41,7 @@ class Routes {
   // ACCOUNT
 
   static const ACCOUNT = '/account';
-  static const PERSONEL_INFO = '/personel_info';
-  static const PERSONEL_EDIT = '/personel_edit';
+  static const PERSONAL_INFO = '/personel_info';
+  static const PERSONAL_EDIT = '/personel_edit';
   static const WALLET = '/wallet';
 }

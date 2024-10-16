@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class PersonelInfoController extends GetxController {
+class PersonalEditController extends GetxController {
   @override
   void onInit() {
     super.onInit();

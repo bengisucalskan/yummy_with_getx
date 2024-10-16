@@ -182,7 +182,7 @@ class CartScreen extends GetView<CartController> {
           onPressed: () {
             Get.toNamed(
               Routes.FROM_CART_TO_ORDER,
-              arguments: Get.find<CartController>().cartItems,
+              arguments: controller.cartItems,
             );
           },
           child: Text(

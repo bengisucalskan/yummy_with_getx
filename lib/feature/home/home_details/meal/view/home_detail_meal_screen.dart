@@ -4,12 +4,10 @@ import 'package:getx_architecture_template/core/constants/image/images.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 import 'package:getx_architecture_template/core/extension/context_extension.dart';
 import 'package:getx_architecture_template/core/extension/image_ex.dart';
-import 'package:getx_architecture_template/feature/favorite/controller/favorite_controller.dart';
 import 'package:getx_architecture_template/feature/home/home_details/meal/controller/meal_controller.dart';
 import 'package:getx_architecture_template/product/widget/circle_progresbar.dart';
 
 class HomeDetailMealScreen extends GetView<MealController> {
-  // bu sayfanın theme color düzelt
   const HomeDetailMealScreen({required this.id, super.key});
   final String id;
 
@@ -135,9 +133,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  //Restaurant information??
-                                },
+                                onTap: () {},
                                 child: const Text(
                                   'NYC, Broadway ave 79',
                                   style: TextStyle(),
@@ -301,7 +297,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                           ),
                           child: Column(
                             children: [
-                              AppImages.instance.delicious.assetImage, //D
+                              AppImages.instance.delicious.assetImage,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -366,7 +362,7 @@ class HomeDetailMealScreen extends GetView<MealController> {
                       ),
                       child: Column(
                         children: [
-                          AppImages.instance.recommended.assetImage, //D
+                          AppImages.instance.recommended.assetImage,
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

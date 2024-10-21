@@ -1,12 +1,16 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
 
 class SigninController extends GetxController {
   final RxBool obscureText = true.obs;
-  final RxString password = ''.obs;
-  var phoneController = MaskedTextController(mask: '(000) 000-0000');
+  final TextEditingController password = TextEditingController();
+//  var phoneController = MaskedTextController(mask: '(000) 000-0000');
+  final TextEditingController mailC = TextEditingController();
 
   @override
   void onInit() {
@@ -17,24 +21,31 @@ class SigninController extends GetxController {
     obscureText.value = !obscureText.value;
   }
 
-  void login() {
-    if (phoneController.text == "(507) 115-6048" && password.value == "444") {
-      Get.offAllNamed(Routes.BASE);
-    } else {
-      Get.snackbar("Hata", "Yanlış telefon numarası veya şifre",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
+  Future<void> login() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: mailC.text,
+        password: password.text,
+      )
+          .then((value) {
+        Get.offAllNamed(Routes.BASE);
+        FirebaseCrashlytics.instance.setUserIdentifier(mailC.text);
+        log('MAİL ${value.additionalUserInfo?.username}', name: 'FIREBASEAUTH');
+      });
+    } catch (e) {
+      Get.snackbar("kayıt hatası", e.toString());
+      log('Hata $e', name: 'FIREBASEERROR');
     }
   }
 
   void updatePassword(String pass) {
-    password.value = pass;
+    mailC.text = pass;
   }
 
   @override
   void onClose() {
-    phoneController.dispose();
+    mailC.dispose();
     super.onClose();
   }
 }

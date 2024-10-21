@@ -1,10 +1,10 @@
 import 'dart:convert';
-
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
 import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CartController extends GetxController {
   final RxList<Meals> cartItems = <Meals>[].obs;
@@ -14,6 +14,7 @@ class CartController extends GetxController {
   void onInit() {
     super.onInit();
     loadCartItems();
+    fetchMeals();
   }
 
   Future<void> addToCart(Meals meal, int quantity) async {
@@ -84,6 +85,16 @@ class CartController extends GetxController {
         print("Error decoding cart data: $e");
       }
     }
+  }
+
+  Future<void> fetchMeals() {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    return users.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((doc) {
+        log('${doc.id} => ${doc.data()}', name: 'FETCHED MEALS');
+      });
+    }).catchError((error) => log("Failed to fetch users: $error"));
   }
 
   bool get isCartEmpty => cartItems.isEmpty;

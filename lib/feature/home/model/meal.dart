@@ -1,4 +1,5 @@
 import 'package:getx_architecture_template/core/base/model/base_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class Meal extends BaseModel<Meal> {
   List<Meals>? meals;
@@ -82,6 +83,8 @@ class Meals {
   Null? strImageSource;
   Null? strCreativeCommonsConfirmed;
   Null? dateModified;
+  @JsonKey(ignore: true)
+  bool? isFav;
 
   Meals(
       {this.idMeal,
@@ -136,7 +139,8 @@ class Meals {
       this.strSource,
       this.strImageSource,
       this.strCreativeCommonsConfirmed,
-      this.dateModified});
+      this.dateModified,
+      this.isFav});
 
   Meals.fromJson(Map<String, dynamic> json) {
     idMeal = json['idMeal'] as String?;

@@ -9,9 +9,6 @@ class OrderScreen extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut<OrderController>(
-        OrderController.new); // order controllerı görmüyor neden anlamadım
-
     return Obx(() {
       return Padding(
         padding: const EdgeInsets.all(8),

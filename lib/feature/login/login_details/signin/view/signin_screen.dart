@@ -28,7 +28,7 @@ class SigninScreen extends GetView<SigninController> {
                 Padding(
                   padding: context.paddingLow,
                   child: TextField(
-                    controller: controller.phoneController,
+                    controller: controller.mailC,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -58,6 +58,7 @@ class SigninScreen extends GetView<SigninController> {
                 Padding(
                   padding: context.paddingLow,
                   child: TextField(
+                    controller: controller.password,
                     textInputAction: TextInputAction.done,
                     obscureText: controller.obscureText.value,
                     decoration: InputDecoration(
@@ -86,7 +87,6 @@ class SigninScreen extends GetView<SigninController> {
                         onPressed: controller.passwordVisibility,
                       ),
                     ),
-                    onChanged: controller.updatePassword,
                   ),
                 ),
                 TextButton(

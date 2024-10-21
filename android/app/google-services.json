@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540794935267",
+    "project_id": "yummy-with-getx",
+    "storage_bucket": "yummy-with-getx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540794935267:android:684a742195062e5c9432d6",
+        "android_client_info": {
+          "package_name": "com.example.getx_architecture_template"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8qY63B7a6sa2hrjfmZWqKYzrTCm9-WW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

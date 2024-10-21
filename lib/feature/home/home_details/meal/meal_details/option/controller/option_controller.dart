@@ -1,5 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
 import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
@@ -59,5 +63,24 @@ class OptionController extends GetxController {
     } catch (e) {
       print("Error adding to cart: $e");
     }
+  }
+
+  Future<void> addMeal(Meals meal) {
+    final CollectionReference users =
+        FirebaseFirestore.instance.collection('users');
+
+    return users
+        .add({
+          'id': meal.idMeal,
+          'meal': meal.strMeal,
+          'photo': meal.strMealThumb,
+        })
+        .then((value) => log("User added successfully!"))
+        .catchError((error) {
+          if (kDebugMode) {
+            log('Hata ${error}', name: 'OPTION CONTROLLER ADD MEAL');
+          }
+          FirebaseCrashlytics.instance.recordError(error, StackTrace.current);
+        });
   }
 }

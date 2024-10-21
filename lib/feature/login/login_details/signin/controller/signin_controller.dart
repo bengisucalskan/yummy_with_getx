@@ -8,8 +8,9 @@ import 'package:getx_architecture_template/core/constants/routes/navigation_cons
 
 class SigninController extends GetxController {
   final RxBool obscureText = true.obs;
+  final RxBool isFormValid = false.obs;
+
   final TextEditingController password = TextEditingController();
-//  var phoneController = MaskedTextController(mask: '(000) 000-0000');
   final TextEditingController mailC = TextEditingController();
 
   @override
@@ -19,6 +20,14 @@ class SigninController extends GetxController {
 
   void passwordVisibility() {
     obscureText.value = !obscureText.value;
+  }
+
+  void validateForm() {
+    if (mailC.text.isNotEmpty && password.text.isNotEmpty) {
+      isFormValid.value = true;
+    } else {
+      isFormValid.value = false;
+    }
   }
 
   Future<void> login() async {

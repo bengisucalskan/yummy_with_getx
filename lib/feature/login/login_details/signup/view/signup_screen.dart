@@ -15,93 +15,97 @@ class SignupScreen extends GetView<SignupController> {
         title: 'Sign up',
         onBackPressed: () => Get.back(),
       ),
-      body: Obx(
-        () => SingleChildScrollView(
-          child: Padding(
-            padding: context.paddingNormalHorizontal,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _signUpText(text: 'Full name'),
-                _signUpTextField(
-                  hintText: 'Enter full name',
-                  onChanged: (value) {
-                    controller.fullName.value = value;
-                    controller.validateForm();
-                  },
-                ),
-                SizedBox(height: context.lowValue),
-                _signUpText(text: 'Phone number'),
-                _signUpTextField(
-                  hintText: 'Enter your phone number',
-                  onChanged: (value) {
-                    controller.phoneNumber.value = value;
-                    controller.validateForm();
-                  },
-                ),
-                SizedBox(height: context.lowValue),
-                _signUpText(text: 'Email'),
-                _signUpTextField(
-                  hintText: 'Enter email',
-                  onChanged: (value) {
-                    controller.email.value = value;
-                    controller.validateForm();
-                  },
-                ),
-                SizedBox(height: context.lowValue),
-                _signUpText(text: 'Password'),
-                _signUpTextField(
-                  hintText: 'Enter password',
-                  onChanged: (value) {
-                    controller.password.value = value;
-                    controller.validateForm();
-                  },
-                  obscureText: controller.obscureText,
-                  togglePasswordVisibility: controller.passwordVisibility,
-                ),
-                SizedBox(height: context.lowValue),
-                _signUpText(text: 'Confirm Password'),
-                _signUpTextField(
-                  hintText: 'Enter password',
-                  onChanged: (value) {
-                    controller.confirmPassword.value = value;
-                    controller.validateForm();
-                  },
-                  obscureText: controller.obscureText1,
-                  togglePasswordVisibility: controller.passwordVisibility2,
-                ),
-                Text(
-                  'By clicking Create account, you agree to the system\'s ',
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                ),
-                SizedBox(height: context.lowValue),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Terms and policies',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onTertiary,
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: context.paddingNormalHorizontal,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _signUpText(text: 'Full name'),
+              _signUpTextField(
+                hintText: 'Enter full name',
+                controller: controller.fullName,
+                onChanged: (value) {
+                  controller.validateForm();
+                },
+              ),
+              SizedBox(height: context.lowValue),
+              _signUpText(text: 'Phone number'),
+              _signUpTextField(
+                hintText: 'Enter your phone number',
+                controller: controller.phoneNumber,
+                onChanged: (value) {
+                  controller.validateForm();
+                },
+              ),
+              SizedBox(height: context.lowValue),
+              _signUpText(text: 'Email'),
+              _signUpTextField(
+                hintText: 'Enter email',
+                controller: controller.mailC,
+                onChanged: (value) {
+                  controller.validateForm();
+                },
+              ),
+              SizedBox(height: context.lowValue),
+              _signUpText(text: 'Password'),
+              Obx(() => _signUpTextField(
+                    hintText: 'Enter password',
+                    controller: controller.password,
+                    obscureText: controller.obscureText,
+                    togglePasswordVisibility: controller.passwordVisibility,
+                    onChanged: (value) {
+                      controller.validateForm();
+                    },
+                  )),
+              SizedBox(height: context.lowValue),
+              _signUpText(text: 'Confirm Password'),
+              Obx(() => _signUpTextField(
+                    hintText: 'Enter password',
+                    controller: controller.confirmPasswordController,
+                    obscureText: controller.obscureText1,
+                    togglePasswordVisibility: controller.passwordVisibility2,
+                    onChanged: (value) {
+                      controller.validateForm();
+                    },
+                  )),
+              Text(
+                'By clicking Create account, you agree to the system\'s ',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
+              SizedBox(height: context.lowValue),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Terms and policies',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onTertiary,
                   ),
                 ),
-                Obx(() => ElevatedButton(
-                      onPressed: controller.isFormValid.value ? () {} : null,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: controller.isFormValid.value
-                            ? Theme.of(context).colorScheme.primary
-                            : context.colorScheme.secondary,
-                        backgroundColor: controller.isFormValid.value
-                            ? Theme.of(context).colorScheme.onTertiary
-                            : context.colorScheme.secondary,
-                        minimumSize: Size(double.infinity, 50),
-                      ),
-                      child: const Text('Sign up'),
-                    )),
-                SizedBox(height: context.mediumValue),
-                const ContinueWith(),
-              ],
-            ),
+              ),
+              Obx(() => ElevatedButton(
+                    onPressed: controller.isFormValid.value
+                        ? () {
+                            controller.signUp();
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: controller.isFormValid.value
+                          ? Theme.of(context).colorScheme.primary
+                          : context.colorScheme.onSecondary,
+                      backgroundColor: controller.isFormValid.value
+                          ? Theme.of(context).colorScheme.onTertiary
+                          : context.colorScheme.secondary,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: const Text(
+                      'Sign up',
+                    ),
+                  )),
+              SizedBox(height: context.mediumValue),
+              const ContinueWith(),
+            ],
           ),
         ),
       ),
@@ -116,13 +120,16 @@ Widget _signUpText({String? text}) {
 
 Widget _signUpTextField({
   String? hintText,
-  required void Function(String value) onChanged,
+  required TextEditingController controller,
   RxBool? obscureText,
   VoidCallback? togglePasswordVisibility,
+  required void Function(String) onChanged,
 }) {
   return Padding(
     padding: const EdgeInsets.all(9.0),
     child: TextField(
+      controller: controller,
+      onChanged: onChanged,
       textInputAction: TextInputAction.next,
       obscureText: obscureText?.value ?? false,
       decoration: InputDecoration(
@@ -152,7 +159,6 @@ Widget _signUpTextField({
               )
             : null,
       ),
-      onChanged: onChanged,
     ),
   );
 }

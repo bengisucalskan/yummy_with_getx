@@ -24,13 +24,16 @@ class SigninScreen extends GetView<SigninController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: context.mediumValue),
-                const Text('Phone Number', style: TextStyle(fontSize: 16)),
+                const Text('Email', style: TextStyle(fontSize: 16)),
                 Padding(
                   padding: context.paddingLow,
                   child: TextField(
                     controller: controller.mailC,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      controller.validateForm();
+                    },
                     decoration: InputDecoration(
                       hintText: 'Enter your phone number',
                       hintStyle: TextStyle(
@@ -60,6 +63,9 @@ class SigninScreen extends GetView<SigninController> {
                   child: TextField(
                     controller: controller.password,
                     textInputAction: TextInputAction.done,
+                    onChanged: (value) {
+                      controller.validateForm();
+                    },
                     obscureText: controller.obscureText.value,
                     decoration: InputDecoration(
                       hintText: 'Enter password',
@@ -100,10 +106,18 @@ class SigninScreen extends GetView<SigninController> {
                 ),
                 SizedBox(height: context.lowValue),
                 ElevatedButton(
-                  onPressed: controller.login,
+                  onPressed: controller.isFormValid.value
+                      ? () {
+                          controller.login();
+                        }
+                      : null,
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.onSecondary,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: controller.isFormValid.value
+                        ? context.colorScheme.primary
+                        : Theme.of(context).colorScheme.onSecondary,
+                    backgroundColor: controller.isFormValid.value
+                        ? context.colorScheme.onTertiary
+                        : Theme.of(context).colorScheme.primary,
                     minimumSize: Size(double.infinity, 50),
                   ),
                   child: const Text('Sign in'),

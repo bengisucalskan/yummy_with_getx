@@ -260,9 +260,8 @@ class OptionScreen extends GetView<OptionController> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
-            contentPadding: EdgeInsets.symmetric(
-                vertical: 40.0,
-                horizontal: 10), // bunu theme dönüştürmek için bak
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 40.0, horizontal: 10),
           ),
         ),
       ],

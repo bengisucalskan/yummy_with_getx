@@ -71,7 +71,7 @@ class BaseScreen extends GetView<HomeController> {
         return AppBar(
           backgroundColor: Colors.transparent,
           centerTitle: true,
-          title: const Text('NYCBroadwayekleme yap'),
+          title: const Text('NYC, Broadway'),
           actions: [
             IconButton(
               onPressed: () {

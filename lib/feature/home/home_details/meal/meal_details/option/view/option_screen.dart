@@ -236,7 +236,13 @@ class OptionScreen extends GetView<OptionController> {
               ),
             ],
           ),
-          Text(title),
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           Text('\$$price'),
         ],
       ),

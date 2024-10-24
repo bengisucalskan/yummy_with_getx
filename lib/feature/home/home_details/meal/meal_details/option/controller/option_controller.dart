@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
-import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/service/home_service.dart';
 
@@ -51,17 +48,39 @@ class OptionController extends GetxController {
   }
 
   Future<void> addToCart(Meals meal) async {
-    final prefs = LocaleManager.instance;
-    try {
-      List<String> list = prefs.getStringList(PreferencesTypes.cartList) ?? [];
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      print('Kullanıcı oturumu açmamış');
+      return;
+    }
 
-      for (int i = 0; i < quantity.value; i++) {
-        list.add(jsonEncode(meal));
+    CollectionReference cartRef = FirebaseFirestore.instance
+        .collection('carts')
+        .doc(user.uid)
+        .collection('items');
+
+    try {
+      final querySnapshot =
+          await cartRef.where('mealId', isEqualTo: meal.idMeal).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var cartItem = querySnapshot.docs.first;
+        await cartRef.doc(cartItem.id).update({
+          'quantity': FieldValue.increment(
+              quantity.value), // quantitiy e viewda seçilen sayıyı ver
+        });
+      } else {
+        await cartRef.add({
+          'mealId': meal.idMeal,
+          'mealName': meal.strMeal,
+          'mealPhoto': meal.strMealThumb,
+          'quantity': quantity.value,
+        });
       }
 
-      await prefs.setStringList(PreferencesTypes.cartList, list);
+      print('Product added to cart successfully.');
     } catch (e) {
-      print("Error adding to cart: $e");
+      print('Error adding product to cart: $e');
     }
   }
 

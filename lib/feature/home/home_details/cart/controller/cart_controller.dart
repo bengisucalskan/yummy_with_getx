@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
-import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 
 class CartController extends GetxController {
@@ -15,86 +13,152 @@ class CartController extends GetxController {
     super.onInit();
     loadCartItems();
     fetchMeals();
+    logCart();
   }
 
-  Future<void> addToCart(Meals meal, int quantity) async {
-    final prefs = LocaleManager.instance;
-    List<String> cartData =
-        prefs.getStringList(PreferencesTypes.cartList) ?? [];
-
-    // Aynı ürün varsa, sadece sayısını artıyo
-    if (itemCounts.containsKey(meal.idMeal)) {
-      itemCounts[meal.idMeal!] = itemCounts[meal.idMeal!]! + quantity;
-    } else {
-      // Ürün sepette yoksa, ürünü ekle ve kaç taneyse
-      itemCounts[meal.idMeal!] = quantity;
-      cartItems.add(meal);
+  Future<void> removeFromCart(String mealId) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      log('Kullanıcı oturumu açmamış');
+      return;
     }
 
-    cartData = cartItems.map((item) => jsonEncode(item.toJson())).toList();
-    await prefs.setStringList(PreferencesTypes.cartList, cartData);
+    CollectionReference cartRef = FirebaseFirestore.instance
+        .collection('carts')
+        .doc(user.uid)
+        .collection('items');
 
-    update();
-  }
+    try {
+      final querySnapshot =
+          await cartRef.where('mealId', isEqualTo: mealId).get();
 
-  Future<void> removeFromCart(int index) async {
-    final prefs = LocaleManager.instance;
-    final cartData = prefs.getStringList(PreferencesTypes.cartList);
-
-    if (cartData != null) {
-      String idMeal = cartItems[index].idMeal ?? '';
-
-      // Ürünün sayısı 1'den fazlaysa sayı azalsın
-      if (itemCounts[idMeal] != null && itemCounts[idMeal]! > 1) {
-        itemCounts[idMeal] = itemCounts[idMeal]! - 1;
-      } else {
-        // 1 taneyse ürünü kaldıyo
-        itemCounts.remove(idMeal);
-        cartData.removeAt(index);
-        cartItems.removeAt(index);
+      if (querySnapshot.docs.isNotEmpty) {
+        var cartItem = querySnapshot.docs.first;
+        if (itemCounts[mealId]! > 1) {
+          await cartRef.doc(cartItem.id).update({
+            'quantity': FieldValue.increment(
+                -1), // quantitiy miktarını firestore da bir azalt
+          });
+          // UI'da miktarı azaltıyo
+          itemCounts[mealId] = itemCounts[mealId]! - 1;
+        } else {
+          // Ürünü firestore ds  kaldır
+          await cartRef.doc(cartItem.id).delete();
+          // UI'dan ürünü kaldırıyo
+          cartItems.removeWhere((item) => item.idMeal == mealId);
+          itemCounts.remove(mealId);
+        }
       }
-
-      await prefs.setStringList(PreferencesTypes.cartList, cartData);
-      print('Cart updated after removal: $cartItems');
+      log('Product removed from cart.');
+    } catch (e) {
+      log('Error removing product from cart: $e');
     }
   }
 
   Future<void> loadCartItems() async {
-    final prefs = LocaleManager.instance;
-    final cartData = prefs.getStringList(PreferencesTypes.cartList);
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      log('Kullanıcı oturumu açmamış');
+      return;
+    }
 
-    if (cartData != null) {
-      try {
-        cartItems.clear();
-        itemCounts.clear();
+    /* kullanıcının sepetine erişim sağlayacak Firestore 
+    referansı. Firestore'da carts koleksiyonu 
+    altında her kullanıcı için  doc var ve bu doclar
+    kullanıcının user.uid si  ile isimlendirliyo. Kullanıcının sepetindeki ürünler
+     items alt koleksiyonunda saklanıyo. */
+    CollectionReference cartRef = FirebaseFirestore.instance
+        .collection('carts')
+        .doc(user.uid)
+        .collection('items');
 
-        for (String item in cartData) {
-          Meals meal =
-              Meals.fromJson(json.decode(item) as Map<String, dynamic>);
-          // Aynı ürün varsa sayısı artıyo, yoksa ürünü listeye ekliyo
-          if (itemCounts.containsKey(meal.idMeal)) {
-            itemCounts[meal.idMeal!] = itemCounts[meal.idMeal!]! + 1;
-          } else {
-            cartItems.add(meal);
-            itemCounts[meal.idMeal!] = 1;
-          }
+    try {
+      /* querysnapshot koleksiyon sorgusundan döndürülür collection 
+      içinde kaç tane doc olduğunu görğp, erişebiliyoz, */
+      final querySnapshot = await cartRef.get();
+
+      cartItems.clear();
+      itemCounts.clear();
+      // her doc bir tane sepet ögesi
+      for (var doc in querySnapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+
+        // quantity'yi int olarak cast ediyorm firestore dan num olarak geliyo
+        int quantity = (data['quantity'] as num).toInt();
+
+        // Ürün zaten varsa, sadece sayısını artırıyo
+        if (itemCounts.containsKey(data['mealId'])) {
+          itemCounts[data['mealId']] = itemCounts[data['mealId']]! + quantity;
+        } else {
+          // Ürün yoksa listeye ekliyo
+          Meals meal = Meals(
+            idMeal: data['mealId'],
+            strMeal: data['mealName'],
+            strMealThumb: data['mealPhoto'],
+          );
+          cartItems.add(meal);
+          itemCounts[meal.idMeal!] = quantity;
         }
-
-        print('Cart items loaded: $cartItems');
-      } catch (e) {
-        print("Error decoding cart data: $e");
       }
+
+      log('Cart items loaded from Firebase.');
+    } catch (e) {
+      log('Error loading cart items: $e');
     }
   }
 
-  Future<void> fetchMeals() {
+  Future<void> fetchMeals() async {
+    // gerekli değill o anki kullanıcıyı gösteriyor
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      log('Kullanıcı oturumu açmamış');
+      return;
+    }
+
+    // Firestore'dan o anki kullanıcının verilerini alıyoruz
     CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-    return users.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.forEach((doc) {
-        log('${doc.id} => ${doc.data()}', name: 'FETCHED MEALS');
-      });
-    }).catchError((error) => log("Failed to fetch users: $error"));
+    try {
+      // Sadece oturum açmış kullanıcının verisini çekiyoruz
+      DocumentSnapshot userDoc = await users.doc(user.uid).get();
+
+      if (userDoc.exists) {
+        // bu kişi firestore da var mı
+        log('${userDoc.id} => ${userDoc.data()}', name: 'FETCHED USER MEALS');
+      } else {
+        log('Kullanıcı verisi bulunamadı.', name: 'FETCHED USER MEALS');
+      }
+    } catch (error) {
+      log("Failed to fetch user data: $error");
+    }
+  }
+
+  Future<void> logCart() async {
+    // dursun diye gerekli değil
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      log('Kullanıcı oturumu açmamış');
+      return;
+    }
+
+    CollectionReference cartRef = FirebaseFirestore.instance
+        .collection('carts')
+        .doc(user.uid)
+        .collection('items');
+
+    try {
+      final querySnapshot = await cartRef.get();
+
+      if (querySnapshot.docs.isEmpty) {
+        log('Sepet boş', name: 'USER CART');
+      } else {
+        querySnapshot.docs.forEach((doc) {
+          log('${doc.id} => ${doc.data()}', name: 'USER CART');
+        });
+      }
+    } catch (e) {
+      log('Failed to fetch cart items: $e');
+    }
   }
 
   bool get isCartEmpty => cartItems.isEmpty;

@@ -157,7 +157,7 @@ class CartScreen extends GetView<CartController> {
           ),
           IconButton(
             onPressed: () {
-              controller.removeFromCart(index);
+              controller.removeFromCart(cart.idMeal ?? '');
             },
             icon: const Icon(Icons.delete_outline),
           ),

@@ -35,7 +35,7 @@ class SigninScreen extends GetView<SigninController> {
                       controller.validateForm();
                     },
                     decoration: InputDecoration(
-                      hintText: 'Enter your phone number',
+                      hintText: 'Enter your email',
                       hintStyle: TextStyle(
                           color: Theme.of(context).colorScheme.secondary),
                       filled: true,

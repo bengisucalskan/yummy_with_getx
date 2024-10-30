@@ -11,7 +11,7 @@ class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadCartItems();
+    listenToCartUpdates();
     fetchMeals();
     logCart();
   }
@@ -24,9 +24,9 @@ class CartController extends GetxController {
     }
 
     CollectionReference cartRef = FirebaseFirestore.instance
-        .collection('carts')
+        .collection('users')
         .doc(user.uid)
-        .collection('items');
+        .collection('carts');
 
     try {
       final querySnapshot =
@@ -36,15 +36,11 @@ class CartController extends GetxController {
         var cartItem = querySnapshot.docs.first;
         if (itemCounts[mealId]! > 1) {
           await cartRef.doc(cartItem.id).update({
-            'quantity': FieldValue.increment(
-                -1), // quantitiy miktarını firestore da bir azalt
+            'quantity': FieldValue.increment(-1),
           });
-          // UI'da miktarı azaltıyo
           itemCounts[mealId] = itemCounts[mealId]! - 1;
         } else {
-          // Ürünü firestore ds  kaldır
           await cartRef.doc(cartItem.id).delete();
-          // UI'dan ürünü kaldırıyo
           cartItems.removeWhere((item) => item.idMeal == mealId);
           itemCounts.remove(mealId);
         }
@@ -55,42 +51,29 @@ class CartController extends GetxController {
     }
   }
 
-  Future<void> loadCartItems() async {
+  void listenToCartUpdates() {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      log('Kullanıcı oturumu açmamış');
-      return;
-    }
+    if (user == null) return;
 
-    /* kullanıcının sepetine erişim sağlayacak Firestore 
-    referansı. Firestore'da carts koleksiyonu 
-    altında her kullanıcı için  doc var ve bu doclar
-    kullanıcının user.uid si  ile isimlendirliyo. Kullanıcının sepetindeki ürünler
-     items alt koleksiyonunda saklanıyo. */
-    CollectionReference cartRef = FirebaseFirestore.instance
-        .collection('carts')
+    FirebaseFirestore.instance
+        .collection('users')
         .doc(user.uid)
-        .collection('items');
-
-    try {
-      /* querysnapshot koleksiyon sorgusundan döndürülür collection 
-      içinde kaç tane doc olduğunu görğp, erişebiliyoz, */
-      final querySnapshot = await cartRef.get();
-
+        .collection('carts')
+        .snapshots() // böyle yapınca uı direk güncelleniyo aksi halde optiondan eklenen ürünler sonradan gleiyo
+        .listen((snapshot) {
       cartItems.clear();
       itemCounts.clear();
-      // her doc bir tane sepet ögesi
-      for (var doc in querySnapshot.docs) {
+
+      for (var doc in snapshot.docs) {
         var data = doc.data() as Map<String, dynamic>;
 
-        // quantity'yi int olarak cast ediyorm firestore dan num olarak geliyo
+        // Miktar çek num geliyo cast et
         int quantity = (data['quantity'] as num).toInt();
 
-        // Ürün zaten varsa, sadece sayısını artırıyo
+        // Ürün zaten var mı kontrol edip ve güncele
         if (itemCounts.containsKey(data['mealId'])) {
           itemCounts[data['mealId']] = itemCounts[data['mealId']]! + quantity;
         } else {
-          // Ürün yoksa listeye ekliyo
           Meals meal = Meals(
             idMeal: data['mealId'],
             strMeal: data['mealName'],
@@ -100,11 +83,8 @@ class CartController extends GetxController {
           itemCounts[meal.idMeal!] = quantity;
         }
       }
-
-      log('Cart items loaded from Firebase.');
-    } catch (e) {
-      log('Error loading cart items: $e');
-    }
+      log('Cart items updated from Firebase.');
+    });
   }
 
   Future<void> fetchMeals() async {
@@ -142,9 +122,9 @@ class CartController extends GetxController {
     }
 
     CollectionReference cartRef = FirebaseFirestore.instance
-        .collection('carts')
+        .collection('users')
         .doc(user.uid)
-        .collection('items');
+        .collection('carts');
 
     try {
       final querySnapshot = await cartRef.get();

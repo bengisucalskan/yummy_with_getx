@@ -1,8 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
-import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
-import 'dart:convert';
 
 class OrderController extends GetxController {
   final RxList<Meals> orderItems = <Meals>[].obs;
@@ -10,54 +9,57 @@ class OrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadOrderItems();
+    listenToOrderUpdates();
   }
 
-  Future<void> removeFromOrder(int index) async {
-    final prefs = LocaleManager.instance;
-    final orderData = prefs.getStringList(PreferencesTypes.orderList);
-    if (orderData != null) {
-      try {
-        orderData.removeAt(index);
+  void listenToOrderUpdates() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
 
-        await prefs.setStringList(PreferencesTypes.orderList, orderData);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('orders')
+        .snapshots()
+        .listen((snapshot) {
+      orderItems.clear();
 
-        orderItems.removeAt(index);
+      for (var doc in snapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
 
-        print('Order list updated after removal: $orderItems');
-      } catch (e) {
-        print("Error removing order item: $e");
+        Meals meal = Meals(
+          idMeal: data['mealId'],
+          strMeal: data['mealName'],
+          strMealThumb: data['mealPhoto'],
+        );
+        orderItems.add(meal);
       }
+      print('Order items updated from Firebase.');
+    });
+  }
+
+  Future<void> removeFromOrder(String mealId) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      print('Kullanıcı oturumu açmamış');
+      return;
     }
-  }
 
-  Future<void> loadOrderItems() async {
-    final prefs = LocaleManager.instance;
-    final orderData = prefs.getStringList(PreferencesTypes.orderList);
+    CollectionReference orderRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('orders');
 
-    if (orderData != null) {
-      try {
-        orderItems.clear();
-        for (String item in orderData) {
-          // Gelen veriyi kontrol et ve dinamik olarak şey yap
-          final decodedItem = json.decode(item);
+    try {
+      final querySnapshot =
+          await orderRef.where('mealId', isEqualTo: mealId).get();
 
-          if (decodedItem is Map<String, dynamic>) {
-            orderItems.add(Meals.fromJson(decodedItem));
-          } else if (decodedItem is List<dynamic>) {
-            // Eğer List<dynamic> geliyorsa, her bir öğeyi Meals objesine çevir bu kontrolü çevirirken
-            //hhata alıyorum diye koydum
-            for (final meal in decodedItem) {
-              orderItems.add(Meals.fromJson(meal as Map<String, dynamic>));
-            }
-          } else {
-            print("Unexpected data format: $decodedItem");
-          }
-        }
-        print('Order items loaded: $orderItems');
-      } catch (e) {
-        print("Error decoding order data: $e");
+      for (var doc in querySnapshot.docs) {
+        await orderRef.doc(doc.id).delete();
       }
+      print('Order item removed from Firebase.');
+    } catch (e) {
+      print("Error removing order item from Firebase: $e");
     }
   }
 

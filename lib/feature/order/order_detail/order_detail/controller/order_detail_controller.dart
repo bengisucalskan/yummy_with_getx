@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 
 class OrderDetailController extends GetxController {
-  late Meals order;
+  late final Meals order;
 
   @override
   void onInit() {

@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:getx_architecture_template/core/constants/enums/preferences_types.dart';
-import 'package:getx_architecture_template/core/init/cache/locale_manager.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 
 class FromCartToOrderController extends GetxController {
@@ -12,24 +10,35 @@ class FromCartToOrderController extends GetxController {
   void onInit() {
     super.onInit();
     if (Get.arguments != null) {
-      cartItems.assignAll((Get.arguments as List<dynamic>).cast<Meals>());
+      cartItems.assignAll((Get.arguments as List<dynamic>)
+          .cast<Meals>()); // cart screenden argüan olarak alıyoz
     }
   }
 
   Future<void> addToOrder(List<Meals> meals) async {
-    final prefs = LocaleManager.instance;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      print('Kullanıcı oturumu açmamış');
+      return;
+    }
+
+    CollectionReference orderRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .collection('orders'); // orders koleksiyonu
+
     try {
-      List<String> listOrder =
-          prefs.getStringList(PreferencesTypes.orderList) ?? [];
-
       for (var meal in meals) {
-        listOrder.add(jsonEncode(meal.toJson()));
+        await orderRef.add({
+          'mealId': meal.idMeal,
+          'mealName': meal.strMeal,
+          'mealPhoto': meal.strMealThumb,
+          'orderDate': DateTime.now().toIso8601String(), // o anki tarih
+        });
       }
-
-      await prefs.setStringList(PreferencesTypes.orderList, listOrder);
-      print('Orders added: $listOrder');
+      print('Orders added to Firebase.');
     } catch (e) {
-      print("Error adding to order: $e");
+      print("Error adding orders to Firebase: $e");
     }
   }
 }

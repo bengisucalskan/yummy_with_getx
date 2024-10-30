@@ -80,7 +80,7 @@ class OrderScreen extends GetView<OrderController> {
                         ),
                         IconButton(
                           onPressed: () {
-                            controller.removeFromOrder(index);
+                            controller.removeFromOrder(order.idMeal ?? '');
                           },
                           icon: Icon(
                             Icons.delete,

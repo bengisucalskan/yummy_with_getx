@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/feature/home/model/meal.dart';
 import 'package:getx_architecture_template/feature/home/service/home_service.dart';
@@ -48,18 +46,19 @@ class OptionController extends GetxController {
   }
 
   Future<void> addToCart(Meals meal) async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      print('Kullanıcı oturumu açmamış');
-      return;
-    }
-
-    CollectionReference cartRef = FirebaseFirestore.instance
-        .collection('carts')
-        .doc(user.uid)
-        .collection('items');
-
     try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        print('Kullanıcı oturumu açmamış');
+        return;
+      }
+
+      CollectionReference cartRef = FirebaseFirestore.instance
+          .collection('users') //user collection
+          .doc(user.uid) // user id doc şekln
+          .collection('carts'); // cart alt collection ı
+
+      // Sepette aynı mealId'ye sahip ürün varsa onun üstünde işlem yap, miktarı artsın
       final querySnapshot =
           await cartRef.where('mealId', isEqualTo: meal.idMeal).get();
 
@@ -67,9 +66,10 @@ class OptionController extends GetxController {
         var cartItem = querySnapshot.docs.first;
         await cartRef.doc(cartItem.id).update({
           'quantity': FieldValue.increment(
-              quantity.value), // quantitiy e viewda seçilen sayıyı ver
+              quantity.value), // View'da seçilen miktarı ekle
         });
       } else {
+        // Yeni bir öge olark sepete ekliniyo
         await cartRef.add({
           'mealId': meal.idMeal,
           'mealName': meal.strMeal,
@@ -78,28 +78,9 @@ class OptionController extends GetxController {
         });
       }
 
-      print('Product added to cart successfully.');
+      log('Product added to cart successfully.');
     } catch (e) {
       print('Error adding product to cart: $e');
     }
-  }
-
-  Future<void> addMeal(Meals meal) {
-    final CollectionReference users =
-        FirebaseFirestore.instance.collection('users');
-
-    return users
-        .add({
-          'id': meal.idMeal,
-          'meal': meal.strMeal,
-          'photo': meal.strMealThumb,
-        })
-        .then((value) => log("User added successfully!"))
-        .catchError((error) {
-          if (kDebugMode) {
-            log('Hata ${error}', name: 'OPTION CONTROLLER ADD MEAL');
-          }
-          FirebaseCrashlytics.instance.recordError(error, StackTrace.current);
-        });
   }
 }

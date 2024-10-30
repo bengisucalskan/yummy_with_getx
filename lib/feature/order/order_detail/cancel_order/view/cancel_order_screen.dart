@@ -164,6 +164,8 @@ class CancelOrderScreen extends GetView<CancelOrderController> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      controller.cancelOrder();
+                      //Get.back(); // ?? burası sıkıntılı
                       Get.toNamed(Routes.BASE);
                     },
                     style: ElevatedButton.styleFrom(

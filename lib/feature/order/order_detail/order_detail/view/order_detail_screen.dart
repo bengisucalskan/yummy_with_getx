@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_architecture_template/core/constants/routes/navigation_constants.dart';
@@ -174,7 +175,7 @@ class OrderDetailScreen extends GetView<OrderDetailController> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Get.toNamed(Routes.CANCEL_ORDER);
+                  Get.toNamed(Routes.CANCEL_ORDER, arguments: controller.order);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.secondary,

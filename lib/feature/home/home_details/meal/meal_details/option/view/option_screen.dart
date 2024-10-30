@@ -281,7 +281,6 @@ class OptionScreen extends GetView<OptionController> {
         child: ElevatedButton(
           onPressed: () {
             controller.addToCart(meal);
-            controller.addMeal(meal);
             Get.toNamed(Routes.CART);
           },
           style: ElevatedButton.styleFrom(
